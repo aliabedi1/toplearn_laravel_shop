@@ -27,6 +27,16 @@ class Product extends Model
     protected $fillable = ['name', 'introduction', 'slug', 'image', 'status', 'tags' ,'weight','weight_unit' ,'length','width','height','price','marketable','sold_number','frozen_number','marketable_number','brand_id','category_id','published_at'];
 
 
+    public function metas()
+    {
+        return $this->hasMany(ProductMeta::class);
+    }
+
+
+    public function category()
+    {
+        return $this->belongsTo(ProductCategory::class , 'category_id');
+    }
 
 
 

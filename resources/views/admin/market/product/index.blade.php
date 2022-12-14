@@ -70,7 +70,7 @@
 
                                         checked
 
-                                    @endif>
+                                    @endif >
                                 </label>
                             </td>
 
@@ -80,7 +80,7 @@
 
                                         checked
 
-                                    @endif>
+                                    @endif >
                                 </label>
                             </td>
 
@@ -92,8 +92,8 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <a href="" class="dropdown-item text-right"><i class="fa fa-images"></i> گالری</a>
-                                        <a href="" class="dropdown-item text-right"><i class="fa fa-list-ul"></i> قرم کالا</a>
-                                        <a href="" class="dropdown-item text-right"><i class="fa fa-edit"></i> ویرایش</a>
+                                        <a href="" class="dropdown-item text-right"><i class="fa fa-list-ul"></i> فرم کالا</a>
+                                        <a href="{{ route('admin.market.product.edit' , $product->id) }}" class="dropdown-item text-right"><i class="fa fa-edit"></i> ویرایش</a>
                                         <form action="" method="POST">
                                             <button type="submit" class="dropdown-item text-right"><i class="fa fa-window-close"></i> حذف</button>
                                         </form>
@@ -133,11 +133,11 @@
                 if(response.status){
                     if(response.checked){
                         element.prop('checked', true);
-                        successToast('فروش کالا با موفقیت فعال شد')
+                        successToast('کالا با موفقیت فعال شد')
                     }
                     else{
                         element.prop('checked', false);
-                        successToast('فروش کالا با موفقیت غیر فعال شد')
+                        successToast('کالا با موفقیت غیر فعال شد')
                     }
                 }
                 else{
@@ -187,7 +187,7 @@
     }
 
     function changeMarketable(id){
-        var element = $("#" + id + "-marketable");
+        var element = $("#" + id + '-marketable');
         var url = element.attr('data-url')
         var elementValue = !element.prop('checked');
 
@@ -198,11 +198,11 @@
                 if(response.status){
                     if(response.checked){
                         element.prop('checked', true);
-                        successToast('کالا با موفقیت فعال شد')
+                        successToast('فروش کالا با موفقیت فعال شد')
                     }
                     else{
                         element.prop('checked', false);
-                        successToast('کالا با موفقیت غیر فعال شد')
+                        successToast('فروش کالا با موفقیت غیر فعال شد')
                     }
                 }
                 else{

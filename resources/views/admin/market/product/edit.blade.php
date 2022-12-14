@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-<title>ایجاد کالا</title>
+<title>ویرایش کالا</title>
 <link rel="stylesheet" href="{{ asset('admin-assets/jalalidatepicker/persian-datepicker.min.css') }}">
 
 @endsection
@@ -13,7 +13,7 @@
       <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">کالا </a></li>
-      <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد کالا</li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page"> ویرایش کالا</li>
     </ol>
   </nav>
 
@@ -23,7 +23,7 @@
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h5>
-                  ایجاد کالا
+                  ویرایش کالا
                 </h5>
             </section>
 
@@ -32,7 +32,8 @@
             </section>
 
             <section>
-                <form action="{{ route('admin.market.product.store') }}" method="post" enctype="multipart/form-data" id="form">
+                <form action="{{ route('admin.market.product.update') }}" method="post" enctype="multipart/form-data" id="form">
+                    @method('put')
                     @csrf
                     <section class="row">
 

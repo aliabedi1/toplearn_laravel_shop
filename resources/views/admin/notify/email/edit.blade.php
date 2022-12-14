@@ -41,8 +41,8 @@
                         <section class="col-12 col-md-6 my-2">
                             <div class="form-group">
                                 <label for="">تاریخ انتشار</label>
-                                <input type="text" name="published_at" id="published_at" class="form-control form-control-sm d-none" value="{{ $email->published_at }}">
-                                <input type="text" id="published_at_view" class="form-control form-control-sm" value="{{ $email->published_at }}">
+                                <input type="text" name="published_at" id="published_at" class="form-control form-control-sm d-none" value="{{ old('published_at',$email->published_at) }}">
+                                <input type="text" id="published_at_view" class="form-control form-control-sm" value="{{ old('published_at',$email->published_at) }}">
                             </div>
                             @error('published_at')
                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
