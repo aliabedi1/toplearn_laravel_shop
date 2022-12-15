@@ -142,7 +142,6 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 
 
             //product color
-                         
             Route::get('/color/{product}', 'ProductColorController@index')->name('admin.market.color.index');
             Route::get('/color/{product}/create', 'ProductColorController@create')->name('admin.market.color.create');
             Route::post('/color/{product}/store', 'ProductColorController@store')->name('admin.market.color.store');
@@ -151,9 +150,10 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 
 
             //gallery
-            Route::get('/gallery', 'GalleryController@destroy')->name('admin.market.gallery.index');
-            Route::post('/gallery/store', 'GalleryController@destroy')->name('admin.market.gallery.store');
-            Route::delete('/gallery/destroy/{product}', 'GalleryController@destroy')->name('admin.market.gallery.destroy');
+            Route::get('/gallery/{product}', 'GalleryController@index')->name('admin.market.gallery.index');
+            Route::get('/gallery/{product}/create', 'GalleryController@create')->name('admin.market.gallery.create');
+            Route::post('/gallery/{product}/store', 'GalleryController@store')->name('admin.market.gallery.store');
+            Route::delete('/gallery/destroy/{product}/{productGallery}', 'GalleryController@destroy')->name('admin.market.gallery.destroy');
 
         });
 
