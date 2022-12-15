@@ -266,7 +266,7 @@
                                     {{ $message }}
                                 </strong>
                             </span>
-                        @enderror
+                            @enderror
                         </section>
 
 
@@ -288,21 +288,38 @@
 
                         <section class="col-12 border-top border-bottom py-3 mb-3">
 
-                            <section class="row">
+                            <section class="row my-2">
 
                                 <section class="col-6 col-md-3">
                                     <div class="form-group">
                                         <input name="meta_key[]" type="text" class="form-control form-control-sm" placeholder="ویژگی ...">
                                     </div>
+                                    @error('meta_key.*')
+                                    <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                        <strong>
+                                            {{ $message }}
+                                        </strong>
+                                    </span>
+                                    @enderror
                                 </section>
 
                                 <section class="col-6 col-md-3">
                                     <div class="form-group">
                                         <input name="meta_value[]" type="text" class="form-control form-control-sm" placeholder="مقدار ...">
                                     </div>
+                                    @error('meta_value.*')
+                                    <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                        <strong>
+                                            {{ $message }}
+                                        </strong>
+                                    </span>
+                                    @enderror
                                 </section>
 
+                                
+
                             </section>
+
 
                             <section>
                                 <button id="btn-copy" type="button" class="btn btn-success btn-sm">افزودن</button>

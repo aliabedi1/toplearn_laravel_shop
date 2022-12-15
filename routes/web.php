@@ -140,6 +140,16 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::get('/status/{product}', 'ProductController@status')->name('admin.market.product.status');
             Route::get('/marketable/{product}', 'ProductController@marketable')->name('admin.market.product.marketable');
 
+
+            //product color
+                         
+            Route::get('/color/{product}', 'ProductColorController@index')->name('admin.market.color.index');
+            Route::get('/color/{product}/create', 'ProductColorController@create')->name('admin.market.color.create');
+            Route::post('/color/{product}/store', 'ProductColorController@store')->name('admin.market.color.store');
+            Route::delete('/color/destroy/{product}/{productColor}', 'ProductColorController@destroy')->name('admin.market.color.destroy');
+
+
+
             //gallery
             Route::get('/gallery', 'GalleryController@destroy')->name('admin.market.gallery.index');
             Route::post('/gallery/store', 'GalleryController@destroy')->name('admin.market.gallery.store');

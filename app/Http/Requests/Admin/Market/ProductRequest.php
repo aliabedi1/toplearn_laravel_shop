@@ -40,6 +40,8 @@ class ProductRequest extends FormRequest
                 'height'  => 'required|numeric',
                 'price'  => 'required|numeric',
                 'published_at'  => 'required|numeric',
+                'meta_key.*'  => 'required',
+                'meta_value.*'  => 'required',
             ];
         }
         else{
@@ -59,6 +61,9 @@ class ProductRequest extends FormRequest
                 'height'  => 'required|numeric',
                 'price'  => 'required|numeric',
                 'published_at'  => 'required|regex:/^[0-9]+$/u',
+                'meta_key.*'  => 'required',
+                'meta_value.*'  => 'required',
+            
             ];
         }
     }
@@ -79,6 +84,8 @@ class ProductRequest extends FormRequest
             'width' => 'عرض',
             'height' => 'ارتفاع',
             'price' => 'قیمت',
+            'meta_key.*' => 'ویژگی',
+            'meta_value.*' => 'مقدار',
         ];
 
     }

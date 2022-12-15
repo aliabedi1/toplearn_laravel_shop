@@ -314,18 +314,32 @@
 
                             @foreach ($product->metas as $meta )
                                 
-                                <section class="row">
+                                <section class="row my-2">
 
                                     <section class="col-6 col-md-3">
                                         <div class="form-group">
                                             <input name="meta_key[]" type="text" class="form-control form-control-sm" value="{{ $meta->meta_key }}">
                                         </div>
+                                        @error('meta_key.*')
+                                        <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                            <strong>
+                                                {{ $message }}
+                                            </strong>
+                                        </span>
+                                        @enderror
                                     </section>
 
                                     <section class="col-6 col-md-3">
                                         <div class="form-group">
                                             <input name="meta_value[]" type="text" class="form-control form-control-sm" value="{{ $meta->meta_value }}">
                                         </div>
+                                        @error('meta_value.*')
+                                        <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                            <strong>
+                                                {{ $message }}
+                                            </strong>
+                                        </span>
+                                        @enderror
                                     </section>
 
                                 </section>
@@ -333,21 +347,6 @@
                             @endforeach
 
 
-                            <section class="row">
-
-                                <section class="col-6 col-md-3">
-                                    <div class="form-group">
-                                        <input name="meta_key[]" type="text" class="form-control form-control-sm" placeholder="ویژگی ...">
-                                    </div>
-                                </section>
-
-                                <section class="col-6 col-md-3">
-                                    <div class="form-group">
-                                        <input name="meta_value[]" type="text" class="form-control form-control-sm" placeholder="مقدار ...">
-                                    </div>
-                                </section>
-
-                            </section>
 
 
                             <section>
