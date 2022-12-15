@@ -20,6 +20,7 @@ class CreateCategoryAttributesTable extends Migration
             $table->string('unit');
             $table->foreignId('category_id')->constrained('product_categories')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
