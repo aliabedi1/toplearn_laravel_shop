@@ -96,7 +96,7 @@
 
                                     @foreach ($brands as $brand)
                                     
-                                        <option value="{{ $brand->id }}" @if (old('brand_id') == $brand->id) selected @endif>>{{ $brand->original_name }}</option>
+                                        <option value="{{ $brand->id }}" @if (old('brand_id') == $brand->id) selected @endif>{{ $brand->original_name }}</option>
 
                                     @endforeach
                                         
@@ -116,7 +116,7 @@
                         <section class="col-12 col-md-6 my-2">
                             <div class="form-group">
                                 <label for="weight">وزن</label>
-                                <input name="weight" id="weight" type="text" class="form-control form-control-sm" value="{{ old('weight') }}>
+                                <input name="weight" id="weight" type="text" class="form-control form-control-sm" value="{{ old('weight') }}">
                             </div>
                             @error('weight')
                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -131,7 +131,7 @@
                         <section class="col-12 col-md-6 my-2">
                             <div class="form-group">
                                 <label for="weight_unit">واحد وزن</label>
-                                <input name="weight_unit" id="weight_unit" type="text" class="form-control form-control-sm" value="{{ old('weight_unit') }}>
+                                <input name="weight_unit" id="weight_unit" type="text" class="form-control form-control-sm" value="{{ old('weight_unit') }}">
                             </div>
                             @error('weight_unit')
                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -146,7 +146,7 @@
                         <section class="col-12 col-md-6 my-2">
                             <div class="form-group">
                                 <label for="length">طول (سانتیمتر)</label>
-                                <input name="length" id="length" type="text" class="form-control form-control-sm" value="{{ old('length') }}>
+                                <input name="length" id="length" type="text" class="form-control form-control-sm" value="{{ old('length') }}">
                             </div>
                             @error('length')
                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -161,7 +161,7 @@
                         <section class="col-12 col-md-6 my-2">
                             <div class="form-group">
                                 <label for="width">عرض (سانتیمتر)</label>
-                                <input name="width" id="width" type="text" class="form-control form-control-sm" value="{{ old('width') }}>
+                                <input name="width" id="width" type="text" class="form-control form-control-sm" value="{{ old('width') }}">
                             </div>
                             @error('width')
                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -176,7 +176,7 @@
                         <section class="col-12 col-md-6 my-2">
                             <div class="form-group">
                                 <label for="height">ارتفاع (سانتیمتر)</label>
-                                <input name="height" id="height" type="text" class="form-control form-control-sm" value="{{ old('height') }}>
+                                <input name="height" id="height" type="text" class="form-control form-control-sm" value="{{ old('height') }}">
                             </div>
                             @error('height')
                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -209,7 +209,7 @@
                         <section class="col-12 col-md-6 my-2">
                             <div class="form-group">
                                 <label for="price">قیمت کالا</label>
-                                <input name="price" id="price" type="text" class="form-control form-control-sm" value="{{ old('price') }}>
+                                <input name="price" id="price" type="text" class="form-control form-control-sm" value="{{ old('price') }}">
                             </div>
                             @error('price')
                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -254,12 +254,11 @@
                             @enderror
                         </section>
 
-
                         <section class="col-12 col-md-6 my-2">
                             <div class="form-group">
                                 <label for="">تاریخ انتشار</label>
-                                <input type="text" name="published_at" id="published_at" class="form-control form-control-sm d-none" value="{{ old('published_at') }}>
-                                <input type="text" id="published_at_view" class="form-control form-control-sm" value="{{ old('published_at') }}>
+                                <input type="text" name="published_at" id="published_at" class="form-control form-control-sm d-none" value="{{ old('published_at') }}">
+                                <input type="text" id="published_at_view" class="form-control form-control-sm" value="{{ old('published_at') }}">
                             </div>
                             @error('published_at')
                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -282,7 +281,7 @@
                                     {{ $message }}
                                 </strong>
                             </span>
-                        @enderror
+                            @enderror
                         </section>
 
 

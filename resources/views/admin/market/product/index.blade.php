@@ -94,8 +94,10 @@
                                         <a href="" class="dropdown-item text-right"><i class="fa fa-images"></i> گالری</a>
                                         <a href="" class="dropdown-item text-right"><i class="fa fa-list-ul"></i> فرم کالا</a>
                                         <a href="{{ route('admin.market.product.edit' , $product->id) }}" class="dropdown-item text-right"><i class="fa fa-edit"></i> ویرایش</a>
-                                        <form action="" method="POST">
-                                            <button type="submit" class="dropdown-item text-right"><i class="fa fa-window-close"></i> حذف</button>
+                                        <form class="d-inline" action="{{ route('admin.market.product.destroy' , $product->id) }}" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="dropdown-item text-right delete"><i class="fa fa-window-close"></i> حذف</button>
                                         </form>
                                     </div>
                                 </div>
