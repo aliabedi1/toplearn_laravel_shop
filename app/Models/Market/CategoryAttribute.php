@@ -21,4 +21,11 @@ class CategoryAttribute extends Model
     {
         return $this->belongsTo(ProductCategory::class,'category_id');
     }
+
+    
+    public function values()
+    {
+        return $this->hasMany(CategoryValue::class,'category_attribute_id');
+    }
+    
 }

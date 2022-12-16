@@ -12,7 +12,7 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
-      <li class="breadcrumb-item font-size-12"> <a href="#">کالا </a></li>
+      <li class="breadcrumb-item font-size-12"> <a href="#">کالاها </a></li>
       <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد کالا</li>
     </ol>
   </nav>
@@ -69,7 +69,7 @@
                                     {{ $message }}
                                 </strong>
                             </span>
-                        @enderror
+                            @enderror
                         </section>
 
 

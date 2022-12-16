@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-<title>فرم کالا</title>
+<title>ویژگی ها</title>
 @endsection
 
 @section('content')
@@ -10,7 +10,8 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
-      <li class="breadcrumb-item font-size-12 active" aria-current="page"> فرم کالا</li>
+      <li class="breadcrumb-item font-size-12"> <a href="#">فرم کالا</a></li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page"> ویژگی ها</li>
     </ol>
   </nav>
 
@@ -20,12 +21,12 @@
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h5>
-                 فرم کالا
+                    ویژگی ها
                 </h5>
             </section>
 
             <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
-                <a href="{{ route('admin.market.property.create') }}" class="btn btn-info btn-sm">ایجاد فرم جدید</a>
+                <a href="{{ route('admin.market.value.create' , $categoryAttribute->id) }}" class="btn btn-info btn-sm">ایجاد ویژگی جدید</a>
                 <div class="max-width-16-rem">
                     <input type="text" class="form-control form-control-sm form-text" placeholder="جستجو">
                 </div>
@@ -36,35 +37,39 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>نام فرم</th>
-                            <th>واحد اندازه گیری</th>
-                            <th>دسته والد</th>
+                            <th>نام ویژگی</th>
+                            <th>نام کالا</th>
+                            <th>مقدار</th>
+                            <th>افزایش قیمت</th>
+                            <th>نوع</th>
                             <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                         </tr>
                     </thead>
                     <tbody>
-
-                        @foreach ($attributes as $attribute)
+                    
+                        @foreach ($categoryAttribute->values as $value)
                             
                         <tr>
                             <th>{{ $loop->iteration }}</th>
-                            <td>{{ $attribute->name }}</td>
-                            <td>{{ $attribute->unit }}</td>
-                            <td>{{ $attribute->category->name }}</td>
+                            <td>{{ $categoryAttribute->name }}</td>
+                            <td>{{ $value->product->name }}</td>
+                            <td>{{ json_decode($value->value)->value }}</td>
+                            <td>{{ json_decode($value->value)->price_increase }}</td>
+                            <td>{{ $value->type == 1 ? 'چند مقداری انتخابی' : 'ثابت' }}</td>
                             <td class="width-22-rem text-left">
-                                <a href="{{ route('admin.market.value.index' , $attribute->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> ویژگی ها</a>
-                                <a href="{{ route('admin.market.property.edit', $attribute->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                <form class="d-inline" action="{{ route('admin.market.property.destroy', $attribute->id) }}" method="post">
+                                
+                                <a href="{{ route('admin.market.value.edit', [$categoryAttribute->id , $value->id]) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                <form class="d-inline" action="{{ route('admin.market.value.destroy' , [$categoryAttribute->id , $value->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <button class="btn btn-danger btn-sm delete" type="submit"><i class="fa fa-trash-alt"></i> حذف</button>
+
                                 </form>
                             </td>
                         </tr>
 
-
                         @endforeach
-                
+                        
                     </tbody>
                 </table>
             </section>
@@ -73,4 +78,10 @@
     </section>
 </section>
 
+@endsection
+
+@section('script')
+
+@include('admin.alerts.sweetalert.delete-confirm', ['className' => 'delete'])
+    
 @endsection

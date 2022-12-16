@@ -16,7 +16,7 @@ class CreateCategoryValuesTable extends Migration
         Schema::create('category_values', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained('products')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('category_id')->constrained('category_attributes')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('category_attribute_id')->constrained('category_attributes')->onUpdate('cascade')->onDelete('cascade');
             $table->text('value');
             $table->tinyInteger('type')->default(0)->comment('value type is 0 => simple , 1 => multi value selected by customers (affected on price) ');
             $table->timestamps();
