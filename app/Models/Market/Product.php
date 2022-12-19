@@ -39,6 +39,10 @@ class Product extends Model
     }
 
 
+    public function comments()
+    {
+        return $this->MorphMany('App\Models\Market\Comment', 'commentable');
+    }
 
     public function colors()
     {

@@ -61,13 +61,13 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
         
         //Comment
         Route::prefix('comment')->group(function(){
-            
+
             Route::get('/', 'CommentController@index')->name('admin.market.comment.index');
-            Route::get('/show', 'CommentController@show')->name('admin.market.comment.show');
-            Route::post('/store', 'CommentController@store')->name('admin.market.comment.store');
-            Route::get('/edit/{id}', 'CommentController@edit')->name('admin.market.comment.edit');
-            Route::put('/update/{id}', 'CommentController@update')->name('admin.market.comment.update');
-            Route::delete('/destroy/{id}', 'CommentController@destroy')->name('admin.market.comment.destroy');
+            Route::get('/show/{comment}', 'CommentController@show')->name('admin.market.comment.show');
+            Route::delete('/destroy/{comment}', 'CommentController@destroy')->name('admin.market.comment.destroy');
+            Route::get('/status/{comment}', 'CommentController@status')->name('admin.market.comment.status');
+            Route::get('/approved/{comment}', 'CommentController@approved')->name('admin.market.comment.approved');
+            Route::post('/answer/{comment}', 'CommentController@answer')->name('admin.market.comment.answer');
 
         });
 

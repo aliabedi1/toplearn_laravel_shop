@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-<title>نمایش نظر ها</title>
+<title>نمایش نظر </title>
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
       <li class="breadcrumb-item font-size-12"> <a href="#"> خانه</a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#"> بخش فروش</a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#"> نظرات</a></li>
-      <li class="breadcrumb-item font-size-12 active" aria-current="page"> نمایش نظر ها</li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page"> نمایش نظر </li>
     </ol>
   </nav>
 
@@ -21,7 +21,7 @@
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h5>
-                نمایش نظرها
+               نمایش نظر
                 </h5>
             </section>
 
@@ -31,30 +31,44 @@
 
             <section class="card mb-3">
                 <section class="card-header text-white bg-custom-yellow">
-                    کامران محمدی - 845362736
+                    {{ $comment->user->fullName }} - {{ $comment->user->id }}
                 </section>
                 <section class="card-body">
-                    <h5 class="card-title">مشخصات کالا : ساعت هوشمند apple watch کد کالا : 8974938</h5>
-                    <p class="card-text">به نظر من ساعت خوبیه ولی تنها مشکلی که داره اینه که وزنش زیاده و زود شارژش تموم میشه!</p>
+                    <h5 class="card-title">عنوان کالا : {{ $comment->commentable->name }}</h5>
+                    <h6 class="card-title">کد کالا : {{ $comment->commentable->id }}</h6>
+                    <hr class=" mb-4">
+                    <p class="card-text mb-1">{{ $comment->body }}</p>
                 </section>
             </section>
 
-            <section>
-                <form action="" method="">
-                    <section class="row">
-                        <section class="col-12">
-                            <div class="form-group">
-                                <label for="">پاسخ ادمین</label>
-                               ‍<textarea class="form-control form-control-sm" rows="4"></textarea>
-                            </div>
+            @if ($comment->parent == null)
+                
+                <section>
+                    <form action="{{ route('admin.market.comment.answer' ,$comment->id) }}" method="post">
+                        @csrf
+                        <section class="row">
+                            <section class="col-12 my-2">
+                                <div class="form-group">
+                                    <label for="">پاسخ ادمین</label>
+                                ‍<textarea name="body" class="form-control form-control-sm" rows="5">{{ old('body') }}</textarea>
+                                </div>
+                                @error('body')
+                                <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                    <strong>
+                                        {{ $message }}
+                                    </strong>
+                                </span>
+                                @enderror
+                            </section>
+                            <section class="col-12 my-2">
+                                <button class="btn btn-primary btn-sm">ثبت</button>
+                            </section>
                         </section>
-                        <section class="col-12">
-                            <button class="btn btn-primary btn-sm">ثبت</button>
-                        </section>
-                    </section>
-                </form>
-            </section>
+                    </form>
+                </section>
 
+                
+            @endif
         </section>
     </section>
 </section>
