@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Market;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Market\Product;
+use App\Http\Controllers\Controller;
 
 class StoreController extends Controller
 {
@@ -14,7 +15,10 @@ class StoreController extends Controller
      */
     public function index()
     {
-        return view('admin.market.store.index');
+        $products = Product::all();
+
+        return view('admin.market.store.index' , compact('products'));
+    
     }
 
     /**

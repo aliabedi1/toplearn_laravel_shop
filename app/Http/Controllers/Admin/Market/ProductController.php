@@ -78,20 +78,24 @@ class ProductController extends Controller
 
             $product = Product::create($inputs);
 
-            $metas = array_combine($request->meta_key,$request->meta_value);
 
-            foreach($metas as $key => $value) 
+            if(!empty($request->meta_key))
             {
-                if($key == null)
-                {
-                    continue;
-                }
+                $metas = array_combine($request->meta_key,$request->meta_value);
 
-                $meta = ProductMeta::create([
-                    'meta_key' => $key,
-                    'meta_value' => $value,
-                    'product_id' => $product->id,
-                ]);
+                foreach($metas as $key => $value) 
+                {
+                    if($key == null)
+                    {
+                        continue;
+                    }
+
+                    $meta = ProductMeta::create([
+                        'meta_key' => $key,
+                        'meta_value' => $value,
+                        'product_id' => $product->id,
+                    ]);
+                }
             }
             return true;
 
@@ -178,31 +182,34 @@ class ProductController extends Controller
 
         $DbResult = DB::transaction(function() use($request,$inputs,$product){
 
-            
-            $metas = ProductMeta::where('product_id', $product->id)->get();
-            foreach($metas as $meta)
-            {
-                // todo : we can remove meta compeletely using forceDelete but i didnt
-                $meta->delete();
-            }
             $product->update($inputs);
             
-
-            $metas = array_combine($request->meta_key,$request->meta_value);
-
-            foreach($metas as $key => $value) 
+            if(!empty($request->meta_key))
             {
-                if($key == null)
+                $metas = ProductMeta::where('product_id', $product->id)->get();
+                foreach($metas as $meta)
                 {
-                    continue;
+                    // todo : we can remove meta compeletely using forceDelete but i didnt
+                    $meta->delete();
                 }
-
-                $newMetas = ProductMeta::create([
-                    'meta_key' => $key,
-                    'meta_value' => $value,
-                    'product_id' => $product->id,
-                ]);
                 
+
+                $metas = array_combine($request->meta_key,$request->meta_value);
+
+                foreach($metas as $key => $value) 
+                {
+                    if($key == null)
+                    {
+                        continue;
+                    }
+
+                    $newMetas = ProductMeta::create([
+                        'meta_key' => $key,
+                        'meta_value' => $value,
+                        'product_id' => $product->id,
+                    ]);
+                    
+                }
             }
             return true;
 

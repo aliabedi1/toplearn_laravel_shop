@@ -188,7 +188,6 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::post('/store', 'StoreController@store')->name('admin.market.store.store');
             Route::get('/edit/{id}', 'StoreController@edit')->name('admin.market.store.edit');
             Route::put('/update/{id}', 'StoreController@update')->name('admin.market.store.update');
-            Route::delete('/destroy/{id}', 'StoreController@destroy')->name('admin.market.store.destroy');
 
         });
 
