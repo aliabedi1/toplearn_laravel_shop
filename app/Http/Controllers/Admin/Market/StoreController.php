@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin\Market;
 use Illuminate\Http\Request;
 use App\Models\Market\Product;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Market\StoreRequest;
+use App\Http\Requests\Admin\Market\StoreUpdateRequest;
+use Illuminate\Support\Facades\Log;
 
 class StoreController extends Controller
 {
@@ -26,9 +29,9 @@ class StoreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function addToStore()
+    public function addToStore(Product $product)
     {
-        return view('admin.market.store.add-to-store');
+        return view('admin.market.store.add-to-store', compact('product'));
     }
 
     /**
@@ -37,9 +40,15 @@ class StoreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request, Product $product)
     {
-        //
+        $product->marketable_number += $request->marketable_number;
+        $product->save();
+
+        Log::info("deliverer => {$request->deliverer}, receiver => {$request->receiver}, description => {$request->description}, added => {$request->marketable_number}");
+
+        return redirect()->route('admin.market.store.index')->with('swal-success', 'موجودی جدید با موفقیت ثبت شد');
+
     }
 
     /**
@@ -59,9 +68,10 @@ class StoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        return view('admin.market.store.edit' , compact('product'));
+        
     }
 
     /**
@@ -71,9 +81,15 @@ class StoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUpdateRequest $request, Product $product)
     {
-        //
+        $product->marketable_number = $request->marketable_number;
+        $product->frozen_number = $request->frozen_number;
+        $product->sold_number = $request->sold_number;
+        $product->update();
+
+        return redirect()->route('admin.market.store.index')->with('swal-success', 'موجودی با موفقیت اصلاح شد');
+
     }
 
     /**
@@ -82,8 +98,5 @@ class StoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }
