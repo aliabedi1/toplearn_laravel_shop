@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-<title>افزودن به فروش شگفت انگیز</title>
+<title>ویرایش به فروش شگفت انگیز</title>
 <link rel="stylesheet" href="{{ asset('admin-assets/jalalidatepicker/persian-datepicker.min.css') }}">
 
 @endsection
@@ -13,7 +13,7 @@
       <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">تخفیف ها</a></li>
-      <li class="breadcrumb-item font-size-12 active" aria-current="page"> افزودن به فروش شگفت انگیز</li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page"> ویرایش به فروش شگفت انگیز</li>
     </ol>
   </nav>
 
@@ -23,7 +23,7 @@
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h5>
-                    افزودن به فروش شگفت انگیز
+                    ویرایش به فروش شگفت انگیز
                 </h5>
             </section>
 
@@ -32,7 +32,8 @@
             </section>
 
             <section>
-                <form action="{{ route('admin.market.discount.amazingDiscount.store') }}" method="post">
+                <form action="{{ route('admin.market.discount.amazingDiscount.update',$amazingDiscount->id) }}" method="post">
+                    @method('put    ')
                     @csrf
 
                     <section class="row">
@@ -44,7 +45,7 @@
 
                                     @foreach ($products as $product)
                                     
-                                    <option value="{{ $product->id }}" @if (old('product_id') == $product->id) selected @endif> {{ $product->name }}</option>
+                                    <option value="{{ $product->id }}" @if (old('product_id',$amazingDiscount->product_id) == $product->id) selected @endif> {{ $product->name }}</option>
 
                                     @endforeach
                                         
@@ -63,7 +64,7 @@
                         <section class="col-12 col-md-6 my-2">
                             <div class="form-group">
                                 <label for="percent">درصد تخفیف</label>
-                                <input name="percent" id="percent" type="text" class="form-control form-control-sm" value="{{ old('percent') }}">
+                                <input name="percent" id="percent" type="text" class="form-control form-control-sm" value="{{ old('percent',$amazingDiscount->percent) }}">
                             </div>
                             
                             @error('percent')
@@ -80,8 +81,8 @@
                             <div class="form-group">
                                 <label for="status">وضعیت</label>
                                 <select name="status" id="" class="form-control form-control-sm" id="status">
-                                    <option value="0" @if(old('status') == 0) selected @endif>غیرفعال</option>
-                                    <option value="1" @if(old('status') == 1) selected @endif>فعال</option>
+                                    <option value="0" @if(old('status',$amazingDiscount->status) == 0) selected @endif>غیرفعال</option>
+                                    <option value="1" @if(old('status',$amazingDiscount->status) == 1) selected @endif>فعال</option>
                                 </select>
                             </div>
                             @error('status')
@@ -97,8 +98,8 @@
                         <section class="col-12 col-md-6 my-2">
                             <div class="form-group">
                                 <label for="">تاریخ شروع</label>
-                                <input type="text" name="start_date" id="start_date" class="form-control form-control-sm d-none" value="{{ old('start_date') }}">
-                                <input type="text" id="start_date_view" class="form-control form-control-sm" value="{{ old('start_date') }}">
+                                <input type="text" name="start_date" id="start_date" class="form-control form-control-sm d-none" value="{{ old('start_date',$amazingDiscount->start_date) }}">
+                                <input type="text" id="start_date_view" class="form-control form-control-sm" value="{{ old('start_date',$amazingDiscount->start_date) }}">
                             </div>
                             @error('start_date')
                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -112,8 +113,8 @@
                         <section class="col-12 col-md-6 my-2">
                             <div class="form-group">
                                 <label for="">تاریخ پایان</label>
-                                <input type="text" name="end_date" id="end_date" class="form-control form-control-sm d-none" value="{{ old('end_date') }}">
-                                <input type="text" id="end_date_view" class="form-control form-control-sm" value="{{ old('end_date') }}">
+                                <input type="text" name="end_date" id="end_date" class="form-control form-control-sm d-none" value="{{ old('end_date',$amazingDiscount->end_date) }}">
+                                <input type="text" id="end_date_view" class="form-control form-control-sm" value="{{ old('end_date',$amazingDiscount->end_date) }}">
                             </div>
                             @error('end_date')
                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">

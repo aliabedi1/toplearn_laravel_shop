@@ -14,4 +14,11 @@ class AmazingDiscount extends Model
 
     protected $fillable = ['product_id','percent','status','start_date','end_date'];
 
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class,'product_id');
+    }
+
+
 }

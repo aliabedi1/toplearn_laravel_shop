@@ -92,7 +92,7 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::get('/copan/create', 'DiscountController@copanCreate')->name('admin.market.discount.copan.create');
             Route::post('/copan/store', 'DiscountController@copanStore')->name('admin.market.discount.copan.store');
             Route::delete('/copan/destroy/{copan}', 'DiscountController@copanDestroy')->name('admin.market.discount.copan.destroy');
-            Route::delete('/copan/status/{copan}', 'DiscountController@copanStatus')->name('admin.market.discount.copan.status');
+            Route::get('/copan/status/{copan}', 'DiscountController@copanStatus')->name('admin.market.discount.copan.status');
 
             Route::get('/common-discount', 'DiscountController@commonDiscount')->name('admin.market.discount.commonDiscount');
             Route::get('/common-discount/create', 'DiscountController@commonDiscountCreate')->name('admin.market.discount.commonDiscount.create');
@@ -103,8 +103,10 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::get('/amazing-discount', 'DiscountController@amazingDiscount')->name('admin.market.discount.amazingDiscount');
             Route::get('/amazing-discount/create', 'DiscountController@amazingDiscountCreate')->name('admin.market.discount.amazingDiscount.create');
             Route::post('/amazing-discount/store', 'DiscountController@amazingDiscountStore')->name('admin.market.discount.amazingDiscount.store');
+            Route::get('/amazing-discount/edit/{amazingDiscount}', 'DiscountController@amazingDiscountEdit')->name('admin.market.discount.amazingDiscount.edit');
+            Route::put('/amazing-discount/update/{amazingDiscount}', 'DiscountController@amazingDiscountUpdate')->name('admin.market.discount.amazingDiscount.update');
             Route::delete('/amazing-discount/destroy/{amazingDiscount}', 'DiscountController@amazingDiscountDestroy')->name('admin.market.discount.amazingDiscount.destroy');
-            Route::delete('/amazing-discount/status/{amazingDiscount}', 'DiscountController@amazingDiscountStatus')->name('admin.market.discount.amazingDiscount.status');
+            Route::get('/amazing-discount/status/{amazingDiscount}', 'DiscountController@amazingDiscountStatus')->name('admin.market.discount.amazingDiscount.status');
            
 
         });

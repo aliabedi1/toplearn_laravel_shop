@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Market\AmazingDiscountRequest;
 use App\Http\Requests\Admin\Market\CommonDiscountRequest;
 use App\Models\Market\AmazingDiscount;
 use App\Models\Market\CommonDiscount;
 use App\Models\Market\Copan;
+use App\Models\Market\Product;
 use Illuminate\Http\Request;
 
 class DiscountController extends Controller
@@ -121,19 +123,58 @@ class DiscountController extends Controller
 
     public function amazingDiscount()
     {
-        return view('admin.market.discount.amazing');
+        $amazingDiscounts = AmazingDiscount::all();
+        return view('admin.market.discount.amazing' , compact('amazingDiscounts'));
+    
     }
 
 
     public function amazingDiscountCreate()
     {
-        return view('admin.market.discount.amazing-create');
+        $products = Product::all();
+        return view('admin.market.discount.amazing-create' , compact('products'));
+    
     }
 
 
-    public function amazingDiscountStore()
+    public function amazingDiscountStore(AmazingDiscountRequest $request)
     {
-        return view('admin.market.discount.amazing-create');
+        $inputs = $request->all();
+        //date fixed
+        $realTimestampStart = substr($request->start_date, 0, 10);
+        $inputs['start_date'] = date("Y-m-d H:i:s", (int)$realTimestampStart);
+        $realTimestampStart = substr($request->end_date, 0, 10);
+        $inputs['end_date'] = date("Y-m-d H:i:s", (int)$realTimestampStart);
+
+        $result = AmazingDiscount::create($inputs);
+
+        return redirect()->route('admin.market.discount.amazingDiscount')->with('swal-success', 'تخفیف شگفت انگیز جدبد شما با موفقیت ثبت شد');
+
+    }
+
+
+
+    public function amazingDiscountEdit(AmazingDiscount $amazingDiscount)
+    {
+        $products = Product::all();
+        return view('admin.market.discount.amazing-edit',compact('amazingDiscount','products'));
+    }
+
+
+
+    public function amazingDiscountUpdate(AmazingDiscountRequest $request, AmazingDiscount $amazingDiscount )
+    {
+        $inputs = $request->all();
+        //date fixed
+        $realTimestampStart = substr($request->start_date, 0, 10);
+        $inputs['start_date'] = date("Y-m-d H:i:s", (int)$realTimestampStart);
+        $realTimestampStart = substr($request->end_date, 0, 10);
+        $inputs['end_date'] = date("Y-m-d H:i:s", (int)$realTimestampStart);
+
+        $amazingDiscount ->update($inputs);
+
+        return redirect()->route('admin.market.discount.amazingDiscount')->with('swal-success', 'تخفیف شگفت انگیز شما با موفقیت ویرایش شد');
+
     }
 
 
