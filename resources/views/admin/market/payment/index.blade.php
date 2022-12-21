@@ -57,7 +57,7 @@
                             <td> @if ($payment->type == 0) آنلاین @elseif ($payment->type == 1 ) آفلاین @else پرداخت در محل @endif </td>
 
                             <td class="width-22-rem text-left">
-                                <a href="#" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> مشاهده</a>
+                                <a href="{{ route('admin.market.payment.show' , $payment->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> مشاهده</a>
                                 <a href="{{ route('admin.market.payment.canceled' , $payment->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-close"></i> باطل کردن</a>
                                 <a href="{{ route('admin.market.payment.returned' , $payment->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> برگرداندن</a>
                             </td>
