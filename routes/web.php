@@ -122,8 +122,9 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::get('/', 'PaymentController@index')->name('admin.market.payment.index');
             Route::get('/online', 'PaymentController@online')->name('admin.market.payment.online');
             Route::get('/offline', 'PaymentController@offline')->name('admin.market.payment.offline');
-            Route::get('/attendance', 'PaymentController@attendance')->name('admin.market.payment.attendance');
-            Route::get('/confirm', 'PaymentController@confirm')->name('admin.market.payment.confirm');
+            Route::get('/cash', 'PaymentController@cash')->name('admin.market.payment.cash');
+            Route::get('/returned/{payment}', 'PaymentController@returned')->name('admin.market.payment.returned');
+            Route::get('/canceled/{payment}', 'PaymentController@canceled')->name('admin.market.payment.canceled');
           
 
         });
