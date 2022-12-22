@@ -91,6 +91,8 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::get('/copan', 'DiscountController@copan')->name('admin.market.discount.copan');
             Route::get('/copan/create', 'DiscountController@copanCreate')->name('admin.market.discount.copan.create');
             Route::post('/copan/store', 'DiscountController@copanStore')->name('admin.market.discount.copan.store');
+            Route::get('/copan/edit/{copan}', 'DiscountController@copanEdit')->name('admin.market.discount.copan.edit');
+            Route::put('/copan/update/{copan}', 'DiscountController@copanUpdate')->name('admin.market.discount.copan.update');
             Route::delete('/copan/destroy/{copan}', 'DiscountController@copanDestroy')->name('admin.market.discount.copan.destroy');
             Route::get('/copan/status/{copan}', 'DiscountController@copanStatus')->name('admin.market.discount.copan.status');
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Market\Copan;
 use App\Models\Market\Payment;
 use App\Models\Ticket\Ticket;
 use Laravel\Sanctum\HasApiTokens;
@@ -89,7 +90,7 @@ class User extends Authenticatable
     
 
 
-    public function role()
+    public function roles()
     {
         return $this->hasMany(Role::class);
     }
@@ -100,4 +101,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Payment::class,'user_id');
     }
+
+
+    public function copans()
+    {
+        return $this->hasMany(Copan::class,'user_id');
+    }
+
+    
 }
