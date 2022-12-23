@@ -2,6 +2,8 @@
 
 namespace App\Models\Market;
 
+use App\Models\User;
+use App\Models\Address;
 use App\Models\Market\Payment;
 use App\Models\Market\Delivery;
 use Illuminate\Database\Eloquent\Model;
@@ -27,6 +29,28 @@ class Order extends Model
     {
         return $this->belongsTo(Delivery::class , 'delivery_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class , 'user_id');
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class , 'address_id');
+    }
+        
+    public function copan()
+    {
+        return $this->belongsTo(Copan::class , 'copan_id');
+    }
+        
+    public function commonDiscount()
+    {
+        return $this->belongsTo(CommonDiscount::class , 'common_discount_id');
+    }
+
+
 
 
 

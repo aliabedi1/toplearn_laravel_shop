@@ -57,10 +57,17 @@ class OrderController extends Controller
     }
 
     
-    public function show()
+    public function show(Order $order)
     {
+        if($order->status == 0)
+        {
+            $order->status = 1;
+            $order->save();
+        }
 
-        return view('admin.market.order.index');
+
+
+        return view('admin.market.order.show' , compact('order'));
     }
 
     
@@ -111,7 +118,7 @@ class OrderController extends Controller
     }
 
     
-    public function cancelOrder( Order $order)
+    public function cancelOrder(Order $order)
     {
         $order->delivery_status = 4;
         return back()->with('swal-success', 'سفارش با موفقیت باطل شد');

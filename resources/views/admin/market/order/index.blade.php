@@ -37,9 +37,10 @@
                         <tr>
                             <th>#</th>
                             <th>کد سفارش</th>
-                            <th>مبلغ سفارش</th>
-                            <th>مبلغ تخفیف</th>
-                            <th>مبلغ نهایی</th>
+                            <th>(بدون تخفیف) مبلغ سفارش</th>
+                            <th>مبلغ تمامی تخفیف ها</th>
+                            <th>مبلغ تخفیف تمام محصولات</th>
+                            <th>مبلغ نهایی پرداخت شده</th>
                             <th>وضعیت پرداخت</th>
                             <th>شیوه پرداخت</th>
                             <th>بانک</th>
@@ -61,7 +62,13 @@
 
                                 <td><div class="py-3">{{ $order->order_discount_amount }} تومان</div> </td>
 
-                                <td><div class="py-3">{{ $order->order_final_amount }} تومان</div> </td>
+                                <td><div class="py-3">{{ $order->order_total_products_discount_amount }} تومان</div> </td>
+
+                                @php
+                                $final_paid_amount = number_format(($order->order_final_amount - $order->order_discount_amount), 3, '.', '');
+                                @endphp
+
+                                <td><div class="py-3">{{ $final_paid_amount }} تومان</div></td>
 
                                 <td><div class="py-3"> @if ($order->payment_status == 0) پرداخت نشده @elseif ($order->payment_status == 1 ) پرداخت شده @elseif ($order->payment_status == 2) لغو شده @elseif ($order->payment_status == 3) برگشت داده شده @endif</div> </td>
 
@@ -80,10 +87,10 @@
                                             <i class="fa fa-tools"></i> عملیات
                                         </a>
                                         <div class="dropdown-menu z-index-highest" aria-labelledby="dropdownMenuLink">
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-images"></i> مشاهده فاکتور</a>
+                                            <a href="{{ route('admin.market.order.show', $order->id) }}" class="dropdown-item text-right"><i class="fa fa-images"></i> مشاهده فاکتور</a>
                                             <a href="{{ route('admin.market.order.changeSendStatus', $order->id) }}" class="dropdown-item text-right"><i class="fa fa-list-ul"></i> تغییر وضعیت ارسال</a>
                                             <a href="{{ route('admin.market.order.changeOrderStatus', $order->id) }}" class="dropdown-item text-right"><i class="fa fa-edit"></i> تغییر وضعیت سفارش</a>
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-window-close"></i> باطل کردن سفارش</a>
+                                            <a href="{{ route('admin.market.order.cancelOrder', $order->id) }}" class="dropdown-item text-right"><i class="fa fa-window-close"></i> باطل کردن سفارش</a>
                                         </div>
                                     </div>
                                 </td>
