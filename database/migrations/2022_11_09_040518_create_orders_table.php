@@ -36,12 +36,12 @@ class CreateOrdersTable extends Migration
             $table->longText('common_discount_object')->nullable()->comment('save them for when user changed the common_discount_id');
             $table->decimal('common_discount_amount',20,3)->nullable()->comment('toman -  how much user used discount with this common_discount_id');
             $table->decimal('order_total_products_discount_amount',20,3)->nullable()->comment('toman -  how much user didnt pay at all with all discount codes');
-            $table->tinyInteger('status')->default(0)->comment('0 => not approved , 1 => waiting for approve , 2=> approved');
+            $table->tinyInteger('status')->default(0)->comment('0 => not approved , 1 => not approved , 2=> waiting for approve , 3 => approved , 4 => canceled , 5 => returned');
             $table->timestamps();
             $table->softDeletes();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *

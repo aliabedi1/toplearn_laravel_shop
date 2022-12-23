@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-<title>سفارشات</title>
+<title>{{ $title }}</title>
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
-      <li class="breadcrumb-item font-size-12 active" aria-current="page"> سفارشات</li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page"> {{ $title }}</li>
     </ol>
   </nav>
 
@@ -20,7 +20,7 @@
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h5>
-                 سفارشات
+                 {{ $title }}
                 </h5>
             </section>
 
@@ -63,7 +63,7 @@
                                 <td>{{ $order->payment->paymentable->gateway ?? 'ندارد' }}</td>
                                 <td> @if ($order->delivery_status == 0) ارسال نشده @elseif ($order->delivery_status == 1 ) درحال ارسال @elseif ($order->delivery_status == 2) ارسال شده @elseif ($order->delivery_status == 3) تحویل داده شده @endif</td>
                                 <td>{{ $order->delivery->name }}</td>
-                                <td> @if ($order->status == 0) تایید نشده @elseif ($order->status == 1 ) در انتظار تایید @elseif ($order->status == 2) تایید شده @endif</td>
+                                <td> @if ($order->status == 0) بررسی نشده @elseif ($order->status == 1) تایید نشده @elseif ($order->status == 2 ) در انتظار تایید @elseif ($order->status == 3) تایید شده @elseif ($order->status == 4) باطل شده @elseif ($order->status == 5) مرجوع شده @endif</td>
                                 <td class="width-8-rem text-left">
                                     <div class="dropdown">
                                         <a href="#" class="btn btn-success btn-sm btn-block dorpdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
