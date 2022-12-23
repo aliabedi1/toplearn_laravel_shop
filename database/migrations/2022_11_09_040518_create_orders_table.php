@@ -25,7 +25,7 @@ class CreateOrdersTable extends Migration
             $table->foreignId('delivery_id')->nullable()->constrained('delivery')->onUpdate('cascade')->onDelete('cascade');
             $table->longText('delivery_object')->nullable()->comment('save them for when user changed the delivery_id');
             $table->decimal('delivery_amount',20,3)->nullable()->comment('toman');
-            $table->tinyInteger('delivery_status')->default(0);
+            $table->tinyInteger('delivery_status')->default(0)->comment('0 => not sent , 1 => sending , 2 => sent , 3 => delivered');
             $table->timestamp('delivery_date');
             $table->decimal('order_final_amount',20,3)->nullable()->comment('toman -  how much user payed');
             $table->decimal('order_discount_amount',20,3)->nullable()->comment('toman -  how much user used discount');
@@ -36,7 +36,7 @@ class CreateOrdersTable extends Migration
             $table->longText('common_discount_object')->nullable()->comment('save them for when user changed the common_discount_id');
             $table->decimal('common_discount_amount',20,3)->nullable()->comment('toman -  how much user used discount with this common_discount_id');
             $table->decimal('order_total_products_discount_amount',20,3)->nullable()->comment('toman -  how much user didnt pay at all with all discount codes');
-            $table->tinyInteger('order_status')->default(0);
+            $table->tinyInteger('status')->default(0)->comment('0 => not approved , 1 => waiting for approve , 2=> approved');
             $table->timestamps();
             $table->softDeletes();
         });
