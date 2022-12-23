@@ -64,24 +64,58 @@ class OrderController extends Controller
     }
 
     
-    public function changeSendStatus()
+    public function changeSendStatus(Order $order)
     {
-
-        return view('admin.market.order.index');
+        switch($order->delivery_status)
+        {
+            case 0:
+                $order->delivery_status = 1;
+                break;
+            case 1:
+                $order->delivery_status = 2;
+                break;
+            case 2:
+                $order->delivery_status = 3;
+                break;
+            default:
+                $order->delivery_status = 0;
+            
+        }
+        $order->save();
+        return back()->with('swal-success', ' وضعیت ارسال با موفقیت تغییر کرد');
     }
 
     
-    public function changeOrderStatus()
+    public function changeOrderStatus(Order $order)
     {
 
-        return view('admin.market.order.index');
+        // case 0 is for not checked and case 4 is for canceling which they have their own section to change their status
+
+        switch($order->status)
+        {
+            case 1:
+                $order->status = 2;
+                break;
+            case 2:
+                $order->status = 3;
+                break;
+            case 3:
+                $order->status = 5;
+                break;
+            default:
+                $order->status = 1;
+            
+        }
+        $order->save();
+        return back()->with('swal-success', ' وضعیت سفارش با موفقیت تغییر کرد');
     }
 
     
-    public function cancelOrder()
+    public function cancelOrder( Order $order)
     {
+        $order->delivery_status = 4;
+        return back()->with('swal-success', 'سفارش با موفقیت باطل شد');
 
-        return view('admin.market.order.index');
     }
 
     

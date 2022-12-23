@@ -210,3 +210,7 @@
 		max-width: 80%;
 		padding: 2rem;
 	}
+
+.z-index-highest {
+	z-index: 9999;
+}

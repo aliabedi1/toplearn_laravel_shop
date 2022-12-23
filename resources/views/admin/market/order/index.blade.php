@@ -53,26 +53,36 @@
                         @foreach ($orders as $order )
                             
                             <tr>
-                                <th>{{ $loop->iteration }}</th>
-                                <td>{{ $order->id }}</td>
-                                <td>{{ $order->order_final_amount }} تومان</td>
-                                <td>{{ $order->order_discount_amount }} تومان</td>
-                                <td>{{ $order->order_final_amount }} تومان</td>
-                                <td> @if ($order->payment_status == 0) پرداخت نشده @elseif ($order->payment_status == 1 ) پرداخت شده @elseif ($order->payment_status == 2) لغو شده @elseif ($order->payment_status == 3) برگشت داده شده @endif</td>
-                                <td> @if ($order->payment_type == 0) آنلاین @elseif ($order->payment_type == 1 ) آفلاین @else پرداخت در محل @endif </td>
-                                <td>{{ $order->payment->paymentable->gateway ?? 'ندارد' }}</td>
-                                <td> @if ($order->delivery_status == 0) ارسال نشده @elseif ($order->delivery_status == 1 ) درحال ارسال @elseif ($order->delivery_status == 2) ارسال شده @elseif ($order->delivery_status == 3) تحویل داده شده @endif</td>
-                                <td>{{ $order->delivery->name }}</td>
-                                <td> @if ($order->status == 0) بررسی نشده @elseif ($order->status == 1) تایید نشده @elseif ($order->status == 2 ) در انتظار تایید @elseif ($order->status == 3) تایید شده @elseif ($order->status == 4) باطل شده @elseif ($order->status == 5) مرجوع شده @endif</td>
+                                <th><div class="py-3">{{ $loop->iteration }}</div></th>
+
+                                <td><div class="py-3">{{ $order->id }}</div> </td>
+
+                                <td><div class="py-3">{{ $order->order_final_amount }} تومان</div> </td>
+
+                                <td><div class="py-3">{{ $order->order_discount_amount }} تومان</div> </td>
+
+                                <td><div class="py-3">{{ $order->order_final_amount }} تومان</div> </td>
+
+                                <td><div class="py-3"> @if ($order->payment_status == 0) پرداخت نشده @elseif ($order->payment_status == 1 ) پرداخت شده @elseif ($order->payment_status == 2) لغو شده @elseif ($order->payment_status == 3) برگشت داده شده @endif</div> </td>
+
+                                <td><div class="py-3"> @if ($order->payment_type == 0) آنلاین @elseif ($order->payment_type == 1 ) آفلاین @else پرداخت در محل @endif </div> </td>
+                                
+                                <td><div class="py-3">{{ $order->payment->paymentable->gateway ?? 'ندارد' }}</div> </td>
+                                
+                                <td><div class="py-3"> @if ($order->delivery_status == 0) ارسال نشده @elseif ($order->delivery_status == 1 ) درحال ارسال @elseif ($order->delivery_status == 2) ارسال شده @elseif ($order->delivery_status == 3) تحویل داده شده @endif</div> </td>
+                                
+                                <td><div class="py-3">{{ $order->delivery->name }}</div> </td>
+
+                                <td><div class="py-3"> @if ($order->status == 0) بررسی نشده @elseif ($order->status == 1) تایید نشده @elseif ($order->status == 2 ) در انتظار تایید @elseif ($order->status == 3) تایید شده @elseif ($order->status == 4) باطل شده @elseif ($order->status == 5) مرجوع شده @endif</div> </td>
                                 <td class="width-8-rem text-left">
                                     <div class="dropdown">
-                                        <a href="#" class="btn btn-success btn-sm btn-block dorpdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                                        <a href="#" class="btn btn-success btn-sm btn-block dorpdown-toggle py-3" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
                                             <i class="fa fa-tools"></i> عملیات
                                         </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <div class="dropdown-menu z-index-highest" aria-labelledby="dropdownMenuLink">
                                             <a href="" class="dropdown-item text-right"><i class="fa fa-images"></i> مشاهده فاکتور</a>
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-list-ul"></i> تغییر وضعیت ارسال</a>
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-edit"></i> تغییر وضعیت سفارش</a>
+                                            <a href="{{ route('admin.market.order.changeSendStatus', $order->id) }}" class="dropdown-item text-right"><i class="fa fa-list-ul"></i> تغییر وضعیت ارسال</a>
+                                            <a href="{{ route('admin.market.order.changeOrderStatus', $order->id) }}" class="dropdown-item text-right"><i class="fa fa-edit"></i> تغییر وضعیت سفارش</a>
                                             <a href="" class="dropdown-item text-right"><i class="fa fa-window-close"></i> باطل کردن سفارش</a>
                                         </div>
                                     </div>
