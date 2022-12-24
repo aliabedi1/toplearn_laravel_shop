@@ -50,12 +50,97 @@ class Order extends Model
         return $this->belongsTo(CommonDiscount::class , 'common_discount_id');
     }
 
-
-
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class , 'order_id');
     }
 
+    public function getPaymentStatusValueAttribute()
+    {
+        switch($this->payment_status)
+        {
+            case 0:
+                $result = 'پرداخت نشده';
+                break;
+            case 1:
+                $result = 'پرداخت شده';
+                break;
+            case 2:
+                $result = 'لغو شده';
+                break;
+            case 3:
+                $result = 'برگشت داده شده';
+                break;
+            
+        }
+
+        return $result;
+    }
+
+    public function getPaymentTypeValueAttribute()
+    {
+        switch($this->payment_type)
+        {
+            case 0:
+                $result = 'آنلاین';
+                break;
+            case 1:
+                $result = 'آفلاین';
+                break;
+            case 2:
+                $result = 'پرداخت در محل';
+                break;
+        }
+
+        return $result;
+    }
+
+    public function getDeliveryStatusValueAttribute()
+    {
+        switch($this->delivery_status)
+        {
+            case 0:
+                $result = 'ارسال نشده';
+                break;
+            case 1:
+                $result = 'درحال ارسال';
+                break;
+            case 2:
+                $result = 'ارسال شده';
+                break;
+            case 3:
+                $result = 'تحویل داده شده';
+                break;
+        }
+
+        return $result;
+    }
+
+    public function getStatusValueAttribute()
+    {
+        switch($this->status)
+        {
+            case 0:
+                $result = 'بررسی نشده';
+                break;
+            case 1:
+                $result = 'تایید نشده';
+                break;
+            case 2:
+                $result = 'در انتظار تایید';
+                break;
+            case 3:
+                $result = 'تایید شده';
+                break;
+            case 4:
+                $result = 'باطل شده';
+                break;
+            case 5:
+                $result = 'مرجوع شده';
+                break;
+        }
+
+        return $result;
+    }
 
 }

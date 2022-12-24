@@ -70,17 +70,18 @@
 
                                 <td><div class="py-3">{{ $final_paid_amount }} تومان</div></td>
 
-                                <td><div class="py-3"> @if ($order->payment_status == 0) پرداخت نشده @elseif ($order->payment_status == 1 ) پرداخت شده @elseif ($order->payment_status == 2) لغو شده @elseif ($order->payment_status == 3) برگشت داده شده @endif</div> </td>
+                                <td><div class="py-3"> {{ $order->payment_status_value }}</div> </td>
 
-                                <td><div class="py-3"> @if ($order->payment_type == 0) آنلاین @elseif ($order->payment_type == 1 ) آفلاین @else پرداخت در محل @endif </div> </td>
+                                <td><div class="py-3"> {{ $order->payment_type_value }} </div> </td>
                                 
                                 <td><div class="py-3">{{ $order->payment->paymentable->gateway ?? 'ندارد' }}</div> </td>
                                 
-                                <td><div class="py-3"> @if ($order->delivery_status == 0) ارسال نشده @elseif ($order->delivery_status == 1 ) درحال ارسال @elseif ($order->delivery_status == 2) ارسال شده @elseif ($order->delivery_status == 3) تحویل داده شده @endif</div> </td>
+                                <td><div class="py-3"> {{ $order->delivery_status_value }}</div> </td>
                                 
                                 <td><div class="py-3">{{ $order->delivery->name }}</div> </td>
 
-                                <td><div class="py-3"> @if ($order->status == 0) بررسی نشده @elseif ($order->status == 1) تایید نشده @elseif ($order->status == 2 ) در انتظار تایید @elseif ($order->status == 3) تایید شده @elseif ($order->status == 4) باطل شده @elseif ($order->status == 5) مرجوع شده @endif</div> </td>
+                                <td><div class="py-3"> {{ $order->status_value }}</div> </td>
+                                
                                 <td class="width-8-rem text-left">
                                     <div class="dropdown">
                                         <a href="#" class="btn btn-success btn-sm btn-block dorpdown-toggle py-3" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">

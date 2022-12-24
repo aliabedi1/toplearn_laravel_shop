@@ -133,14 +133,14 @@
                         <tr class="border-bottm">
                             <th>نوع پرداخت</th>
                             <td class="text-left font-weight-bolder">
-                                @if ($order->payment_type == 0) آنلاین @elseif ($order->payment_type == 1 ) آفلاین @else پرداخت در محل @endif 
+                                {{ $order->payment_type_value ?? 'ندارد'}}
                             </td>
                         </tr>
 
                         <tr class="border-bottm">
                             <th>وضعیت پرداخت</th>
                             <td class="text-left font-weight-bolder">
-                                @if ($order->payment_status == 0) پرداخت نشده @elseif ($order->payment_status == 1 ) پرداخت شده @elseif ($order->payment_status == 2) لغو شده @elseif ($order->payment_status == 3) برگشت داده شده @endif 
+                                {{ $order->payment_status_value ?? 'ندارد' }}
                             </td>
                         </tr>
 
@@ -152,7 +152,7 @@
 
                         <tr class="border-bottm">
                             <th>وضعیت ارسال</th>
-                            <td class="text-left font-weight-bolder">@if ($order->delivery_status == 0) ارسال نشده @elseif ($order->delivery_status == 1 ) درحال ارسال @elseif ($order->delivery_status == 2) ارسال شده @elseif ($order->delivery_status == 3) تحویل داده شده @endif
+                            {{ $order->delivery_status_value ?? 'ندارد'}}
                             </td>
                         </tr>
 
@@ -166,21 +166,21 @@
                         <tr class="border-bottm">
                             <th>(بدون تخفیف) مبلغ سفارش</th>
                             <td class="text-left font-weight-bolder">
-                                {{ $order->order_final_amount ? $order->order_final_amount.' تومان' : 'ندارد' }}
+                                {{ $order->order_final_amount.' تومان' ?? 'ندارد' }}
                             </td>
                         </tr>
 
                         <tr class="border-bottm">
                             <th>مبلغ تمامی تخفیف ها</th>
                             <td class="text-left font-weight-bolder">
-                                {{ $order->order_discount_amount ? $order->order_discount_amount.' تومان' : 'ندارد' }}
+                                {{ $order->order_discount_amount.' تومان' ?? 'ندارد' }}
                             </td>
                         </tr>
 
                         <tr class="border-bottm">
                             <th>مبلغ تخفیف تمام محصولات</th>
                             <td class="text-left font-weight-bolder">
-                                {{ $order->order_total_products_discount_amount ? $order->order_total_products_discount_amount.' تومان' : 'ندارد' }}
+                                {{ $order->order_total_products_discount_amount.' تومان' ?? 'ندارد' }}
                             </td>
                         </tr>
 
@@ -192,7 +192,7 @@
                                 $final_paid_amount = number_format(($order->order_final_amount - $order->order_discount_amount), 3, '.', '');
                             @endphp
 
-                                {{ $final_paid_amount ? $final_paid_amount.' تومان' : 'ندارد' }}
+                                {{ $final_paid_amount.' تومان' ?? 'ندارد' }}
                             </td>
                         </tr>
 
@@ -213,7 +213,7 @@
                         <tr class="border-bottm">
                             <th>تخفیف گرفته شده از کوپن تخفیف</th>
                             <td class="text-left font-weight-bolder">
-                                {{ $order->order_copan_discount_amount ? $order->order_copan_discount_amount.' تومان' : 'ندارد' }}
+                                {{ $order->order_copan_discount_amount.' تومان' ?? 'ندارد' }}
                             </td>
                         </tr>
 
@@ -227,14 +227,15 @@
                         <tr class="border-bottm">
                             <th>تخفیف گرفته شده از تخفیف عمومی</th>
                             <td class="text-left font-weight-bolder">
-                                {{ $order->common_discount_amount ? $order->common_discount_amount.' تومان' : 'ندارد' }}
-                            </td>
+                                {{ $order->common_discount_amount.' تومان' ?? 'ندارد' }}
                         </tr>
 
                         <tr class="border-bottm">
                             <th>وضعیت سفارش</th>
                             <td class="text-left font-weight-bolder">
-                                @if ($order->status == 0) بررسی نشده @elseif ($order->status == 1) تایید نشده @elseif ($order->status == 2 ) در انتظار تایید @elseif ($order->status == 3) تایید شده @elseif ($order->status == 4) باطل شده @elseif ($order->status == 5) مرجوع شده @endif                            </td>
+                                {{ $order->status_value ?? 'ندارد' }}
+                            </td>
+
                         </tr>
 
 
