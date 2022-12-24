@@ -26,4 +26,10 @@ class CategoryValue extends Model
     {
         return $this->belongsTo(Product::class,'product_id');
     }
+
+    
+    // public function orderItemAttributes()
+    // {
+    //     return $this->hasMany(OrderItemSelectedAttribute::class , 'category_attribute_id');
+    // }
 }

@@ -20,5 +20,10 @@ class AmazingDiscount extends Model
         return $this->belongsTo(Product::class,'product_id');
     }
 
+    
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class , 'amazing_sale_id');
+    }
 
 }

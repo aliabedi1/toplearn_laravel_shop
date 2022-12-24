@@ -25,7 +25,7 @@
                 </h5>
             </section>
 
-            <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-3 ">
+            <section class="d-flex justify-content-between align-items-center mt-4 mb-3 pb-3 ">
                 <a href="{{ route('admin.market.order.all') }}" class="btn btn-info btn-sm">بازگشت</a>
             </section>
 
@@ -51,7 +51,7 @@
                                     <i class="fa fa-print"></i>
                                     چاپ
                                 </a>
-                                <a href="" class="btn btn-warning btn-sm text-dark">
+                                <a href="{{ route('admin.market.order.details' , $order->id) }}" class="btn btn-warning btn-sm text-dark">
                                     <i class="fa fa-book"></i>
                                     جزئیات 
                                 </a>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
+use App\Models\Market\CategoryValue;
 use App\Models\Market\Order;
 use Illuminate\Http\Request;
 
@@ -65,9 +66,12 @@ class OrderController extends Controller
             $order->save();
         }
 
-
-
         return view('admin.market.order.show' , compact('order'));
+    }
+    
+    public function details(Order $order)
+    {
+        return view('admin.market.order.detail' , compact('order'));
     }
 
     

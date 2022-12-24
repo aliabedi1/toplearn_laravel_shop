@@ -5,6 +5,7 @@ namespace App\Models\Market;
 use App\Models\Market\ProductCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Market\OrderItemSelectedAttribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CategoryAttribute extends Model
@@ -26,6 +27,12 @@ class CategoryAttribute extends Model
     public function values()
     {
         return $this->hasMany(CategoryValue::class,'category_attribute_id');
+    }
+
+    
+    public function orderItemAttributes()
+    {
+        return $this->hasMany(OrderItemSelectedAttribute::class , 'category_attribute_id');
     }
     
 }
