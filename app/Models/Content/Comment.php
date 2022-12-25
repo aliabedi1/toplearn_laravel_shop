@@ -44,6 +44,37 @@ class Comment extends Model
 
 
 
+    public function getCommentableTypeValueAttribute()
+    {
+        switch($this->commentable_type)
+        {
+            case 'App\Models\Content\Post':
+                $result = 'بخش محتوی';
+                break;
+            case 'App\Models\Market\Product':
+                $result = 'بخش محصولات';
+                break;
+
+        }
+        return $result;
+
+    }
+
+    public function getCommentableRouteNameAttribute()
+    {
+        switch($this->commentable_type)
+        {
+            case 'App\Models\Content\Post':
+                $result = 'admin.content.comment.show';
+                break;
+            case 'App\Models\Market\Product':
+                $result = 'admin.market.comment.show';
+                break;
+
+        }
+        return $result;
+
+    }
 
 
 }
