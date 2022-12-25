@@ -34,7 +34,7 @@
                     {{ $comment->user->fullName }} - {{ $comment->user->id }}
                 </section>
                 <section class="card-body">
-                    <h5 class="card-title">عنوان کالا : {{ $comment->commentable->name }}</h5>
+                    <h5 class="card-title">نام کالا : {{ $comment->commentable->name }}</h5>
                     <h6 class="card-title">کد کالا : {{ $comment->commentable->id }}</h6>
                     <hr class=" mb-4">
                     <p class="card-text mb-1">{{ $comment->body }}</p>

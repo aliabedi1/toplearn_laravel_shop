@@ -56,6 +56,11 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
+        if($comment->seen == 0)
+        {
+            $comment->seen = 1;
+            $comment->save();
+        }
         return view('admin.market.comment.show', compact('comment'));
     }
 
