@@ -479,6 +479,7 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 
 
 
+    Route::post('/notification/read-all', 'NotificationController@readAll')->name('admin.notification.read-all');
 
 
 

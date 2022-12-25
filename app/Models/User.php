@@ -78,6 +78,20 @@ class User extends Authenticatable
     }
 
 
+    public function getProfilePhotoPathValueAttribute()
+    {
+        $result = $this->profile_photo_path;
+
+        if($result == null)
+        {
+            $result = 'admin-assets/images/no-avatar.png';
+        }
+
+        return $result;
+
+    }
+
+
     public function ticketAdmin()
     {
         return $this->hasOne(TicketAdmin::class);

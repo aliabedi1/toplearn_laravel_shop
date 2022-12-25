@@ -165,5 +165,6 @@ return [
         'logo'                      => 'لوگو',
         'keywords'                  => 'کلمات کلیدی',
         'icon'                      => 'ایکون',
+        'profile photo path'        => 'آواتار',
     ],
 ];

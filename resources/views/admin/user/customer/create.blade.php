@@ -30,7 +30,7 @@
             </section>
 
             <section>
-                <form action="{{ route('admin.user.customer.store') }}" method="post">                   
+                <form action="{{ route('admin.user.customer.store') }}" method="post" enctype="multipart/form-data">                   
                     @csrf
                     <section class="row">
 
