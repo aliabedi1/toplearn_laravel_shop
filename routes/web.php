@@ -495,7 +495,15 @@ Route::get('/', function(){
 
 
 
+Route::namespace('Auth')->group(function (){
 
+    //customer folder
+    Route::namespace('Customer')->group(function (){
+        
+        Route::get('login-register', 'LoginRegisterController@loginRegisterForm')->name('auth.customer.login-register-form');
+    });
+
+});
 
 
 
