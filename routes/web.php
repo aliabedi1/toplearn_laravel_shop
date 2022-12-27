@@ -501,6 +501,7 @@ Route::namespace('Auth')->group(function (){
     Route::namespace('Customer')->group(function (){
         
         Route::get('login-register', 'LoginRegisterController@loginRegisterForm')->name('auth.customer.login-register-form');
+        Route::post('login-register', 'LoginRegisterController@loginRegister')->name('auth.customer.login-register');
     });
 
 });
