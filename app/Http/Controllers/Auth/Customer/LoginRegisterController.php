@@ -7,7 +7,10 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Customer\LoginRegisterRequest;
+use App\Http\Services\Message\MessageService;
+use App\Http\Services\Message\SMS\SmsService;
 use App\Models\Otp;
+use Illuminate\Support\Facades\Config;
 
 class LoginRegisterController extends Controller
 {
@@ -82,11 +85,18 @@ class LoginRegisterController extends Controller
         // send sms or email
         if($type == 0)
         {
-            
-        }
-        else
-        {
+            // send sms
+            $smsService = new SmsService();
+            $smsService->setFrom(Config('sms.otp_from'));
+            $smsService->setTo(['0'.$user->mobile]);
+            $smsService->setText("ستاره شمال /n کد تایید : {$otpCode}");
+            $smsService->setIsFlash(true);
+
+            $messageService = new MessageService($smsService);
 
         }
+
+        $messageService->send();
+        dd('sms sent succesfully');
     }
 }
