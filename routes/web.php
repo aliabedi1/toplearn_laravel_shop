@@ -502,6 +502,9 @@ Route::namespace('Auth')->group(function (){
         
         Route::get('login-register', 'LoginRegisterController@loginRegisterForm')->name('auth.customer.login-register-form');
         Route::post('login-register', 'LoginRegisterController@loginRegister')->name('auth.customer.login-register');
+
+        Route::get('login-confirm/{token}', 'LoginRegisterController@loginConfirmForm')->name('auth.customer.login-confirm-form');
+        Route::post('login-confirm/{token}', 'LoginRegisterController@loginConfirm')->name('auth.customer.login-confirm');
     });
 
 });
