@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Customer\LoginRegisterRequest;
+use App\Http\Services\Message\Email\EmailService;
 use App\Http\Services\Message\MessageService;
 use App\Http\Services\Message\SMS\SmsService;
 use App\Models\Otp;
@@ -98,10 +99,23 @@ class LoginRegisterController extends Controller
         elseif($type == 1)
         {
             //send email
-            
+            $emailService = new EmailService();
+
+            $details = [
+                'title' => 'ایمیل فعالسازی برای فروشگاه ستاره شمال',
+                'body' => "کد فعالسازی : {$otpCode}",
+            ];
+
+            $emailService->setDetails($details);
+            $emailService->setFrom('noreply@nsshop.com','example');
+            $emailService->setSubject('کد احراز هویت');
+            $emailService->setTo($inputs['id']);
+
+            $messageService = new MessageService($emailService);
+
         }
 
         $messageService->send();
-        dd('sms sent succesfully');
+        dd('message sent succesfully');
     }
 }
