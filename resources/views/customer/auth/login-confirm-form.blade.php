@@ -32,9 +32,9 @@
                 @endif
             </section>
             <section class="login-input-text my-3">
-                <input class="my-3" type="text" name="id" value="{{ old('id') }}" >
+                <input class="my-3" type="text" name="otp">
                 
-                @error('id')
+                @error('otp')
                 <span class="alert_required bg-danger text-white p-1 font-weight-lighter rounded " role="alert">
                     <small>
                         {{ $message }}

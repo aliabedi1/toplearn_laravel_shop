@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Otp;
+use App\Models\User\Role;
 use App\Models\Market\Copan;
 use App\Models\Market\Order;
-use App\Models\Market\Payment;
 use App\Models\Ticket\Ticket;
+use App\Models\Market\Payment;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Ticket\TicketAdmin;
-use App\Models\User\Role;
 use Laravel\Jetstream\HasProfilePhoto;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -128,5 +129,10 @@ class User extends Authenticatable
         return $this->hasMany(Order::class,'user_id');
     }
 
+    
+    public function otps()
+    {
+        return $this->hasMany(Otp::class, 'user_id');
+    }
     
 }
