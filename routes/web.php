@@ -505,6 +505,7 @@ Route::namespace('Auth')->group(function (){
 
         Route::get('login-confirm/{token}', 'LoginRegisterController@loginConfirmForm')->name('auth.customer.login-confirm-form');
         Route::post('login-confirm/{token}', 'LoginRegisterController@loginConfirm')->name('auth.customer.login-confirm');
+        Route::get('login-resend-otp/{token}', 'LoginRegisterController@loginResendOtp')->name('auth.customer.login-resend-otp');
     });
 
 });

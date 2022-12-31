@@ -177,6 +177,76 @@ class LoginRegisterController extends Controller
 
     }
 
+    public function loginResendOtp($token)
+    {
+        
+        $otp = Otp::where('token' ,$token)->where('created_at' , '<=' , Carbon::now()->subMinutes(5)->toDateTimeString())->first();
+        
+        // if old otp found or not
+        if(empty($otp))
+        {
+            return redirect()->route('auth.customer.login-register-form',$token)->withErrors(['id'=>'آدرس وارد شده نا معتبر میباشد']);
+        }
+        
+        
+
+        // create OTP code
+        $otpCode = rand(111111,999999);
+        $token = Str::random(60);
+        $user = $otp->user()->first();
+        $type = $otp->type;
+        $otpInputs = [
+
+            'token'=> $token,
+            'user_id'=> $user->id,
+            'otp_code'=> $otpCode,
+            'login_id'=> $otp->login_id,
+            'type'=> $type,
+        ];
+
+        $otp = Otp::create($otpInputs); 
+
+
+        // send sms or email
+        if($type == 0)
+        {
+            // send sms
+            $smsService = new SmsService();
+            $smsService->setFrom(Config('sms.otp_from'));
+            $smsService->setTo(['0'.$user->mobile]);
+            $smsService->setText("فروشگاه ستاره شمال \n کد تایید : {$otpCode}");
+            $smsService->setIsFlash(true);
+
+            $messageService = new MessageService($smsService);
+
+        }
+        elseif($type == 1)
+        {
+            //send email
+            $emailService = new EmailService();
+
+            $details = [
+
+                'title' => 'ایمیل فعالسازی برای فروشگاه ستاره شمال',
+                'body' => "کد فعالسازی : {$otpCode}",
+            ];
+
+            $emailService->setDetails($details);
+            $emailService->setFrom('noreply@nsshop.com','example');
+            $emailService->setSubject('کد احراز هویت');
+            $emailService->setTo($otp->login_id);
+
+            $messageService = new MessageService($emailService);
+
+        }
+
+        $messageService->send();
+
+        return redirect()->route('auth.customer.login-confirm-form',$token);
+
+
+    }
+
 
 
 
