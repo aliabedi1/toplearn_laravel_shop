@@ -39,7 +39,15 @@ class User extends Authenticatable
         'password',
         'status',
         'activation',
+        'slug',
+        'activation_date',
+        'user_type',
+        'current_team_id',
+        'remember_token',
+        'national_code',
         'profile_photo_path',
+        'email_verified_at',
+        'mobile_verified_at',
     ];
 
     /**
