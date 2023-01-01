@@ -26,7 +26,7 @@ class LoginRegisterController extends Controller
     public function loginRegister(LoginRegisterRequest $request)
     {
         $inputs = $request->all();
-        
+
         if (filter_var($inputs['id'] , FILTER_VALIDATE_EMAIL))
         {
             $type = 1; // 1 => email
@@ -43,12 +43,12 @@ class LoginRegisterController extends Controller
         {
             $type = 0; // 1 => phone number
 
-            // all mobile numbers are in an format like 9** *** **** 
+            // all mobile numbers are in an format like 9** *** ****
             $inputs['id'] = ltrim($inputs['id'],0); //delete left 0 from entered string
             $inputs['id'] = substr($inputs['id'],0 , 2) == '98' ? substr($inputs['id'], 2) : $inputs['id']; //remove 98 from begining of string
             $inputs['id'] = str_replace('+98' , '' ,$inputs['id']); // if entered sting has +98 remove it
 
-            
+
             $user = User::where('mobile', $inputs['id'])->first();
             if(empty($user))
             {
@@ -66,7 +66,7 @@ class LoginRegisterController extends Controller
         {
             $newUser['password'] = '98355154';
             $newUser['activation'] = 1;
-            
+
             $user = User::create($newUser);
         }
 
@@ -82,7 +82,7 @@ class LoginRegisterController extends Controller
             'type'=> $type,
         ];
 
-        $otp = Otp::create($otpInputs); 
+        $otp = Otp::create($otpInputs);
 
 
         // send sms or email
@@ -130,7 +130,7 @@ class LoginRegisterController extends Controller
         if(empty($otp))
         {
             return redirect()->route('auth.customer.login-register-form')->withErrors(['id'=>'آدرس وارد شده نا معتبر میباشد']);
-             
+
         }
 
         return view('customer.auth.login-confirm-form', compact('token','otp'));
@@ -149,14 +149,14 @@ class LoginRegisterController extends Controller
         {
             return redirect()->route('auth.customer.login-register-form',$token)->withErrors(['id'=>'آدرس وارد شده نا معتبر میباشد']);
         }
-        
+
         // if otp not match (entered wrong)
         if($otp->otp_code !== $inputs['otp'])
         {
             return redirect()->route('auth.customer.login-confirm-form',$token)->withErrors(['otp'=>'کد وارد شده صحیح نمی باشد']);
         }
 
-        // if everything was right and fine 
+        // if everything was right and fine
         $otp->update(['used' => 1]);
 
         // confirming mobile or email address for the user that owns otp
@@ -165,7 +165,7 @@ class LoginRegisterController extends Controller
         {
             $user->update(['mobile_verified_at' => Carbon::now()->toDateTimeString()]);
         }
-        elseif ($otp->type == 1 && empty($user->email_verified_at)) 
+        elseif ($otp->type == 1 && empty($user->email_verified_at))
         {
             $user->update(['email_verified_at' => Carbon::now()->toDateTimeString()]);
         }
@@ -179,16 +179,16 @@ class LoginRegisterController extends Controller
 
     public function loginResendOtp($token)
     {
-        
+
         $otp = Otp::where('token' ,$token)->where('created_at' , '<=' , Carbon::now()->subMinutes(5)->toDateTimeString())->first();
-        
+
         // if old otp found or not
         if(empty($otp))
         {
             return redirect()->route('auth.customer.login-register-form',$token)->withErrors(['id'=>'آدرس وارد شده نا معتبر میباشد']);
         }
-        
-        
+
+
 
         // create OTP code
         $otpCode = rand(111111,999999);
@@ -204,7 +204,7 @@ class LoginRegisterController extends Controller
             'type'=> $type,
         ];
 
-        $otp = Otp::create($otpInputs); 
+        $otp = Otp::create($otpInputs);
 
 
         // send sms or email
@@ -261,6 +261,4 @@ class LoginRegisterController extends Controller
 
 
 
-
-    
 }

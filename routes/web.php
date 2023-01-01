@@ -297,6 +297,19 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 
         });
 
+        //banner
+        Route::prefix('banner')->group(function(){
+            
+            Route::get('/', 'BannnerController@index')->name('admin.content.banner.index');
+            Route::get('/create', 'BannnerController@create')->name('admin.content.banner.create');
+            Route::post('/store', 'BannnerController@store')->name('admin.content.banner.store');
+            Route::get('/edit/{banner}', 'BannnerController@edit')->name('admin.content.banner.edit');
+            Route::put('/update/{banner}', 'BannnerController@update')->name('admin.content.banner.update');
+            Route::delete('/destroy/{banner}', 'BannnerController@destroy')->name('admin.content.banner.destroy');
+            Route::get('/status/{banner}', 'BannnerController@status')->name('admin.content.banner.status');
+
+        });
+
 
 
     });

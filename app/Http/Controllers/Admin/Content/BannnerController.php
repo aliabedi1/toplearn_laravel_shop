@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Content;
 
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Content\PostCategory;
+use App\Http\Requests\Admin\Content\BannerRequest;
 use App\Http\Services\Image\ImageService;
-use App\Http\Requests\Admin\Content\PostCategoryRequest;
-use App\Http\Services\Image\ImageCacheService;
+use App\Models\Content\Banner;
+use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class BannnerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +17,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-
-        $postCategories = PostCategory::orderBy('created_at', 'desc')->simplePaginate(15);
-        return view('admin.content.category.index', compact('postCategories'));
+        $banners = Banner::orderBy('created_at', 'desc')->simplePaginate(15);
+        return view('admin.content.banner.index' , compact('banners'));
     }
 
     /**
@@ -31,9 +28,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        // $imageCache = new ImageCacheService();
-        // return $imageCache->cache('1.png');
-        return view('admin.content.category.create');
+        return view('admin.content.banner.create');
+        
     }
 
     /**
@@ -42,31 +38,28 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostCategoryRequest $request, ImageService $imageService)
+    public function store(BannerRequest $request , ImageService $imageService)
     {
+        
         $inputs = $request->all();
-
         //image
         if($request->hasFile('image'))
         {
-            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'post-category');
-            // $result = $imageService->save($request->file('image'));
-            // $result = $imageService->fitAndSave($request->file('image'), 600, 150);
-            // exit;
+            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'banner');
             $result = $imageService->createIndexAndSave($request->file('image'));
             
             if($result === false)
             {
-                return redirect()->route('admin.content.category.index')->with('swal-error', 'آپلود تصویر با خطا مواجه شد');
+                return redirect()->route('admin.content.banner.index')->with('swal-error', 'آپلود تصویر با خطا مواجه شد');
             }
             $inputs['image'] = $result;
         }
-        
         //end image
 
+        $banner = Banner::create($inputs);
+        return redirect()->route('admin.content.banner.index')->with('swal-success', 'بنر جدید با موفقیت ثبت شد');
 
-        $postCategory = PostCategory::create($inputs);
-        return redirect()->route('admin.content.category.index')->with('swal-success', 'دسته بندی جدید شما با موفقیت ثبت شد');
+
 
     }
 
@@ -87,10 +80,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(PostCategory $postCategory)
+    public function edit(Banner $banner)
     {
-        
-        return view('admin.content.category.edit', compact('postCategory'));
+        return view('admin.content.banner.edit', compact('banner'));
     }
 
     /**
@@ -100,17 +92,17 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PostCategoryRequest $request, PostCategory $postCategory, ImageService $imageService)
+    public function update(BannerRequest $request, Banner $banner , ImageService $imageService)
     {
         $inputs = $request->all();
 
         if($request->hasFile('image'))
         {
-            if(!empty($postCategory->image))
+            if(!empty($banner->image))
             {
-                $imageService->deleteDirectoryAndFiles($postCategory->image['directory']);
+                $imageService->deleteDirectoryAndFiles($banner->image['directory']);
             }
-            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'post-category');
+            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'banner');
             $result = $imageService->createIndexAndSave($request->file('image'));
             if($result === false)
             {
@@ -119,15 +111,17 @@ class CategoryController extends Controller
             $inputs['image'] = $result;
         }
         else{
-            if(isset($inputs['currentImage']) && !empty($postCategory->image))
+            if(isset($inputs['currentImage']) && !empty($banner->image))
             {
-                $image = $postCategory->image;
+                $image = $banner->image;
                 $image['currentImage'] = $inputs['currentImage'];
                 $inputs['image'] = $image;
             }
         }
-        $postCategory->update($inputs);
-        return redirect()->route('admin.content.category.index')->with('swal-success', 'دسته بندی شما با موفقیت ویرایش شد');
+        $banner->update($inputs);
+        return redirect()->route('admin.content.banner.index')->with('swal-success', 'بنر شما با موفقیت ویرایش شد');
+    
+
     }
 
     /**
@@ -136,19 +130,23 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PostCategory $postCategory)
+    public function destroy(Banner $banner)
     {
-       $result = $postCategory->delete();
-       return redirect()->route('admin.content.category.index')->with('swal-success', 'دسته بندی شما با موفقیت حذف شد');
+        
+        $result = $banner->delete();
+        return redirect()->route('admin.content.banner.index')->with('swal-success', 'منوی شما با موفقیت حذف شد');
+    
     }
 
 
-    public function status(PostCategory $postCategory){
 
-        $postCategory->status = $postCategory->status == 0 ? 1 : 0;
-        $result = $postCategory->save();
+    
+    public function status(Banner $banner){
+
+        $banner->status = $banner->status == 0 ? 1 : 0;
+        $result = $banner->save();
         if($result){
-                if($postCategory->status == 0){
+                if($banner->status == 0){
                     return response()->json(['status' => true, 'checked' => false]);
                 }
                 else{
