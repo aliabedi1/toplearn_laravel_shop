@@ -10,7 +10,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
         <li class="breadcrumb-item font-size-12"> <a href="#">بخش محتوی</a></li>
-        <li class="breadcrumb-item font-size-12 active" aria-current="page"> بنر</li>
+        <li class="breadcrumb-item font-size-12 active" aria-current="page"> بنر ها</li>
     </ol>
   </nav>
 
@@ -20,7 +20,7 @@
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h5>
-                    بنر
+                    بنر ها
                 </h5>
             </section>
 
