@@ -490,24 +490,24 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 
     });
 
-
-
+    
     Route::post('/notification/read-all', 'NotificationController@readAll')->name('admin.notification.read-all');
-
-
 
 });
 
 
-Route::get('/', function(){
-    return view('customer.home');
-})->name('customer.home');
+
+// customer folder 
+Route::namespace('Customer')->group(function(){
+
+    Route::get('/', 'HomeController@home')->name('customer.home');
+});
 
 
 
 
 
-
+// auth folder
 Route::namespace('Auth')->group(function (){
 
     //customer folder

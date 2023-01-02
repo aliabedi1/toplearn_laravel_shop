@@ -27,20 +27,20 @@ class BannerRequest extends FormRequest
         {
             return [
                 'title' => 'required|max:150|min:2|regex:/^[ا-ی0-9\-۰-۹ء-ي., ]+$/u',
-                'url' => 'required|max:500|min:5|regex:/^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-z-A-Z-0-9]\.[a-zA-Z]{2,}+$/u',
+                'url' => 'required|max:500|min:5|url',
                 'status' => 'required|numeric|in:0,1',
                 'image' => 'required|image|mimes:png,jpg,jpeg,gif',
-                'position' => 'required|numeric',
+                'position' => 'required|numeric|in:0,1,2,3',
             ];
         }
         else
         {
             return [
                 'title' => 'required|max:150|min:2|regex:/^[ا-ی0-9\-۰-۹ء-ي., ]+$/u',
-                'url' => 'required|max:500|min:5|regex:/^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-z-A-Z-0-9]\.[a-zA-Z]{2,}+$/u',
+                'url' => 'required|max:500|min:5|url',
                 'status' => 'required|numeric|in:0,1',
                 'image' => 'image|mimes:png,jpg,jpeg,gif',
-                'position' => 'required|numeric',
+                'position' => 'required|numeric|in:0,1,2,3',
             ];
         }
     }

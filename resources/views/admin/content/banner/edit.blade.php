@@ -52,58 +52,7 @@
                         </section>
 
 
-                        <section class="col-12 col-md-6 my-2">
-                            <div class="form-group">
-                                <label for="image">تصویر</label>
-                                <input type="file" class="form-control form-control-sm" name="image" id="image">
-                            </div>
-                            @error('image')
-                            <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                <strong>
-                                    {{ $message }}
-                                </strong>
-                            </span>
-                            @enderror
-
-                            
-                            <section class="row">
-                                @php
-                                    $number = 1;
-                                    @endphp
-                                @foreach ($banner->image['indexArray'] as $key => $value )
-                                <section class="col-md-{{ 6 / $number }}">
-                                    <div class="form-check">
-                                        <input type="radio" class="form-check-input" name="currentImage" value="{{ $key }}" id="{{ $number }}" @if($banner->image['currentImage'] == $key) checked @endif>
-                                        <label for="{{ $number }}" class="form-check-label mx-2">
-                                            <img src="{{ asset($value) }}" class="w-100" alt="">
-                                        </label>
-                                    </div>
-                                </section>
-                                @php
-                                    $number++;
-                                @endphp
-                                @endforeach
-
-                            
-                            </section>
-                        </section>
-
-
-
-                        <section class="col-12 col-md-6 my-2">
-                            <div class="form-group">
-                                <label for="">آدرس URL</label>
-                                <input type="text" name="url" class="form-control form-control-sm" value="{{ old('url',$banner->url) }}">
-                            </div>
-                            @error('url')
-                            <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                <strong>
-                                    {{ $message }}
-                                </strong>
-                            </span>
-                            @enderror
                         
-                        </section>
 
                         <section class="col-12 col-md-6 my-2">
                             <div class="form-group">
@@ -122,11 +71,52 @@
                             @enderror
                         </section>
 
+
+
+
+                        <section class="col-12 col-md-6 my-2">
+                            <div class="form-group">
+                                <label for="">آدرس URL</label>
+                                <input type="text" name="url" class="form-control form-control-sm" value="{{ old('url',$banner->url) }}">
+                            </div>
+                            @error('url')
+                            <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                <strong>
+                                    {{ $message }}
+                                </strong>
+                            </span>
+                            @enderror
                         
+                        </section>
+
+
+                        <section class="col-12 col-md-6 my-2">
+                            <div class="form-group">
+                                <label for="image">تصویر</label>
+                                <input type="file" class="form-control form-control-sm" name="image" id="image">
+                            </div>
+                            @error('image')
+                            <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                <strong>
+                                    {{ $message }}
+                                </strong>
+                            </span>
+                            @enderror
+                        </section>
+
+
+
+
                         <section class="col-12 col-md-6 my-2">
                             <div class="form-group">
                                 <label for="position">موقعیت</label>
-                                <input id="position" name="position" type="text" class="form-control form-control-sm" value="{{ old('position',$banner->position) }}">
+                                <select name="position" id="" class="form-control form-control-sm" id="position">
+                                    @foreach ($positions as $key => $position )
+                                        
+                                        <option value="{{ $key }}" @if(old('position',$banner->position) == $key) selected @endif>{{ $position }}</option>
+
+                                    @endforeach
+                                </select>
                             </div>
                             @error('position')
                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -136,7 +126,11 @@
                             </span>
                             @enderror
                         </section>
-                      
+
+
+
+                    
+                    
                         <section class="col-12 my-2">
                             <button class="btn btn-primary btn-sm">ثبت</button>
                         </section>
