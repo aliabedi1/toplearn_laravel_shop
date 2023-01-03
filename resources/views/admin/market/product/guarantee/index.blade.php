@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-<title>رنگ ها</title>
+<title>گارانتی ها</title>
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
       <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">کالاها</a></li>
-      <li class="breadcrumb-item font-size-12 active" aria-current="page"> رنگ ها</li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page"> گارانتی ها</li>
     </ol>
   </nav>
 
@@ -21,12 +21,12 @@
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h5>
-                    رنگ ها
+                    گارانتی ها
                 </h5>
             </section>
 
             <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
-                <a href="{{ route('admin.market.color.create' , $product->id) }}" class="btn btn-info btn-sm">ایجاد رنگ جدید</a>
+                <a href="{{ route('admin.market.guarantee.create' , $product->id) }}" class="btn btn-info btn-sm">ایجاد گارانتی جدید</a>
                 <div class="max-width-16-rem">
                     <input type="text" class="form-control form-control-sm form-text" placeholder="جستجو">
                 </div>
@@ -38,27 +38,23 @@
                         <tr>
                             <th>#</th>
                             <th>نام کالا</th>
-                            <th>نام رنگ</th>
-                            <th>رنگ</th>
+                            <th>نام گارانتی</th>
                             <th>افزایش قیمت</th>
                             <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                         </tr>
                     </thead>
                     <tbody>
                     
-                        @foreach ($product->colors as $color)
+                        @foreach ($product->guarantees as $guarantee)
                             
                         <tr>
                             <th>{{ $loop->iteration }}</th>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $color->color_name }}</td>
-                            <td>
-                                <div style="background-color: {{ $color->color }};" class="product-circle-colors me-1" ></div>
-                            </td>
-                            <td>{{ $color->price_increase }}</td>
+                            <td>{{ $guarantee->name }}</td>
+                            <td>{{ $guarantee->price_increase }}</td>
                             <td class="width-22-rem text-left">
 
-                                <form class="d-inline" action="{{ route('admin.market.color.destroy' , [$product->id , $color->id]) }}" method="POST">
+                                <form class="d-inline" action="{{ route('admin.market.guarantee.destroy' , [$product->id , $guarantee->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <button class="btn btn-danger btn-sm delete" type="submit"><i class="fa fa-trash-alt"></i> حذف</button>

@@ -70,5 +70,11 @@ class Product extends Model
     {
         return $this->hasMany(OrderItem::class , 'product_id');
     }
+
+    
+    public function guarantees()
+    {
+        return $this->hasMany(Guarantee::class , 'product_id');
+    }
     
 }

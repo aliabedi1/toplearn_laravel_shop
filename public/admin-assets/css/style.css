@@ -214,3 +214,12 @@
 .z-index-highest {
 	z-index: 9999;
 }
+
+.product-circle-colors{
+	height: 25px;
+  	width: 25px;
+  	background-color: #bbb;
+ 	border-radius: 50%;
+  	display: inline-block;
+
+}

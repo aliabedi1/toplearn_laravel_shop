@@ -173,6 +173,14 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::post('/gallery/{product}/store', 'GalleryController@store')->name('admin.market.gallery.store');
             Route::delete('/gallery/destroy/{product}/{productGallery}', 'GalleryController@destroy')->name('admin.market.gallery.destroy');
 
+
+
+            //guarantee
+            Route::get('/guarantee/{product}', 'GuaranteeController@index')->name('admin.market.guarantee.index');
+            Route::get('/guarantee/{product}/create', 'GuaranteeController@create')->name('admin.market.guarantee.create');
+            Route::post('/guarantee/{product}/store', 'GuaranteeController@store')->name('admin.market.guarantee.store');
+            Route::delete('/guarantee/destroy/{product}/{productguarantee}', 'GuaranteeController@destroy')->name('admin.market.guarantee.destroy');
+
         });
 
 
