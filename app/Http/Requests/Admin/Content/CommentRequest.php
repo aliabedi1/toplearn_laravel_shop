@@ -25,7 +25,7 @@ class CommentRequest extends FormRequest
     {
         return [
             
-            'body' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,?؟ ]+$/u',
+            'body' => 'required|max:500|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,?؟ ]+$/u',
         ];
     }
 }

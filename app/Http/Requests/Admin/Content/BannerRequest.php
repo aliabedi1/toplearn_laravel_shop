@@ -26,7 +26,7 @@ class BannerRequest extends FormRequest
         if($this->isMethod('post'))
         {
             return [
-                'title' => 'required|max:150|min:2|regex:/^[ا-ی0-9\-۰-۹ء-ي., ]+$/u',
+                'title' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,?؟ ]+$/u',
                 'url' => 'required|max:500|min:5|url',
                 'status' => 'required|numeric|in:0,1',
                 'image' => 'required|image|mimes:png,jpg,jpeg,gif',
@@ -36,7 +36,7 @@ class BannerRequest extends FormRequest
         else
         {
             return [
-                'title' => 'required|max:150|min:2|regex:/^[ا-ی0-9\-۰-۹ء-ي., ]+$/u',
+                'title' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,?؟ ]+$/u',
                 'url' => 'required|max:500|min:5|url',
                 'status' => 'required|numeric|in:0,1',
                 'image' => 'image|mimes:png,jpg,jpeg,gif',
