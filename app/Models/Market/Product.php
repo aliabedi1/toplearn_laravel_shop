@@ -2,6 +2,7 @@
 
 namespace App\Models\Market;
 
+use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -60,7 +61,7 @@ class Product extends Model
     }
 
     
-    public function amazingDiscount()
+    public function amazingDiscounts()
     {
         return $this->hasMany(AmazingDiscount::class,'product_id');
     }
@@ -77,4 +78,10 @@ class Product extends Model
         return $this->hasMany(Guarantee::class , 'product_id');
     }
     
+
+    public function getActiveAmazingDiscountAttribute()
+    {
+        return $this->amazingDiscounts()->where('start_date', '<=', Carbon::now())->where('status', 1)->where('end_date', '>=', Carbon::now())->orderBy('id', 'desc')->first();
+    }
+
 }
