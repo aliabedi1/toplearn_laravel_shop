@@ -27,8 +27,8 @@ return [
         ],
         
         'medium' => [
-            'width'=> 400,
-            'height'=> 300,
+            'width'=> 350,
+            'height'=> 350,
         ],
         
         'small' => [

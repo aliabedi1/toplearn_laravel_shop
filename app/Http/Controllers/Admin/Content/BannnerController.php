@@ -103,7 +103,7 @@ class BannnerController extends Controller
         {
             if(!empty($banner->image))
             {
-                $imageService->deleteDirectoryAndFiles($banner->image);
+                $imageService->deleteImage($banner->image);
             }
             $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'banner');
             $result = $imageService->Save($request->file('image'));

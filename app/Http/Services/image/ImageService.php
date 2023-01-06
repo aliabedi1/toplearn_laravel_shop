@@ -71,7 +71,7 @@ class ImageService extends ImageToolsService
                 }
                 else if($sizeAlias == 'medium')
                 {
-                    $result = Image::make($image->getRealPath())->fit(400,300)->save(public_path($this->getImageAddress()), null, $this->getImageFormat());
+                    $result = Image::make($image->getRealPath())->fit(350,350)->save(public_path($this->getImageAddress()), null, $this->getImageFormat());
                 }
                 else if($sizeAlias == 'small')
                 {
