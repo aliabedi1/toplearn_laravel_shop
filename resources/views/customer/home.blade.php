@@ -74,7 +74,7 @@
                                             <section class="product">
                                                 {{-- <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>
                                                 <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section> --}}
-                                                <a class="product-link" href="#">
+                                                <a class="product-link" href="{{ route('customer.market.product.index' , $mostVisitedProduct->slug ) }}">
                                                     <section class="product-image">
                                                         <img class="" src="{{ asset($mostVisitedProduct->image['indexArray']['medium']) }}" alt="{{ $mostVisitedProduct->name }}">
                                                     </section>
@@ -164,7 +164,7 @@
                                             <section class="product">
                                                 {{-- <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>
                                                 <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section> --}}
-                                                <a class="product-link" href="#">
+                                                <a class="product-link" href="{{ route('customer.market.product.index' , $offeredProduct->slug ) }}">
                                                     <section class="product-image">
                                                         <img class="" src="{{ asset($offeredProduct->image['indexArray']['medium']) }}" alt="{{ $offeredProduct->name }}">
                                                     </section>

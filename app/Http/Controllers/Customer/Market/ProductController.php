@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Customer\Market;
 
 use App\Http\Controllers\Controller;
 use App\Models\Market\Product;
-use Facade\FlareClient\View;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller

@@ -49,7 +49,7 @@ class Product extends Model
         return $this->hasMany(ProductColor::class,'product_id');
     }
 
-    public function galleries()
+    public function images()
     {
         return $this->hasMany(ProductGallery::class,'product_id');
     }

@@ -2,11 +2,12 @@
 
 namespace App\Providers;
 
-use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\RateLimiter;
+use App\Models\Market\Product;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -36,6 +37,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        // adding another key to route model bindings to have multiple keys 
+        Route::bind('product', function($value) {
+            return Product::where('id', $value)->orWhere('slug', $value)->first();
+        });
+
         $this->configureRateLimiting();
 
         $this->routes(function () {
