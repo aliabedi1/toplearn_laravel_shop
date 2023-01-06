@@ -32,6 +32,11 @@
 
     @include('customer.layouts.script')
     @yield('script')
+
+
+    
+    @include('customer.alerts.sweetalert.success')
+    @include('customer.alerts.sweetalert.error')
 </body>
 
 </html>

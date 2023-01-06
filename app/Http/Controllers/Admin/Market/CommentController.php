@@ -126,11 +126,11 @@ class CommentController extends Controller
         $result = $comment->save();
         if($result){
             
-            return redirect()->route('admin.market.comment.index')->with('swal-success', 'وضعیت نظر با موفقیت تغییر کرد');;
+            return redirect()->route('admin.market.comment.index')->with('swal-success', 'نظر با موفقیت تایید شد');;
         }
         else{
             
-            return redirect()->route('admin.market.comment.index')->with('swal-error', 'تغییر وضعیت نظر با خطا مواجه شد');;
+            return redirect()->route('admin.market.comment.index')->with('swal-error', 'تایید نظر با خطا مواجه شد');;
         }
 
     }

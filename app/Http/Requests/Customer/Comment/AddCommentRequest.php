@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Content;
+namespace App\Http\Requests\Customer\Comment;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CommentRequest extends FormRequest
+class AddCommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,5 +27,16 @@ class CommentRequest extends FormRequest
             
             'body' => 'required|max:1000|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,?؟ ]+$/u',
         ];
+    }
+
+
+    
+    public function attributes()
+    {
+        return [
+
+            'body' => 'متن نظر',
+        ];
+
     }
 }
