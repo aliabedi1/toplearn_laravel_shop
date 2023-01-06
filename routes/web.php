@@ -507,8 +507,17 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 
 // customer folder 
 Route::namespace('Customer')->group(function(){
-
+    
     Route::get('/', 'HomeController@home')->name('customer.home');
+
+
+
+    Route::prefix('product')->namespace('Market')->group(function(){
+
+        Route::get('/{product:slug}', 'ProductController@product')->name('customer.market.product.index');
+        Route::post('/add-comment/{product:slug}', 'ProductController@addComment')->name('customer.market.product.add-comment');
+
+    });
 });
 
 
