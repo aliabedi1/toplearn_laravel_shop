@@ -179,7 +179,7 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::get('/guarantee/{product}', 'GuaranteeController@index')->name('admin.market.guarantee.index');
             Route::get('/guarantee/{product}/create', 'GuaranteeController@create')->name('admin.market.guarantee.create');
             Route::post('/guarantee/{product}/store', 'GuaranteeController@store')->name('admin.market.guarantee.store');
-            Route::delete('/guarantee/destroy/{product}/{productguarantee}', 'GuaranteeController@destroy')->name('admin.market.guarantee.destroy');
+            Route::delete('/guarantee/destroy/{product}/{guarantee}', 'GuaranteeController@destroy')->name('admin.market.guarantee.destroy');
 
         });
 
