@@ -76,14 +76,20 @@
                                             
                                             <p>
                                                 <span>
-                                                    رنگ : قهوه ای
+                                                    رنگ انتخاب شده : <span id="selected_color_name"></span>
                                                 </span>
                                             </p>
 
                                             <p>
+
                                                 @foreach ($colors as $key => $color)
                                                     
-                                                    <span style="background-color: {{ $color->color ?? '#ffffff' }};" class="product-info-colors me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ $color->color_name }}"></span>
+                                                    <label for="{{ 'color-'. $color->id }}" style="background-color: {{ $color->color ?? '#ffffff' }};" class="product-info-colors me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ $color->color_name }}"></label>
+
+                                                    <input type="radio" name="color" id="{{ 'color-'. $color->id }}" class="d-none" value="{{ $color->id }}" data-color-name="{{ $color->color_name }}" @if($key == 0) checked @endif >
+
+
+
 
                                                 @endforeach
                                                 
@@ -524,3 +530,33 @@
 
 
 @endsection
+
+@section('script')
+    
+    <script>
+
+        $(document).ready(function () {
+            // from the beginning of the page calculate the price
+            bill();
+            //input color
+            $('input[name="color"]').change(function () {
+                
+                bill();
+            });
+            // 
+
+
+        });
+
+        function bill()
+        {
+            var selected_color = $('input[name="color"]:checked');
+            $("#selected_color_name").html(selected_color.attr('data-color-name'));
+        }
+
+    </script>
+
+
+@endsection
+
+
