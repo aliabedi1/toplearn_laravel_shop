@@ -86,7 +86,7 @@
                                                     
                                                     <label for="{{ 'color-'. $color->id }}" style="background-color: {{ $color->color ?? '#ffffff' }};" class="product-info-colors me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ $color->color_name }}"></label>
 
-                                                    <input type="radio" name="color" id="{{ 'color-'. $color->id }}" class="d-none" value="{{ $color->id }}" data-color-name="{{ $color->color_name }}" @if($key == 0) checked @endif >
+                                                    <input type="radio" name="color" id="{{ 'color-'. $color->id }}" class="d-none" value="{{ $color->id }}" data-color-name="{{ $color->color_name }}" data-color-price="{{ $color->price_increase }}"  @if($key == 0) checked @endif >
 
 
 
@@ -104,12 +104,25 @@
 
                                         @if ($guarantees->count() > 0)
 
-                                            @foreach ($guarantees as $key => $guarantee)
+                                            <p>
+                                                <i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i>
+                                                گارانتی : 
 
-                                                <p><i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i> <span> {{ $guarantee->name }}</span></p>
+                                                <select name="guarantee" id="guarantee" class="p-1">
 
-                                            @endforeach
-                                                    
+                                                    @foreach ($guarantees as $key => $guarantee)
+
+                                                        <option data-guarantee-price="{{ $guarantee->price_increase }}" value="{{ $guarantee->id }}" @if ($key == 0) selected @endif >
+
+                                                            <span>{{ $guarantee->name }}</span>
+
+                                                        </option>
+
+                                                    @endforeach
+
+                                                </select>
+                                            </p>
+
                                         @endif
 
                                         <p>
@@ -131,13 +144,21 @@
 
 
                                         <p><a class="btn btn-light  btn-sm text-decoration-none" href="#"><i class="fa fa-heart text-danger"></i> افزودن به علاقه مندی</a></p>
-                                        <section>
-                                            <section class="cart-product-number d-inline-block ">
-                                                <button class="cart-number-down" type="button">-</button>
-                                                <input class="" type="number" min="1" max="5" step="1" value="1" readonly="readonly">
-                                                <button class="cart-number-up" type="button">+</button>
+                                        
+                                        @php
+                                        // if product is not marketable or its finished dont show the price
+                                        @endphp
+                                        @if ($product->marketable != 0 && $product->marketable_number > 0)
+
+                                            <section>
+                                                <section class="cart-product-number d-inline-block ">
+                                                    <button class="cart-number cart-number-down" type="button">-</button>
+                                                    <input class="" type="number" min="1" max="{{ $product->marketable_number }}" step="1" value="1" readonly="readonly" id="number" name="number">
+                                                    <button class="cart-number cart-number-up" type="button">+</button>
+                                                </section>
                                             </section>
-                                        </section>
+                                            
+                                        @endif
                                         <p class="mb-3 mt-5">
                                             <i class="fa fa-info-circle me-1"></i>کاربر گرامی  خرید شما هنوز نهایی نشده است. برای ثبت سفارش و تکمیل خرید باید ابتدا آدرس خود را انتخاب کنید و سپس نحوه ارسال را انتخاب کنید. نحوه ارسال انتخابی شما محاسبه و به این مبلغ اضافه شده خواهد شد. و در نهایت پرداخت این سفارش صورت میگیرد. پس از ثبت سفارش کالا بر اساس نحوه ارسال که شما انتخاب کرده اید کالا برای شما در مدت زمان مذکور ارسال می گردد.
                                         </p>
@@ -159,7 +180,9 @@
 
                                         <section class="d-flex justify-content-between align-items-center">
                                             <p class="text-muted">قیمت کالا</p>
-                                            <p class="text-muted">{{ priceFormat($product->price) }} <span class="small">تومان</span></p>
+                                            <p class="text-muted">
+                                                <span id="product_price" data-product-original-price="{{ $product->price }}" >{{ priceFormat($product->price) }}</span>
+                                                <span class="small">تومان</span></p>
                                         </section>
 
                                         @php
@@ -180,7 +203,11 @@
                                             
                                             <section class="d-flex justify-content-between align-items-center">
                                                 <p class="text-muted">تخفیف کالا</p>
-                                                <p class="text-danger fw-bolder">{{ priceFormat($amazingDiscountAmount) }} <span class="small">تومان</span></p>
+                                                <p class="text-danger fw-bolder" > 
+                                                    <span id="product-discount-price" data-product-discount-price="{{ $amazingDiscountAmount }}">
+                                                        {{ priceFormat($amazingDiscountAmount) }}
+                                                    </span>
+                                                    <span class="small">تومان</span></p>
                                             </section>
 
                                         @endif
@@ -188,7 +215,10 @@
                                         <section class="border-bottom mb-3"></section>
 
                                         <section class="d-flex justify-content-end align-items-center">
-                                            <p class="fw-bolder">{{ priceFormat($product->price - $amazingDiscountAmount)  }} <span class="small">تومان</span></p>
+                                            <p class="fw-bolder">
+                                                <span id="final-price"></span>
+                                                <span class="small">تومان</span>
+                                            </p>
                                         </section>
                                         
                                     @endif
@@ -543,15 +573,70 @@
                 
                 bill();
             });
-            // 
+            //input guarantee
+            $('select[name="guarantee"]').change(function () {
+                
+                bill();
+            });
+            //input count
+            $('.cart-number').click(function () {
+
+                bill();
+            });
 
 
         });
 
         function bill()
         {
-            var selected_color = $('input[name="color"]:checked');
-            $("#selected_color_name").html(selected_color.attr('data-color-name'));
+            if($('input[name="color"]:checked').length != 0)
+            {
+                var selected_color = $('input[name="color"]:checked');
+                $("#selected_color_name").html(selected_color.attr('data-color-name'));
+            }
+
+            // price computing
+            var selected_color_price = 0;
+            var selected_guarantee_price = 0;
+            var number = 1;
+            var product_discount_price = 0;
+            var product_original_price = parseFloat($('#product_price').attr('data-product-original-price'));
+
+
+
+            if($('input[name="color"]:checked').length != 0)
+            {
+                selected_color_price = parseFloat(selected_color.attr('data-color-price'));
+            }
+
+            if($('#guarantee option:selected').length != 0)
+            {
+                selected_guarantee_price = parseFloat($('#guarantee option:selected').attr('data-guarantee-price'));
+            }
+
+            
+            if($('#number').val() > 0)
+            {
+                number = $('#number').val();
+            }
+
+            if($('#product-discount-price').length != 0)
+            {
+                product_discount_price = parseFloat($('#product-discount-price').attr('data-product-discount-price'));
+            }
+
+            var product_price = product_original_price + selected_color_price + selected_guarantee_price;
+            var product_price_after_discount = ( product_price - product_discount_price );
+            var final_price = number * product_price_after_discount;
+
+
+            $('#product_price').html(product_price);
+            $('#final-price').html(final_price);
+
+
+
+
+
         }
 
     </script>
