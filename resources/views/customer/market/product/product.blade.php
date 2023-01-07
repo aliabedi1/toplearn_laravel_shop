@@ -181,7 +181,7 @@
                                         <section class="d-flex justify-content-between align-items-center">
                                             <p class="text-muted">قیمت کالا</p>
                                             <p class="text-muted">
-                                                <span id="product_price" data-product-original-price="{{ $product->price }}" >{{ priceFormat($product->price) }}</span>
+                                                <span id="product_price" data-product-original-price="{{ $product->price }}" ></span>
                                                 <span class="small">تومان</span></p>
                                         </section>
 
@@ -204,8 +204,8 @@
                                             <section class="d-flex justify-content-between align-items-center">
                                                 <p class="text-muted">تخفیف کالا</p>
                                                 <p class="text-danger fw-bolder" > 
-                                                    <span id="product-discount-price" data-product-discount-price="{{ $amazingDiscountAmount }}">
-                                                        {{ priceFormat($amazingDiscountAmount) }}
+                                                    <span id="product-discount-price" data-product-discount-price="{{ $amazingDiscountAmount }}" data-product-discount-percentage="{{ $amazingDiscount->percent }}">
+                                                        
                                                     </span>
                                                     <span class="small">تومان</span></p>
                                             </section>
@@ -599,7 +599,7 @@
             var selected_color_price = 0;
             var selected_guarantee_price = 0;
             var number = 1;
-            var product_discount_price = 0;
+            var product_discount_percentage = parseFloat($('#product-discount-price').attr('data-product-discount-percentage'));
             var product_original_price = parseFloat($('#product_price').attr('data-product-original-price'));
 
 
@@ -620,17 +620,16 @@
                 number = $('#number').val();
             }
 
-            if($('#product-discount-price').length != 0)
-            {
-                product_discount_price = parseFloat($('#product-discount-price').attr('data-product-discount-price'));
-            }
 
+            
             var product_price = product_original_price + selected_color_price + selected_guarantee_price;
+            var product_discount_price = Math.floor( product_price * product_discount_percentage / 100 );
             var product_price_after_discount = ( product_price - product_discount_price );
             var final_price = number * product_price_after_discount;
 
-
+            console.log(product_discount_price);
             $('#product_price').html(product_price);
+            $('#product-discount-price').html(product_discount_price);
             $('#final-price').html(final_price);
 
 
