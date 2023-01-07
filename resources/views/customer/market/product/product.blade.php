@@ -627,15 +627,24 @@
             var product_price_after_discount = ( product_price - product_discount_price );
             var final_price = number * product_price_after_discount;
 
-            console.log(product_discount_price);
-            $('#product_price').html(product_price);
-            $('#product-discount-price').html(product_discount_price);
-            $('#final-price').html(final_price);
+            $('#product_price').html(toFarsiDigits(product_price));
+            $('#product-discount-price').html(toFarsiDigits(product_discount_price));
+            $('#final-price').html(toFarsiDigits(final_price));
 
 
 
 
 
+        }
+
+
+        function toFarsiDigits(number)
+        {
+            const farsiDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+            // add comma
+            number = new Intl.NumberFormat().format(number);
+            // convert number to persian
+            return number.toString().replace(/\d/g, x => farsiDigits[x]);
         }
 
     </script>
