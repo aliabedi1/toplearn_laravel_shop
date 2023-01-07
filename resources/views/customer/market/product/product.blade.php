@@ -143,40 +143,49 @@
 
                             <section class="col-md-3">
                                 <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
-                                    <section class="d-flex justify-content-between align-items-center">
-                                        <p class="text-muted">قیمت کالا</p>
-                                        <p class="text-muted">{{ priceFormat($product->price) }} <span class="small">تومان</span></p>
-                                    </section>
+                                    
+
 
                                     @php
-                                        
-                                        $amazingDiscount = $product->activeAmazingDiscount;
-
-                                        if (!empty($amazingDiscount))
-                                        {
-                                            $amazingDiscountAmount = $product->price * $amazingDiscount->percent / 100;
-                                        }
-                                        else 
-                                        {
-                                            $amazingDiscountAmount = 0;
-                                        }
+                                        // if product is not marketable or its finished dont show the price
                                     @endphp
+                                    @if ($product->marketable != 0 && $product->marketable_number > 0)
 
-                                    @if (!empty($amazingDiscount))
-                                        
                                         <section class="d-flex justify-content-between align-items-center">
-                                            <p class="text-muted">تخفیف کالا</p>
-                                            <p class="text-danger fw-bolder">{{ priceFormat($amazingDiscountAmount) }} <span class="small">تومان</span></p>
+                                            <p class="text-muted">قیمت کالا</p>
+                                            <p class="text-muted">{{ priceFormat($product->price) }} <span class="small">تومان</span></p>
                                         </section>
 
+                                        @php
+                                            
+                                            $amazingDiscount = $product->activeAmazingDiscount;
+
+                                            if (!empty($amazingDiscount))
+                                            {
+                                                $amazingDiscountAmount = $product->price * $amazingDiscount->percent / 100;
+                                            }
+                                            else 
+                                            {
+                                                $amazingDiscountAmount = 0;
+                                            }
+                                        @endphp
+
+                                        @if (!empty($amazingDiscount))
+                                            
+                                            <section class="d-flex justify-content-between align-items-center">
+                                                <p class="text-muted">تخفیف کالا</p>
+                                                <p class="text-danger fw-bolder">{{ priceFormat($amazingDiscountAmount) }} <span class="small">تومان</span></p>
+                                            </section>
+
+                                        @endif
+
+                                        <section class="border-bottom mb-3"></section>
+
+                                        <section class="d-flex justify-content-end align-items-center">
+                                            <p class="fw-bolder">{{ priceFormat($product->price - $amazingDiscountAmount)  }} <span class="small">تومان</span></p>
+                                        </section>
+                                        
                                     @endif
-
-                                    <section class="border-bottom mb-3"></section>
-
-                                    <section class="d-flex justify-content-end align-items-center">
-                                        <p class="fw-bolder">{{ priceFormat($product->price - $amazingDiscountAmount)  }} <span class="small">تومان</span></p>
-                                    </section>
-
 
 
 
