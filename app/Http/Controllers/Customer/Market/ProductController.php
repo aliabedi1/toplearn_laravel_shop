@@ -38,7 +38,29 @@ class ProductController extends Controller
 
     public function addToFavorite(Product $product)
     {
-        
+        if(Auth::check())
+        {
+            // changed the status
+            $product->users()->toggle(Auth::user()->id);
+
+            // check the status of the product and user
+            if($product->users->contains(Auth::user()->id))
+            {
+                // added
+                return response()->json(['status' => 1]);
+            }
+            else
+            {
+                // removed
+                return response()->json(['status' => 2]);
+            }
+
+        }
+        else
+        {
+            // its a guest user
+            return response()->json(['status' => 3]);
+        }
     }
 
 }
