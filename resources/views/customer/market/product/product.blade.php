@@ -305,11 +305,13 @@
                                                     </section> --}}
                                                     <section class="product-price">{{ $relatedProduct->price }} تومان</section>
                                                 </section>
-                                                {{-- <section class="product-colors">
-                                                    <section class="product-colors-item" style="background-color: white;"></section>
-                                                    <section class="product-colors-item" style="background-color: blue;"></section>
-                                                    <section class="product-colors-item" style="background-color: red;"></section>
-                                                </section> --}}
+                                                <section class="product-colors">
+                                                    @foreach ($relatedProduct->colors as $color)
+                                                        
+                                                        <section class="product-colors-item" style="background-color: {{ $color->color }};"></section>
+                                                        
+                                                    @endforeach
+                                                </section>
                                             </a>
                                         </section>
                                     </section>

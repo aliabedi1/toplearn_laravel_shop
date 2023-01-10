@@ -72,8 +72,12 @@
                                     <section class="item">
                                         <section class="lazyload-item-wrapper">
                                             <section class="product">
-                                                {{-- <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>
-                                                <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section> --}}
+                                                {{-- {{-- <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section> --}}
+                                                <section class="product-add-to-favorite">
+                                                    <button class="add_to_favorite btn btn-light text-decoration-none btn-sm" href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی">
+                                                        <i class="fa fa-heart text-dark"></i>
+                                                    </button>
+                                                </section> 
                                                 <a class="product-link" href="{{ route('customer.market.product.index' , $mostVisitedProduct->slug ) }}">
                                                     <section class="product-image">
                                                         <img class="" src="{{ asset($mostVisitedProduct->image['indexArray']['medium']) }}" alt="{{ $mostVisitedProduct->name }}">
@@ -91,11 +95,15 @@
                                                         </section> --}}
                                                         <section class="product-price">{{ $mostVisitedProduct->price }} تومان</section>
                                                     </section>
-                                                    {{-- <section class="product-colors">
-                                                        <section class="product-colors-item" style="background-color: white;"></section>
-                                                        <section class="product-colors-item" style="background-color: blue;"></section>
-                                                        <section class="product-colors-item" style="background-color: red;"></section>
-                                                    </section> --}}
+                                                    <section class="product-colors">
+                                                        
+                                                        @foreach ($mostVisitedProduct->colors as $color)
+                                                            
+                                                            <section class="product-colors-item" style="background-color: {{ $color->color }};"></section>
+                                                            
+                                                        @endforeach
+
+                                                    </section>
                                                 </a>
                                             </section>
                                         </section>
@@ -181,11 +189,14 @@
                                                         </section> --}}
                                                         <section class="product-price">{{ $offeredProduct->price }} تومان</section>
                                                     </section>
-                                                    {{-- <section class="product-colors">
-                                                        <section class="product-colors-item" style="background-color: white;"></section>
-                                                        <section class="product-colors-item" style="background-color: blue;"></section>
-                                                        <section class="product-colors-item" style="background-color: red;"></section>
-                                                    </section> --}}
+                                                    <section class="product-colors">
+
+                                                        @foreach ($offeredProduct->colors as $color)
+                                                            
+                                                            <section class="product-colors-item" style="background-color: {{ $color->color }};"></section>
+                                                            
+                                                        @endforeach
+                                                    </section>
                                                 </a>
                                             </section>
                                         </section>
@@ -269,4 +280,17 @@
 
 
 
+@endsection
+
+@section('script')
+
+    <script>
+            
+            $('.add_to_favorite').click(function(){
+
+                
+            });
+
+    </script>
+    
 @endsection

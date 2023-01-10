@@ -91,4 +91,5 @@ class Product extends Model
         return $this->comments()->where('status', 1)->where('approved', 1)->whereNull('parent_id')->orderBy('created_at', 'desc')->get();
     }
 
+
 }

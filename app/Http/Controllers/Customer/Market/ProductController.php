@@ -36,4 +36,9 @@ class ProductController extends Controller
 
     }
 
+    public function addToFavorite(Product $product)
+    {
+        
+    }
+
 }
