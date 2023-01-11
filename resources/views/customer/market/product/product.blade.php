@@ -143,8 +143,36 @@
                                         </p>
 
 
-                                        <p><a class="btn btn-light  btn-sm text-decoration-none" href="#"><i class="fa fa-heart text-danger"></i> افزودن به علاقه مندی</a></p>
-                                        
+
+                                        <p>
+                                            <button class="btn btn-light  btn-sm text-decoration-none" data-url="{{ route('customer.market.product.add-to-favorite',$product) }}" id="add_to_favorite" href="#">
+                                                
+                                                @guest    
+
+                                                    <i class="fa fa-heart text-dark"></i> <span id="add-to-favorite-span">افزودن به علاقه مندی</span>
+
+                                                @endguest
+
+
+                                                @auth
+
+                                                    @if ($product->users->contains(auth()->user()->id))
+
+                                                        <i class="fa fa-heart text-danger"></i> <span id="add-to-favorite-span">حذف از علاقه مندی ها</span>
+
+                                                    @else
+
+                                                        <i class="fa fa-heart text-dark"></i> <span id="add-to-favorite-span">افزودن به علاقه مندی</span>
+
+                                                    @endif
+
+
+                                                @endauth
+
+                                            </button>
+                                        </p>
+
+
                                         @php
                                         // if product is not marketable or its finished dont show the price
                                         @endphp
@@ -286,8 +314,39 @@
                                 <section class="item">
                                     <section class="lazyload-item-wrapper">
                                         <section class="product">
-                                            {{-- <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>
-                                            <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section> --}}
+                                            {{-- <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section> --}}
+                                            @guest
+                                                    
+                                                    <section class="product-add-to-favorite">
+                                                        <button class=" btn btn-light text-decoration-none btn-sm" data-url="{{ route('customer.market.product.add-to-favorite',$relatedProduct) }}" href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی">
+                                                            <i class="fa fa-heart text-dark"></i>
+                                                        </button>
+                                                    </section> 
+
+                                                @endguest
+
+                                                @auth
+                                                    
+                                                    @if ($relatedProduct->users->contains(auth()->user()->id))
+                                                        
+
+                                                        <section class="product-add-to-favorite">
+                                                            <button class=" btn btn-light text-decoration-none btn-sm" data-url="{{ route('customer.market.product.add-to-favorite',$relatedProduct) }}" href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="حذف از علاقه مندی">
+                                                                <i class="fa fa-heart text-danger"></i>
+                                                            </button>
+                                                        </section> 
+                                                        
+                                                    @else
+                                                        
+                                                        <section class="product-add-to-favorite">
+                                                            <button class=" btn btn-light text-decoration-none btn-sm" data-url="{{ route('customer.market.product.add-to-favorite',$relatedProduct) }}" href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی">
+                                                                <i class="fa fa-heart text-dark"></i>
+                                                            </button>
+                                                        </section> 
+                                                        
+                                                    @endif
+
+                                                @endauth
                                             <a class="product-link" href="{{ route('customer.market.product.index' , $relatedProduct->slug ) }}">
                                                 <section class="product-image">
                                                     <img class="" src="{{ asset($relatedProduct->image['indexArray']['medium']) }}" alt="{{ $relatedProduct->name }}">
@@ -561,6 +620,11 @@
         <!-- end description, features and comments -->
 
 
+
+
+@include('customer.alerts.toast.login-signup')
+
+
 @endsection
 
 @section('script')
@@ -648,6 +712,65 @@
             // convert number to persian
             return number.toString().replace(/\d/g, x => farsiDigits[x]);
         }
+
+    
+                
+        $('.product-add-to-favorite button').click(function(){
+
+            var url = $(this).attr('data-url');
+            var element = $(this);
+            $.ajax({
+                url : url,
+                success : function(result){
+                    if (result.status == 1)
+                    {
+                        $(element).children().first().removeClass('text-dark');
+                        $(element).children().first().addClass('text-danger');
+                        $(element).attr('data-original-title', 'حذف از علاقه مندی ها');
+                        $(element).attr('data-bs-original-title', 'حذف از علاقه مندی ها');
+                    }
+                    else if(result.status == 2 )
+                    {
+                        $(element).children().first().removeClass('text-danger');
+                        $(element).children().first().addClass('text-dark');
+                        $(element).attr('data-original-title', 'افزودن به علاقه مندی ها');
+                        $(element).attr('data-bs-original-title', 'افزودن به علاقه مندی ها');
+                    }
+                    else if (result.status == 3 )
+                    {
+                        $('.toast').toast('show');
+                    }
+                }
+            });
+        });
+
+
+        $('#add_to_favorite').click(function(){
+
+        var url = $(this).attr('data-url');
+        var element = $(this);
+        $.ajax({
+            url : url,
+            success : function(result){
+                if (result.status == 1)
+                {
+                    $(element).children().first().removeClass('text-dark');
+                    $(element).children().first().addClass('text-danger');
+                    $('#add-to-favorite-span').html('حذف از علاقه مندی ها');
+                }
+                else if(result.status == 2 )
+                {
+                    $(element).children().first().removeClass('text-danger');
+                    $(element).children().first().addClass('text-dark');
+                    $('#add-to-favorite-span').html('افزودن به علاقه مندی');
+                }
+                else if (result.status == 3 )
+                {
+                    $('.toast').toast('show');
+                }
+            }
+        });
+        });
 
     </script>
 

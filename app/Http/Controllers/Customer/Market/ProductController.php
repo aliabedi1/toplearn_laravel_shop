@@ -12,7 +12,6 @@ use App\Http\Requests\Customer\Comment\AddCommentRequest;
 class ProductController extends Controller
 {
     
-
     public function product(Product $product)
     {
         $relatedProducts = Product::all();
