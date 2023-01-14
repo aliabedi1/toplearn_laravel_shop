@@ -34,13 +34,11 @@ class CartController extends Controller
             if(!isset($request->color))
             {
                 $request->color = null;
-                
             }
 
             if(!isset($request->guarantee))
             {
                 $request->guarantee = null;
-                
             }
 
             foreach ($cartItems as $cartItem)
@@ -50,7 +48,7 @@ class CartController extends Controller
                     // if the same product selected number is not in the cart update it
                     if($cartItem->number != $request->number)
                     {
-                        $cartItem->update(['numer' => $request->number]);
+                        $cartItem->update(['number' => $request->number]);
                     }
                     return back();
                 }
@@ -61,8 +59,8 @@ class CartController extends Controller
             $inputs['user_id'] = auth()->user()->id;
             $inputs['product_id'] = $product->id;
 
-            CartItem::craete($inputs);
-            return back();
+            CartItem::create($inputs);
+            return back()->with('name','محصول مورد نظر با موفقیت به سبد خرید اضافه شد');
         }
         else
         {

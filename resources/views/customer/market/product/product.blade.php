@@ -65,131 +65,135 @@
                                             </section>
                                         </section>
                                     </section>
+
+
                                     <section class="product-info">
+                                        <form class="product-info" id="add_to_cart" action="{{ route('customer.sales-process.add-to-cart' , $product) }}" method="POST">    
+                                        @csrf
 
-                                        @php
-                                            $colors = $product->colors;
-                                        @endphp
-
-
-                                        @if ($colors->count() > 0)
-                                            
-                                            <p>
-                                                <span>
-                                                    رنگ انتخاب شده : <span id="selected_color_name"></span>
-                                                </span>
-                                            </p>
-
-                                            <p>
-
-                                                @foreach ($colors as $key => $color)
-                                                    
-                                                    <label for="{{ 'color-'. $color->id }}" style="background-color: {{ $color->color ?? '#ffffff' }};" class="product-info-colors me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ $color->color_name }}"></label>
-
-                                                    <input type="radio" name="color" id="{{ 'color-'. $color->id }}" class="d-none" value="{{ $color->id }}" data-color-name="{{ $color->color_name }}" data-color-price="{{ $color->price_increase }}"  @if($key == 0) checked @endif >
+                                            @php
+                                                $colors = $product->colors;
+                                            @endphp
 
 
-
-
-                                                @endforeach
+                                            @if ($colors->count() > 0)
                                                 
-                                            </p>
+                                                <p>
+                                                    <span>
+                                                        رنگ انتخاب شده : <span id="selected_color_name"></span>
+                                                    </span>
+                                                </p>
 
-                                        @endif
+                                                <p>
+
+                                                    @foreach ($colors as $key => $color)
+                                                        
+                                                        <label for="{{ 'color-'. $color->id }}" style="background-color: {{ $color->color ?? '#ffffff' }};" class="product-info-colors me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ $color->color_name }}"></label>
+
+                                                        <input type="radio" name="color" id="{{ 'color-'. $color->id }}" class="d-none" value="{{ $color->id }}" data-color-name="{{ $color->color_name }}" data-color-price="{{ $color->price_increase }}"  @if($key == 0) checked @endif >
 
 
-                                        @php
-                                            $guarantees = $product->guarantees;
-                                        @endphp
 
-                                        @if ($guarantees->count() > 0)
-
-                                            <p>
-                                                <i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i>
-                                                گارانتی : 
-
-                                                <select name="guarantee" id="guarantee" class="p-1">
-
-                                                    @foreach ($guarantees as $key => $guarantee)
-
-                                                        <option data-guarantee-price="{{ $guarantee->price_increase }}" value="{{ $guarantee->id }}" @if ($key == 0) selected @endif >
-
-                                                            <span>{{ $guarantee->name }}</span>
-
-                                                        </option>
 
                                                     @endforeach
-
-                                                </select>
-                                            </p>
-
-                                        @endif
-
-                                        <p>
-                                            @if ($product->marketable == 0)
-                                            
-                                                <i class="fa fa-ban cart-product-selected-store me-1"></i> <span style="color: red">کالا ناموجود است</span>
-
-                                            @elseif ($product->marketable_number > 0)
-
-                                                <i class="fa fa-store-alt cart-product-selected-store me-1"></i> <span>کالا موجود در انبار</span>
-                                            
-                                            @else
-                                            
-                                                <i class="fa fa-ban cart-product-selected-store me-1"></i> <span style="color: red">کالا ناموجود است</span>
+                                                    
+                                                </p>
 
                                             @endif
 
-                                        </p>
 
+                                            @php
+                                                $guarantees = $product->guarantees;
+                                            @endphp
 
+                                            @if ($guarantees->count() > 0)
 
-                                        <p>
-                                            <button class="btn btn-light  btn-sm text-decoration-none" data-url="{{ route('customer.market.product.add-to-favorite',$product) }}" id="add_to_favorite" href="#">
+                                                <p>
+                                                    <i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i>
+                                                    گارانتی : 
+
+                                                    <select name="guarantee" id="guarantee" class="p-1">
+
+                                                        @foreach ($guarantees as $key => $guarantee)
+
+                                                            <option data-guarantee-price="{{ $guarantee->price_increase }}" value="{{ $guarantee->id }}" @if ($key == 0) selected @endif >
+
+                                                                <span>{{ $guarantee->name }}</span>
+
+                                                            </option>
+
+                                                        @endforeach
+
+                                                    </select>
+                                                </p>
+
+                                            @endif
+
+                                            <p>
+                                                @if ($product->marketable == 0)
                                                 
-                                                @guest    
+                                                    <i class="fa fa-ban cart-product-selected-store me-1"></i> <span style="color: red">کالا ناموجود است</span>
 
-                                                    <i class="fa fa-heart text-dark"></i> <span id="add-to-favorite-span">افزودن به علاقه مندی</span>
+                                                @elseif ($product->marketable_number > 0)
 
-                                                @endguest
+                                                    <i class="fa fa-store-alt cart-product-selected-store me-1"></i> <span>کالا موجود در انبار</span>
+                                                
+                                                @else
+                                                
+                                                    <i class="fa fa-ban cart-product-selected-store me-1"></i> <span style="color: red">کالا ناموجود است</span>
+
+                                                @endif
+
+                                            </p>
 
 
-                                                @auth
 
-                                                    @if ($product->users->contains(auth()->user()->id))
-
-                                                        <i class="fa fa-heart text-danger"></i> <span id="add-to-favorite-span">حذف از علاقه مندی ها</span>
-
-                                                    @else
+                                            <p>
+                                                <button class="btn btn-light  btn-sm text-decoration-none" data-url="{{ route('customer.market.product.add-to-favorite',$product) }}" id="add_to_favorite" href="#">
+                                                    
+                                                    @guest    
 
                                                         <i class="fa fa-heart text-dark"></i> <span id="add-to-favorite-span">افزودن به علاقه مندی</span>
 
-                                                    @endif
+                                                    @endguest
 
 
-                                                @endauth
+                                                    @auth
 
-                                            </button>
-                                        </p>
+                                                        @if ($product->users->contains(auth()->user()->id))
+
+                                                            <i class="fa fa-heart text-danger"></i> <span id="add-to-favorite-span">حذف از علاقه مندی ها</span>
+
+                                                        @else
+
+                                                            <i class="fa fa-heart text-dark"></i> <span id="add-to-favorite-span">افزودن به علاقه مندی</span>
+
+                                                        @endif
 
 
-                                        @php
-                                        // if product is not marketable or its finished dont show the price
-                                        @endphp
-                                        @if ($product->marketable != 0 && $product->marketable_number > 0)
+                                                    @endauth
 
-                                            <section>
-                                                <section class="cart-product-number d-inline-block ">
-                                                    <button class="cart-number cart-number-down" type="button">-</button>
-                                                    <input class="" type="number" min="1" max="{{ $product->marketable_number }}" step="1" value="1" readonly="readonly" id="number" name="number">
-                                                    <button class="cart-number cart-number-up" type="button">+</button>
+                                                </button>
+                                            </p>
+
+
+                                            @php
+                                            // if product is not marketable or its finished dont show the price
+                                            @endphp
+                                            @if ($product->marketable != 0 && $product->marketable_number > 0)
+
+                                                <section>
+                                                    <section class="cart-product-number d-inline-block ">
+                                                        <button class="cart-number cart-number-down" type="button">-</button>
+                                                        <input class="" type="number" min="1" max="{{ $product->marketable_number }}" step="1" value="1" readonly="readonly" id="number" name="number">
+                                                        <button class="cart-number cart-number-up" type="button">+</button>
+                                                    </section>
                                                 </section>
-                                            </section>
-                                            
-                                        @endif
-                                        <p class="mb-3 mt-5">
-                                            <i class="fa fa-info-circle me-1"></i>کاربر گرامی  خرید شما هنوز نهایی نشده است. برای ثبت سفارش و تکمیل خرید باید ابتدا آدرس خود را انتخاب کنید و سپس نحوه ارسال را انتخاب کنید. نحوه ارسال انتخابی شما محاسبه و به این مبلغ اضافه شده خواهد شد. و در نهایت پرداخت این سفارش صورت میگیرد. پس از ثبت سفارش کالا بر اساس نحوه ارسال که شما انتخاب کرده اید کالا برای شما در مدت زمان مذکور ارسال می گردد.
-                                        </p>
+                                                
+                                            @endif
+                                            <p class="mb-3 mt-5">
+                                                <i class="fa fa-info-circle me-1"></i>کاربر گرامی  خرید شما هنوز نهایی نشده است. برای ثبت سفارش و تکمیل خرید باید ابتدا آدرس خود را انتخاب کنید و سپس نحوه ارسال را انتخاب کنید. نحوه ارسال انتخابی شما محاسبه و به این مبلغ اضافه شده خواهد شد. و در نهایت پرداخت این سفارش صورت میگیرد. پس از ثبت سفارش کالا بر اساس نحوه ارسال که شما انتخاب کرده اید کالا برای شما در مدت زمان مذکور ارسال می گردد.
+                                            </p>
                                     </section>
                                 </section>
 
@@ -264,7 +268,7 @@
 
                                     @elseif ($product->marketable_number > 0)
 
-                                        <a id="next-level" href="#" class="btn btn-danger d-block">افزودن به سبد خرید</a>
+                                        <button id="next-level" onclick="document.getElementById('add_to_cart')" class="btn btn-danger d-block w-100">افزودن به سبد خرید</button>
 
                                     @else
                                     
@@ -273,7 +277,7 @@
                                     @endif
 
                                     </section>
-
+                                </form>
                                 </section>
                             </section>
                         </section>
@@ -624,6 +628,10 @@
 
 @include('customer.alerts.toast.login-signup')
 
+{{-- {{ dd(session()->all()) }} --}}
+<section class="toast-wrapper flex-row-reverse">
+    @include('customer.alerts.toast.success')
+</section>
 
 @endsection
 
@@ -687,14 +695,21 @@
             }
 
 
-            
-            var product_price = product_original_price + selected_color_price + selected_guarantee_price;
-            var product_discount_price = Math.floor( product_price * product_discount_percentage / 100 );
-            var product_price_after_discount = ( product_price - product_discount_price );
-            var final_price = number * product_price_after_discount;
+            // single product price calculation with properties
+            var product_price = (product_original_price + selected_color_price + selected_guarantee_price);
+            // multi products prices calculations with properties
+            var total_products_prices = number * product_price;
+            // single discounted price after calculation
+            var single_product_price_after_discount = product_price * product_discount_percentage / 100;
+            // multi discounted prices after calculations
+            var total_product_discount_price = Math.floor( number * single_product_price_after_discount );
+            // single product price after discount calculation
+            var product_price_after_discount = ( product_price - single_product_price_after_discount );
+            // multi products prices after discount calculations
+            var final_price = Math.floor( number * product_price_after_discount );
 
-            $('#product_price').html(toFarsiDigits(product_price));
-            $('#product-discount-price').html(toFarsiDigits(product_discount_price));
+            $('#product_price').html(toFarsiDigits(total_products_prices));
+            $('#product-discount-price').html(toFarsiDigits(total_product_discount_price));
             $('#final-price').html(toFarsiDigits(final_price));
 
 
