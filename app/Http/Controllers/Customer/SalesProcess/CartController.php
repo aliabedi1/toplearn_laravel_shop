@@ -60,7 +60,7 @@ class CartController extends Controller
             $inputs['product_id'] = $product->id;
 
             CartItem::create($inputs);
-            return back()->with('name','محصول مورد نظر با موفقیت به سبد خرید اضافه شد');
+            return back()->with('toast-success','محصول مورد نظر با موفقیت به سبد خرید اضافه شد');
         }
         else
         {

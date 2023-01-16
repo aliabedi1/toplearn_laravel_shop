@@ -1,30 +1,27 @@
 @if (session('toast-success'))
-    
-    <section class="toast" data-delay="5000">
+  
+    <section class="position-fixed p-4 flex-row-reverse " style="z-index: 8; left: 0; top: 1.5rem; width:26rem; max-width:80%;">
 
-        <section class="toast-body py-3 d-flex bg-success text-white">
-
-            <strong class="ml-auto">
-
+        <div class="toast" id="toast-success" data-delay="7000" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <div class="rounded me-2" style="background: red"></div>
+              <strong class="me-auto">فروشگاه ستاره شمال</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                
                 {{ session('toast-success') }}
 
-            </strong>
-
-            <button type="button" class="mr-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-
-                <span aria-hidden="true">&times;</span>
-
-            </button>
-
-            
-        </section>
+            </div>
+          </div>
 
     </section>
 
+    
     <script>
-        $(document).ready(function(){
-            $('.toast').toast('show')
-        })
+      $(document).ready(function() {
+        $("#toast-success").toast('show');
+    });
     </script>
-
+  
 @endif

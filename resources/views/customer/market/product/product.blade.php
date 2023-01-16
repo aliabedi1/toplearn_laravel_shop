@@ -149,7 +149,7 @@
 
 
                                             <p>
-                                                <button class="btn btn-light  btn-sm text-decoration-none" data-url="{{ route('customer.market.product.add-to-favorite',$product) }}" id="add_to_favorite" href="#">
+                                                <button type="button" class="btn btn-light  btn-sm text-decoration-none" data-url="{{ route('customer.market.product.add-to-favorite',$product) }}" id="add_to_favorite" href="#">
                                                     
                                                     @guest    
 
@@ -624,14 +624,9 @@
         <!-- end description, features and comments -->
 
 
-
-
 @include('customer.alerts.toast.login-signup')
 
-{{-- {{ dd(session()->all()) }} --}}
-<section class="toast-wrapper flex-row-reverse">
-    @include('customer.alerts.toast.success')
-</section>
+
 
 @endsection
 
@@ -673,7 +668,7 @@
             var selected_color_price = 0;
             var selected_guarantee_price = 0;
             var number = 1;
-            var product_discount_percentage = parseFloat($('#product-discount-price').attr('data-product-discount-percentage'));
+            var product_discount_percentage = parseFloat($('#product-discount-price').attr('data-product-discount-percentage')) ? parseFloat($('#product-discount-price').attr('data-product-discount-percentage')) : 0;
             var product_original_price = parseFloat($('#product_price').attr('data-product-original-price'));
 
 
@@ -707,6 +702,7 @@
             var product_price_after_discount = ( product_price - single_product_price_after_discount );
             // multi products prices after discount calculations
             var final_price = Math.floor( number * product_price_after_discount );
+
 
             $('#product_price').html(toFarsiDigits(total_products_prices));
             $('#product-discount-price').html(toFarsiDigits(total_product_discount_price));
@@ -791,5 +787,6 @@
 
 
 @endsection
+{{-- {{  dd(session()->all()) }}  --}}
 
 

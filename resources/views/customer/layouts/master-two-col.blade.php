@@ -37,6 +37,8 @@
     
     @include('customer.alerts.sweetalert.success')
     @include('customer.alerts.sweetalert.error')
+    @include('customer.alerts.toast.success')
+    
 </body>
 
 </html>

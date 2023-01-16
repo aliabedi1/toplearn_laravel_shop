@@ -14,6 +14,7 @@ class ProductController extends Controller
     
     public function product(Product $product)
     {
+        Auth::loginUsingId(8);
         $relatedProducts = Product::all();
         return view('customer.market.product.product' , compact('product','relatedProducts')); 
     }
