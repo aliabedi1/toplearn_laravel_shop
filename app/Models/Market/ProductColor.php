@@ -2,9 +2,10 @@
 
 namespace App\Models\Market;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Market\CartItem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ProductColor extends Model
 {
@@ -20,6 +21,11 @@ class ProductColor extends Model
         return $this->belongsTo(Product::class,'product_id');
     }
 
+
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class, 'color_id');
+    }
 
     
     public function orderItems()

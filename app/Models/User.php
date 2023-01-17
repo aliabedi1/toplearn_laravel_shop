@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Market\CartItem;
 use App\Models\Otp;
 use App\Models\User\Role;
 use App\Models\Market\Copan;
@@ -141,6 +142,12 @@ class User extends Authenticatable
     public function otps()
     {
         return $this->hasMany(Otp::class, 'user_id');
+    }
+
+
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class, 'user_id');
     }
     
 }

@@ -2,9 +2,10 @@
 
 namespace App\Models\Market;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Market\CartItem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Guarantee extends Model
 {
@@ -25,5 +26,8 @@ class Guarantee extends Model
     }
 
 
-
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class, 'guarantee_id');
+    }
 }
