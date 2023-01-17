@@ -29,70 +29,117 @@
 
                     <section class="row mt-4">
                         <section class="col-md-9 mb-3">
-                            <section class="content-wrapper bg-white p-3 rounded-2">
 
-                                <section class="cart-item d-md-flex py-3">
-                                    <section class="cart-img align-self-start flex-shrink-1"><img src="assets/images/products/1.jpg" alt=""></section>
-                                    <section class="align-self-start w-100">
-                                        <p class="fw-bold">کتاب اثر مرکب نوشته دارن هاردی</p>
-                                        <p><span style="background-color: #523e02;" class="cart-product-selected-color me-1"></span> <span> قهوه ای</span></p>
-                                        <p><i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i> <span> گارانتی اصالت و سلامت فیزیکی کالا</span></p>
-                                        <p><i class="fa fa-store-alt cart-product-selected-store me-1"></i> <span>کالا موجود در انبار</span></p>
-                                        <section>
-                                            <section class="cart-product-number d-inline-block ">
-                                                <button class="cart-number-down" type="button">-</button>
-                                                <input class="" type="number" min="1" max="5" step="1" value="1" readonly="readonly">
-                                                <button class="cart-number-up" type="button">+</button>
+                            <form action="" method="post"  class="content-wrapper bg-white p-3 rounded-2" id="cart_item">
+                                @csrf
+
+                                @php
+                                    $totalProductPrice = 0;
+                                    $totalProductDiscount = 0;
+                                @endphp
+
+
+                                @foreach ($cartItems as $cartItem )
+                                    
+
+                                    @php
+                                        $totalProductPrice += $cartItem->cartItemProductPrice();
+                                        $totalProductDiscount += $cartItem->cartItemProductDiscount();
+                                    @endphp
+
+
+                                    <section class="cart-item d-md-flex py-3">
+                                        <section class="cart-img align-self-start flex-shrink-1">
+                                            <img src="{{ asset($cartItem->product->image['indexArray']['medium']) }}" alt="{{ $cartItem->product->name }}">
+
+                                            <img src="assets/images/products/2.jpg" alt="">
+                                        </section>
+                                        <section class="align-self-start w-100">
+                                            
+                                            <p class="fw-bold">{{ $cartItem->product->name }}</p>
+                                            
+                                            @if (!empty($cartItem->color))
+                                                <p>
+                                                    <span style="background-color: {{ $cartItem->color->color }};" class="cart-product-selected-color me-1"></span> 
+                                                    <span> {{ $cartItem->color->color_name }}</span>
+                                                </p>
+                                            @else
+                                                <p>
+                                                    <span>
+                                                        رنگی انتخاب نشده است
+                                                    </span>
+                                                </p>
+                                            @endif
+
+                                            
+                                            @if (!empty($cartItem->guarantee))
+                                                <p>
+                                                    <i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i>
+                                                    <span> {{ $cartItem->guarantee->name }}</span>
+                                                </p>
+                                            @else
+                                                <p>
+                                                    <i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i>
+                                                    <span>بدون گارانتی</span>
+                                                </p>
+                                            @endif
+                                            
+
+                                            @if ($cartItem->product->marketable_number > 0)
+                                                <p>
+                                                    <i class="fa fa-store-alt cart-product-selected-store me-1"></i>
+                                                    <span>کالا موجود در انبار</span>
+                                                </p>
+                                            @else
+                                                <p>
+                                                    <i class="fa fa-ban cart-product-selected-store me-1"></i>
+                                                    <span>کالا ناموجود است</span>
+                                                </p>
+                                            @endif
+
+                                            <section>
+                                                <section class="cart-product-number d-inline-block ">
+                                                    <button class="cart-number-down" type="button">-</button>
+                                                    <input class="" type="number" min="1" max="5" step="1" value="1" readonly="readonly">
+                                                    <button class="cart-number-up" type="button">+</button>
+                                                </section>
+                                                <a class="text-decoration-none ms-4 cart-delete" href="#"><i class="fa fa-trash-alt"></i> حذف از سبد</a>
                                             </section>
-                                            <a class="text-decoration-none ms-4 cart-delete" href="#"><i class="fa fa-trash-alt"></i> حذف از سبد</a>
+
+                                        </section>
+                                        <section class="align-self-end flex-shrink-1">
+
+                                            @if ($cartItem->cartItemProductDiscount() > 0)
+                                                <section class="cart-item-discount text-danger text-nowrap mb-1">تخفیف {{ priceFormat($cartItem->cartItemProductDiscount()) }}</section>
+                                            @endif
+
+                                            <section class="text-nowrap fw-bold">{{ priceFormat($cartItem->cartItemProductPrice()) }} تومان</section>
+
                                         </section>
                                     </section>
-                                    <section class="align-self-end flex-shrink-1">
-                                        <section class="text-nowrap fw-bold">56,000 تومان</section>
-                                    </section>
-                                </section>
 
+                                    
 
-                                <section class="cart-item d-md-flex py-3">
-                                    <section class="cart-img align-self-start flex-shrink-1"><img src="assets/images/products/2.jpg" alt=""></section>
-                                    <section class="align-self-start w-100">
-                                        <p class="fw-bold">دستگاه آبمیوه گیری دنویر با کد 1016</p>
-                                        <p><span style="background-color: #523e02;" class="cart-product-selected-color me-1"></span> <span> قهوه ای</span></p>
-                                        <p><i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i> <span> گارانتی اصالت و سلامت فیزیکی کالا</span></p>
-                                        <p><i class="fa fa-store-alt cart-product-selected-store me-1"></i> <span>کالا موجود در انبار</span></p>
-                                        <section>
-                                            <section class="cart-product-number d-inline-block ">
-                                                <button class="cart-number-down" type="button">-</button>
-                                                <input class="" type="number" min="1" max="5" step="1" value="1" readonly="readonly">
-                                                <button class="cart-number-up" type="button">+</button>
-                                            </section>
-                                            <a class="text-decoration-none ms-4 cart-delete" href="#"><i class="fa fa-trash-alt"></i> حذف از سبد</a>
-                                        </section>
-                                    </section>
-                                    <section class="align-self-end flex-shrink-1">
-                                        <section class="cart-item-discount text-danger text-nowrap mb-1">تخفیف 78,000</section>
-                                        <section class="text-nowrap fw-bold">264,000 تومان</section>
-                                    </section>
-                                </section>
+                                @endforeach
 
-
-                            </section>
+                            </form>
+                                
                         </section>
                         <section class="col-md-3">
                             <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
                                 <section class="d-flex justify-content-between align-items-center">
-                                    <p class="text-muted">قیمت کالاها (2)</p>
-                                    <p class="text-muted">398,000 تومان</p>
+                                    <p class="text-muted">قیمت کالاها ({{ priceFormat($cartItems->count()) }})</p>
+                                    <p class="text-muted" id="total_product_price">{{ priceFormat($totalProductPrice) }} تومان</p>
                                 </section>
 
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">تخفیف کالاها</p>
-                                    <p class="text-danger fw-bolder">78,000 تومان</p>
+                                    <p class="text-danger fw-bolder" id="total_discount">{{ priceFormat($totalProductDiscount) }} تومان</p>
                                 </section>
                                 <section class="border-bottom mb-3"></section>
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">جمع سبد خرید</p>
-                                    <p class="fw-bolder">320,000 تومان</p>
+                                    <p class="fw-bolder" id="total_price">{{ priceFormat($totalProductPrice - $totalProductDiscount) }} تومان</p>
                                 </section>
 
                                 <p class="my-3">
