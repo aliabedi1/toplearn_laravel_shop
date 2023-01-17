@@ -99,9 +99,9 @@
 
                                             <section>
                                                 <section class="cart-product-number d-inline-block ">
-                                                    <button class="cart-number-down" type="button">-</button>
-                                                    <input class="" type="number" min="1" max="5" step="1" value="1" readonly="readonly">
-                                                    <button class="cart-number-up" type="button">+</button>
+                                                    <button class="cart-number cart-number-down" type="button">-</button>
+                                                    <input class="number" data-product-price="{{ $cartItem->cartItemProductPrice() }}" data-product-discount="{{ $cartItem->cartItemProductDiscount() }}" type="number" min="1" max="5" step="1" value="{{ $cartItem->number }}" readonly="readonly">
+                                                    <button class="cart-number cart-number-up" type="button">+</button>
                                                 </section>
                                                 <a class="text-decoration-none ms-4 cart-delete" href="#"><i class="fa fa-trash-alt"></i> حذف از سبد</a>
                                             </section>
@@ -129,17 +129,32 @@
                             <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">قیمت کالاها ({{ priceFormat($cartItems->count()) }})</p>
-                                    <p class="text-muted" id="total_product_price">{{ priceFormat($totalProductPrice) }} تومان</p>
+                                    <p class="text-muted">
+                                        <span id="total_product_price">
+                                            {{ priceFormat($totalProductPrice) }}
+                                        </span>
+                                        تومان
+                                    </p>
                                 </section>
 
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">تخفیف کالاها</p>
-                                    <p class="text-danger fw-bolder" id="total_discount">{{ priceFormat($totalProductDiscount) }} تومان</p>
+                                    <p class="text-danger fw-bolder">
+                                        <span id="total_discount">
+                                            {{ priceFormat($totalProductDiscount) }}
+                                        </span>
+                                        تومان
+                                    </p>
                                 </section>
                                 <section class="border-bottom mb-3"></section>
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">جمع سبد خرید</p>
-                                    <p class="fw-bolder" id="total_price">{{ priceFormat($totalProductPrice - $totalProductDiscount) }} تومان</p>
+                                    <p class="fw-bolder">
+                                        <span id="total_price">
+                                            {{ priceFormat($totalProductPrice - $totalProductDiscount) }}
+                                        </span>
+                                        تومان
+                                    </p>
                                 </section>
 
                                 <p class="my-3">
@@ -304,6 +319,53 @@
             });
         });
         
+        // calculating price
+        $(document).ready(function(){
+            bill();
+
+            // change number of products
+            $('.cart-number').click(function(){
+                bill();
+            });
+        });
+
+        function bill()
+        {
+            var total_product_price = 0;
+            var total_discount = 0;
+            var total_price = 0;
+
+            $('.number').each(function(){
+                var productPrice = parseFloat($(this).data('product-price'));
+                var productDiscount = parseFloat($(this).data('product-discount'));
+                var number = parseFloat($(this).val());
+
+                total_product_price += productPrice * number;
+                total_discount += productDiscount * number;
+            });
+
+            total_price = total_product_price - total_discount;
+
+            $('#total_product_price').html(toFarsiDigits(total_product_price));
+            $('#total_discount').html(toFarsiDigits(total_discount));
+            $('#total_price').html(toFarsiDigits(total_price));
+
+
+
+
+        }
+
+        
+        function toFarsiDigits(number)
+        {
+            const farsiDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+            // add comma
+            number = new Intl.NumberFormat().format(number);
+            // convert number to persian
+            return number.toString().replace(/\d/g, x => farsiDigits[x]);
+        }
+
+
     </script>
 
 @endsection
