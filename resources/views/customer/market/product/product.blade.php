@@ -315,73 +315,73 @@
                                 @foreach ($relatedProducts as $relatedProduct )
                                     
 
-                                <section class="item">
-                                    <section class="lazyload-item-wrapper">
-                                        <section class="product">
-                                            {{-- <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section> --}}
-                                            @guest
-                                                    
-                                                    <section class="product-add-to-favorite">
-                                                        <button class=" btn btn-light text-decoration-none btn-sm" data-url="{{ route('customer.market.product.add-to-favorite',$relatedProduct) }}" href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی">
-                                                            <i class="fa fa-heart text-dark"></i>
-                                                        </button>
-                                                    </section> 
-
-                                                @endguest
-
-                                                @auth
-                                                    
-                                                    @if ($relatedProduct->users->contains(auth()->user()->id))
-                                                        
-
-                                                        <section class="product-add-to-favorite">
-                                                            <button class=" btn btn-light text-decoration-none btn-sm" data-url="{{ route('customer.market.product.add-to-favorite',$relatedProduct) }}" href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="حذف از علاقه مندی">
-                                                                <i class="fa fa-heart text-danger"></i>
-                                                            </button>
-                                                        </section> 
-                                                        
-                                                    @else
+                                    <section class="item">
+                                        <section class="lazyload-item-wrapper">
+                                            <section class="product">
+                                                {{-- <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section> --}}
+                                                @guest
                                                         
                                                         <section class="product-add-to-favorite">
                                                             <button class=" btn btn-light text-decoration-none btn-sm" data-url="{{ route('customer.market.product.add-to-favorite',$relatedProduct) }}" href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی">
                                                                 <i class="fa fa-heart text-dark"></i>
                                                             </button>
                                                         </section> 
-                                                        
-                                                    @endif
 
-                                                @endauth
-                                            <a class="product-link" href="{{ route('customer.market.product.index' , $relatedProduct->slug ) }}">
-                                                <section class="product-image">
-                                                    <img class="" src="{{ asset($relatedProduct->image['indexArray']['medium']) }}" alt="{{ $relatedProduct->name }}">
-                                                </section>
-                                                {{-- <section class="product-colors"></section> --}}
-                                                <section class="product-name">
-                                                    <h3>
-                                                        {{ Str::limit($relatedProduct->name, 20, '...') }}
-                                                    </h3>
-                                                </section>
-                                                <section class="product-price-wrapper">
-                                                    {{-- <section class="product-discount">
-                                                        <span class="product-old-price">6,895,000 </span>
-                                                        <span class="product-discount-amount">10%</span>
-                                                    </section> --}}
-                                                    <section class="product-price">{{ $relatedProduct->price }} تومان</section>
-                                                </section>
-                                                <section class="product-colors">
-                                                    @foreach ($relatedProduct->colors as $color)
+                                                    @endguest
+
+                                                    @auth
                                                         
-                                                        <section class="product-colors-item" style="background-color: {{ $color->color }};"></section>
-                                                        
-                                                    @endforeach
-                                                </section>
-                                            </a>
+                                                        @if ($relatedProduct->users->contains(auth()->user()->id))
+                                                            
+
+                                                            <section class="product-add-to-favorite">
+                                                                <button class=" btn btn-light text-decoration-none btn-sm" data-url="{{ route('customer.market.product.add-to-favorite',$relatedProduct) }}" href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="حذف از علاقه مندی">
+                                                                    <i class="fa fa-heart text-danger"></i>
+                                                                </button>
+                                                            </section> 
+                                                            
+                                                        @else
+                                                            
+                                                            <section class="product-add-to-favorite">
+                                                                <button class=" btn btn-light text-decoration-none btn-sm" data-url="{{ route('customer.market.product.add-to-favorite',$relatedProduct) }}" href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی">
+                                                                    <i class="fa fa-heart text-dark"></i>
+                                                                </button>
+                                                            </section> 
+                                                            
+                                                        @endif
+
+                                                    @endauth
+                                                <a class="product-link" href="{{ route('customer.market.product.index' , $relatedProduct->slug ) }}">
+                                                    <section class="product-image">
+                                                        <img class="" src="{{ asset($relatedProduct->image['indexArray']['medium']) }}" alt="{{ $relatedProduct->name }}">
+                                                    </section>
+                                                    {{-- <section class="product-colors"></section> --}}
+                                                    <section class="product-name">
+                                                        <h3>
+                                                            {{ Str::limit($relatedProduct->name, 20, '...') }}
+                                                        </h3>
+                                                    </section>
+                                                    <section class="product-price-wrapper">
+                                                        {{-- <section class="product-discount">
+                                                            <span class="product-old-price">6,895,000 </span>
+                                                            <span class="product-discount-amount">10%</span>
+                                                        </section> --}}
+                                                        <section class="product-price">{{ $relatedProduct->price }} تومان</section>
+                                                    </section>
+                                                    <section class="product-colors">
+                                                        @foreach ($relatedProduct->colors as $color)
+                                                            
+                                                            <section class="product-colors-item" style="background-color: {{ $color->color }};"></section>
+                                                            
+                                                        @endforeach
+                                                    </section>
+                                                </a>
+                                            </section>
                                         </section>
                                     </section>
-                                </section>
 
 
-                            @endforeach
+                                @endforeach
 
                                 </section>
                             </section>
@@ -725,7 +725,7 @@
         }
 
     
-                
+        // for related products
         $('.product-add-to-favorite button').click(function(){
 
             var url = $(this).attr('data-url');
@@ -755,7 +755,7 @@
             });
         });
 
-
+        // for the main product
         $('#add_to_favorite').click(function(){
 
         var url = $(this).attr('data-url');
