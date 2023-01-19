@@ -1,6 +1,6 @@
 @if (session('toast-success'))
   
-    <section class="position-fixed p-4 flex-row-reverse " style="z-index: 8; left: 0; top: 1.5rem; width:26rem; max-width:80%;">
+    <section class="position-fixed p-4 flex-row-reverse " style="z-index: 8; right: 0; top: 1.5rem; width:26rem; max-width:80%;">
 
         <div class="toast" id="toast-success" data-delay="7000" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">

@@ -50,14 +50,18 @@
 
                                     <section class="cart-item d-md-flex py-3">
                                         <section class="cart-img align-self-start flex-shrink-1">
-                                            <img src="{{ asset($cartItem->product->image['indexArray']['medium']) }}" alt="{{ $cartItem->product->name }}">
+                                            <a href="{{ route('customer.market.product.index', $cartItem->product) }}" class="text-decoration-none text-dark">
+                                                <img src="{{ asset($cartItem->product->image['indexArray']['medium']) }}" alt="{{ $cartItem->product->name }}">
+                                            </a>
 
-                                            <img src="assets/images/products/2.jpg" alt="">
+                                            
                                         </section>
                                         <section class="align-self-start w-100">
                                             
-                                            <p class="fw-bold">{{ $cartItem->product->name }}</p>
-                                            
+                                            <a href="{{ route('customer.market.product.index', $cartItem->product) }}" class="text-decoration-none text-dark">
+                                                <p class="fw-bold">{{ $cartItem->product->name }}</p>
+                                            </a>
+
                                             @if (!empty($cartItem->color))
                                                 <p>
                                                     <span style="background-color: {{ $cartItem->color->color }};" class="cart-product-selected-color me-1"></span> 

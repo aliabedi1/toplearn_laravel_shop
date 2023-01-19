@@ -66,33 +66,64 @@
 
                         <section class="header-cart d-inline ps-3 border-start position-relative">
                             <a class="btn btn-link position-relative text-dark header-cart-link" href="{{ route('customer.sales-process.index') }}">
-                                <i class="fa fa-shopping-cart"></i> <span style="top: 80%;" class="position-absolute start-0 translate-middle badge rounded-pill bg-danger">2</span>
+                                
+                                <i class="fa fa-shopping-cart"></i> 
+                                @if (isset($cartItems))
+                                    <span style="top: 80%;" class="position-absolute start-0 translate-middle badge rounded-pill bg-danger">
+                                        {{ $cartItems->count() }}
+                                    </span>
+                                @endif
                             </a>
-                            <section class="header-cart-dropdown">
-                                <section class="border-bottom d-flex justify-content-between p-2">
-                                    <span class="text-muted">2 کالا</span>
-                                    <a class="text-decoration-none text-info" href="{{ route('customer.sales-process.index') }}">مشاهده سبد خرید </a>
-                                </section>
-                                <section class="header-cart-dropdown-body">
 
-                                    <section class="header-cart-dropdown-body-item d-flex justify-content-start align-items-center">
-                                        <img class="flex-shrink-1" src="assets/images/products/1.jpg" alt="">
-                                        <section class="w-100 text-truncate"><a class="text-decoration-none text-dark" href="#">کتاب اثر مرکب اثر دارن هاردی انتشارات معیار علم</a></section>
-                                        <section class="flex-shrink-1"><a class="text-muted text-decoration-none p-1" href="#"><i class="fa fa-trash-alt"></i></a></section>
+                            @auth
+                            
+                                
+                                <section class="header-cart-dropdown">
+                                    <section class="border-bottom d-flex justify-content-between p-2">
+                                        <span class="text-muted">{{ $cartItems->count() ?? 0 }} کالا</span>
+                                        <a class="text-decoration-none text-info" href="{{ route('customer.sales-process.index') }}">مشاهده سبد خرید </a>
                                     </section>
+                                    <section class="header-cart-dropdown-body">
 
-                                    <section class="header-cart-dropdown-body-item d-flex justify-content-start align-items-center">
-                                        <img class="flex-shrink-1" src="assets/images/products/2.jpg" alt="">
-                                        <section class="w-100 text-truncate"><a class="text-decoration-none text-dark" href="#">دستگاه آبمیوه گیری دنویر با کد 1016</a></section>
-                                        <section class="flex-shrink-1"><a class="text-muted text-decoration-none p-1" href="#"><i class="fa fa-trash-alt"></i></a></section>
+
+                                        @php
+                                            $totalProductPrice = 0;
+                                            $totalProductDiscount = 0;
+                                        @endphp
+
+                                        @foreach ( $cartItems as $cartItem )
+
+                                            @php
+                                                $totalProductPrice += $cartItem->cartItemProductPrice();
+                                                $totalProductDiscount += $cartItem->cartItemProductDiscount();
+                                            @endphp
+
+
+                                            <section class="header-cart-dropdown-body-item d-flex justify-content-start align-items-center">
+                                                <img src="{{ asset($cartItem->product->image['indexArray']['small']) }}" alt="{{ $cartItem->product->name }}">
+                                                <section class="w-100 text-truncate">
+                                                    <a class="text-decoration-none text-dark" href="{{ route('customer.market.product.index', $cartItem->product) }}">
+                                                        {{ $cartItem->product->name }}
+                                                    </a>
+                                                </section>
+                                                <section class="flex-shrink-1">
+                                                    <a class="text-muted text-decoration-none p-1" href="{{ route('customer.sales-process.remove-from-cart', $cartItem) }}">
+                                                        <i class="fa fa-trash-alt"></i>
+                                                    </a>
+                                                </section>
+                                            </section>
+
+                                        @endforeach
+
                                     </section>
+                                    <section class="header-cart-dropdown-footer border-top d-flex justify-content-between align-items-center p-2">
+                                        <section class=""><section>مبلغ قابل پرداخت</section><section> {{ priceFormat($totalProductPrice - $totalProductDiscount) }} تومان</section></section>
+                                        <section class=""><a class="btn btn-danger btn-sm d-block" href="cart.html">ثبت سفارش</a></section>
+                                    </section>
+                                </section>
 
-                                </section>
-                                <section class="header-cart-dropdown-footer border-top d-flex justify-content-between align-items-center p-2">
-                                    <section class=""><section>مبلغ قابل پرداخت</section><section> 1,326,000 تومان</section></section>
-                                    <section class=""><a class="btn btn-danger btn-sm d-block" href="cart.html">ثبت سفارش</a></section>
-                                </section>
-                            </section>
+                            @endauth
+
                         </section>
 
 
