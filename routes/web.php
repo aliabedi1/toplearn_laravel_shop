@@ -525,7 +525,7 @@ Route::namespace('Customer')->group(function(){
         Route::get('/cart', 'CartController@cart')->name('customer.sales-process.index');
         Route::post('/cart', 'CartController@updateCart')->name('customer.sales-process.update-cart');
         Route::post('/add-to-cart/{product}', 'CartController@addToCart')->name('customer.sales-process.add-to-cart');
-        Route::post('/remove-from-cart/{cartItem}', 'CartController@removeFromCart')->name('customer.sales-process.remove-from-cart');
+        Route::get('/remove-from-cart/{cartItem}', 'CartController@removeFromCart')->name('customer.sales-process.remove-from-cart');
         
 
     });

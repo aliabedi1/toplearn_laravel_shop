@@ -103,7 +103,7 @@
                                                     <input class="number" data-product-price="{{ $cartItem->cartItemProductPrice() }}" data-product-discount="{{ $cartItem->cartItemProductDiscount() }}" type="number" min="1" max="5" step="1" value="{{ $cartItem->number }}" readonly="readonly">
                                                     <button class="cart-number cart-number-up" type="button">+</button>
                                                 </section>
-                                                <a class="text-decoration-none ms-4 cart-delete" href="#"><i class="fa fa-trash-alt"></i> حذف از سبد</a>
+                                                <a class="text-decoration-none ms-4 cart-delete" href="{{ route('customer.sales-process.remove-from-cart', $cartItem) }}"><i class="fa fa-trash-alt"></i> حذف از سبد</a>
                                             </section>
 
                                         </section>
