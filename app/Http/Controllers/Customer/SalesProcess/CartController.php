@@ -8,6 +8,7 @@ use App\Models\Market\CartItem;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Customer\Cart\AddToCartRequest;
+use App\Http\Requests\Customer\Cart\UpdateCartRequest;
 
 class CartController extends Controller
 {
@@ -29,9 +30,19 @@ class CartController extends Controller
     }
 
 
-    public function updateCart()
+    public function updateCart(UpdateCartRequest $request)
     {
-        
+        $inputs = $request->all();
+        $cartItems = cartItem::where('user_id',auth()->user()->id);
+        foreach($cartItems as $cartItem)
+        {
+            if (isset($inputs['number'][$cartItem->id])) 
+            {
+                $cartItem->update([$inputs['number'][$cartItem->id]]);
+            }
+        }
+
+        return redirect()->route('customer.sales-process.address-and-delivery');
     }
 
 
@@ -84,7 +95,7 @@ class CartController extends Controller
         if($cartItem->user_id == auth()->user()->id)
         {
             $cartItem->forceDelete();
-            return back();
         }
+        return back();
     }
 }
