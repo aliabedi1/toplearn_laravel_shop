@@ -522,13 +522,23 @@ Route::namespace('Customer')->group(function(){
 
     Route::prefix('sales')->namespace('SalesProcess')->group(function(){
 
+        // cart
         Route::get('/cart', 'CartController@cart')->name('customer.sales-process.index');
         Route::post('/cart', 'CartController@updateCart')->name('customer.sales-process.update-cart');
         Route::post('/add-to-cart/{product}', 'CartController@addToCart')->name('customer.sales-process.add-to-cart');
         Route::get('/remove-from-cart/{cartItem}', 'CartController@removeFromCart')->name('customer.sales-process.remove-from-cart');
         
+        
+        // address
+        Route::get('/address-and-delivery', 'AddressController@addressAndDelivery')->name('customer.sales-process.address-and-delivery');
+        Route::post('/add-address', 'AddressController@addAddress')->name('customer.sales-process.add-address');
+
+        // profile completion
+        Route::get('/profile-completion', 'ProfileCompletionController@profileCompletion')->name('customer.sales-process.profile-completion');
+        Route::post('/profile-completion', 'ProfileCompletionController@update')->name('customer.sales-process.profile-completion-update');
 
     });
+        
 });
 
 
