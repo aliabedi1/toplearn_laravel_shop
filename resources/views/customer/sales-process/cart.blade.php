@@ -30,8 +30,9 @@
                     <section class="row mt-4">
                         <section class="col-md-9 mb-3">
 
-                            <form action="" method="post"  class="content-wrapper bg-white p-3 rounded-2" id="cart_item">
+                            <form action="{{ route('customer.sales-process.update-cart') }}" method="post"  class="content-wrapper bg-white p-3 rounded-2" id="cart_item">
                                 @csrf
+                                @method('put')
 
                                 @php
                                     $totalProductPrice = 0;
@@ -167,7 +168,7 @@
 
 
                                 <section class="">
-                                    <a href="address.html" onclick="document.getElementById('cart_items').submit()" class="btn btn-danger d-block">تکمیل فرآیند خرید</a>
+                                    <button onclick="document.getElementById('cart_item').submit()" class="btn btn-danger d-block w-100">تکمیل فرآیند خرید</button>
                                 </section>
 
                             </section>

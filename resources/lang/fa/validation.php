@@ -166,5 +166,6 @@ return [
         'keywords'                  => 'کلمات کلیدی',
         'icon'                      => 'ایکون',
         'profile photo path'        => 'آواتار',
+        'national_code'             => 'کد ملی',
     ],
 ];

@@ -39,6 +39,7 @@
                             <th>نام منو</th>
                             <th>منوی والد</th>
                             <th> لینک منو</th>
+                            <th> وضعیت</th>
                             <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                         </tr>
                     </thead>
@@ -49,6 +50,7 @@
                             <th>{{ $key += 1 }}</th>
                             <td>{{ $menu->name }}</td>
                             <td>{{ $menu->parent_id ? $menu->parent->name : 'منوی اصلی' }}</td>
+                            <td>{{ $menu->url }}</td>
                             
                             <td>
                                 <label>
