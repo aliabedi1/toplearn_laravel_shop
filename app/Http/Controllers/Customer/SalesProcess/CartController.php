@@ -33,6 +33,7 @@ class CartController extends Controller
     public function updateCart(UpdateCartRequest $request)
     {
         $inputs = $request->all();
+        
         $cartItems = cartItem::where('user_id',auth()->user()->id);
         foreach($cartItems as $cartItem)
         {
