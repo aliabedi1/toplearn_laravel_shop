@@ -28,6 +28,8 @@ class UpdateProfileRequest extends FormRequest
             'last_name' => "sometimes|required",
             'national_code' => "nullable|unique:users,national_code",
             'mobile' => "sometimes|required|min:10|max:13|unique:users,mobile",
+            'email' => 'email|unique:users,email',
+
         ];
         
     }

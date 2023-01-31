@@ -32,7 +32,6 @@
 
                             <form action="{{ route('customer.sales-process.update-cart') }}" method="post"  class="content-wrapper bg-white p-3 rounded-2" id="cart_item">
                                 @csrf
-                                @method('put')
 
                                 @php
                                     $totalProductPrice = 0;
@@ -126,7 +125,7 @@
                                     
 
                                 @endforeach
-
+                                    <input type="submit" value="click me">
                             </form>
                                 
                         </section>
@@ -168,7 +167,7 @@
 
 
                                 <section class="">
-                                    <button onclick="document.getElementById('cart_item').submit()" class="btn btn-danger d-block w-100">تکمیل فرآیند خرید</button>
+                                    <button type="submit" onclick="document.getElementById('cart_item').submit()" class="btn btn-danger d-block w-100">تکمیل فرآیند خرید</button>
                                 </section>
 
                             </section>

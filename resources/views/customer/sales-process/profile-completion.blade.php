@@ -34,7 +34,7 @@
 
                     <section class="row mt-4">
                         <section class="col-md-9">
-                            <form id="profile_completion" action="{{ route('customer.sales-process.profile-completion-update') }}" method="post" class="content-wrapper bg-white p-3 rounded-2 mb-4">
+                            <form id="profile_completion" action="{{ route('customer.sales-process.profile-completion-update') }}" method='POST' class="content-wrapper bg-white p-3 rounded-2 mb-4">
                                 @csrf
 
                                 <section class="payment-alert alert alert-primary d-flex align-items-center p-2" role="alert">
@@ -97,6 +97,24 @@
                                     @endif
 
 
+
+                                    @if(empty($user->email))
+                                        <section class="col-12 col-md-6 my-2">
+                                            <div class="form-group">
+                                                <label for="email">ایمیل (اختیاری)</label>
+                                                <input type="text" class="form-control form-control-sm" name="email" id="email" value="{{ old('email') }}">
+                                            </div>
+                                            @error('email')
+                                            <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                                <strong>
+                                                    {{ $message }}
+                                                </strong>
+                                            </span>
+                                            @enderror
+                                        </section>
+                                    @endif
+
+
                                     @if(empty($user->national_code))
                                     <section class="col-12 col-md-6 my-2">
                                         <div class="form-group">
@@ -129,8 +147,8 @@
 
                                 @foreach($cartItems as $cartItem)
                                     @php
-                                        $totalProductPrice += $cartItem->cartItemProductPrice();
-                                        $totalDiscount += $cartItem->cartItemProductDiscount();
+                                        $totalProductPrice += $cartItem->cartItemProductPrice() * $cartItem->number;
+                                        $totalDiscount += $cartItem->cartItemProductDiscount() * $cartItem->number;
                                     @endphp
                                 @endforeach
 
