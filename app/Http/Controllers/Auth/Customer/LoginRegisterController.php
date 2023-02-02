@@ -44,7 +44,7 @@ class LoginRegisterController extends Controller
             $type = 0; // 1 => phone number
 
             // all mobile numbers are in an format like 9** *** ****
-            $inputs['id'] = ltrim($inputs['id'],0); //delete left 0 from entered string
+            $inputs['id'] = ltrim($inputs['id'],'0'); //delete left 0 from entered string
             $inputs['id'] = substr($inputs['id'],0 , 2) == '98' ? substr($inputs['id'], 2) : $inputs['id']; //remove 98 from begining of string
             $inputs['id'] = str_replace('+98' , '' ,$inputs['id']); // if entered sting has +98 remove it
 

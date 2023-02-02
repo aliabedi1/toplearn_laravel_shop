@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Customer\ProfileCompletion;
 
+use App\Rules\NationalCode;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateProfileRequest extends FormRequest
@@ -24,11 +25,12 @@ class UpdateProfileRequest extends FormRequest
     public function rules()
     {
         return [
+
             'first_name' => "sometimes|required",
             'last_name' => "sometimes|required",
-            'national_code' => "nullable|unique:users,national_code",
-            'mobile' => "sometimes|required|min:10|max:13|unique:users,mobile",
-            'email' => 'email|unique:users,email',
+            'email' => 'sometimes|nullable|email|unique:users,email',
+            'mobile' => "sometimes|nullable|required|min:10|max:13|unique:users,mobile",
+            'national_code' => ['sometimes','required',new NationalCode(),'unique:users,national_code'],
 
         ];
         
