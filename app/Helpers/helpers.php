@@ -97,3 +97,58 @@ function priceFormat($price)
     return $price;
 }
 
+function validateNationalCode($nationalCode)
+{
+    $nationalCode = trim($nationalCode,'.');
+    $nationalCode = convertArabicToEnglishNumber($nationalCode);
+    $nationalCode = convertPersianToEnglishNumber($nationalCode);
+    $bannedArray = ['0000000000' , '1111111111' , '2222222222' , '3333333333' , '4444444444' , '5555555555' , '6666666666' , '7777777777' , '8888888888' , '9999999999'];
+
+    if(empty($nationalCode))
+    {
+        return false;
+    }
+    else if(count(str_split($nationalCode)) != 10)
+    {
+        return false;
+    }
+    else if(in_array($nationalCode,$bannedArray))
+    {
+        return false;
+    }
+    else
+    {
+        // National Organization for Civil Registration rule for national code
+        $sum = 0;
+        // sum of digits except last digit
+        for($i = 0; $i < 9; $i++)
+        {
+            $sum += (int) $nationalCode[$i] * (10 - $i);
+        }
+
+        $devidRemaining = $sum % 11;
+        
+        // calculating last digit
+        if($devidRemaining < 2)
+        {
+            $lastDigit = $devidRemaining;
+        }
+        else
+        {
+            $lastDigit = 11 - ($devidRemaining);
+        }
+
+        // validation for last digit
+        if( (int) $nationalCode[9] == $lastDigit )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+}
+
+
