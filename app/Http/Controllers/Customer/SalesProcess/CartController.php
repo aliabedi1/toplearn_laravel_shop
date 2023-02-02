@@ -34,12 +34,12 @@ class CartController extends Controller
     {
         $inputs = $request->all();
         
-        $cartItems = cartItem::where('user_id',auth()->user()->id);
+        $cartItems = cartItem::where('user_id',auth()->user()->id)->get();
         foreach($cartItems as $cartItem)
         {
             if (isset($inputs['number'][$cartItem->id])) 
             {
-                $cartItem->update([$inputs['number'][$cartItem->id]]);
+                $cartItem->update(['number' => $inputs['number'][$cartItem->id]]);
             }
         }
 
