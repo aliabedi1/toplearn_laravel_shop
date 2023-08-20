@@ -76,11 +76,15 @@ class ProfileCompletionController extends Controller
             $inputs['email'] = $email;
         }
 
+        // check if any indexes are empty and if they are remove them from $inputs
         $inputs = array_filter($inputs);
 
-        if()
+        // if it wasnt full empty update the user informations
+        if(!empty($inputs))
+        {
+            $user->update($inputs);
+        }
 
-        $user->update($inputs);
         
         return redirect()->route('customer.sales-process.address-and-delivery');
         

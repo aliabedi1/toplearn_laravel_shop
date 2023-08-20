@@ -63,6 +63,48 @@
                             @enderror
                         
                         </section>
+                        <section class="col-12 col-md-6 my-2">
+                            <div class="form-group">
+                                <label for="type">نوع کوپن</label>
+                                <select name="type" id="type" class="form-control form-control-sm">
+                                    <option value="0" @if(old('type') == 0) selected @endif>عمومی</option>
+                                    <option value="1" @if(old('type') == 1) selected @endif>خصوصی</option>
+                                </select>
+                            </div>
+                            
+                            @error('type')
+                            <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                <strong>
+                                    {{ $message }}
+                                </strong>
+                            </span>
+                            @enderror
+                        </section>
+
+
+                        
+                        <section class="col-12 col-md-6 my-2">
+                            <div class="form-group">
+                                <label for="user_id">نام کاربر</label>
+                                <select name="user_id" id="user_id" class="form-control form-control-sm" value="{{ old('user_id') }}" disabled>
+
+                                    @foreach ($users as $user)
+                                    
+                                    <option value="{{ $user->id }}" @if (old('user_id') == $user->id) selected @endif> {{ $user->fullname }}</option>
+
+                                    @endforeach
+
+                                </select>
+                            </div>
+                            @error('user_id')
+                            <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                <strong>
+                                    {{ $message }}
+                                </strong>
+                            </span>
+                            @enderror
+                        </section>
+
 
 
                         <section class="col-12 col-md-6 my-2">

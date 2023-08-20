@@ -19,9 +19,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $users = User::where('user_type' , 0)->get();
-        return view('admin.user.customer.index', compact('users'));
-    
+            $users = User::where('user_type' , 0)->get();
+            return view('admin.user.customer.index', compact('users'));
+        
 
     }
 
@@ -144,9 +144,11 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $result = $user->delete();
+        return redirect()->route('admin.user.customer.index')->with('swal-success', 'کاربر با موفقیت حذف شد');
+     
     }
 
 

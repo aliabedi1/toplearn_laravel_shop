@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\admin\user;
 
-use com_exception;
 use App\Models\User\Role;
 use Illuminate\Http\Request;
 use App\Models\User\Permission;
@@ -71,7 +70,6 @@ class RoleController extends Controller
     public function edit(Role $role)    
     {
         return view('admin.user.role.edit' ,compact('role'));
-
     }
 
     /**

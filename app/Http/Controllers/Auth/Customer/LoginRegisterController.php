@@ -182,7 +182,7 @@ class LoginRegisterController extends Controller
 
         $otp = Otp::where('token' ,$token)->where('created_at' , '<=' , Carbon::now()->subMinutes(5)->toDateTimeString())->first();
 
-        // if old otp found or not
+        // if old otp not found
         if(empty($otp))
         {
             return redirect()->route('auth.customer.login-register-form',$token)->withErrors(['id'=>'آدرس وارد شده نا معتبر میباشد']);
