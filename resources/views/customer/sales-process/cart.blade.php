@@ -125,7 +125,6 @@
                                     
 
                                 @endforeach
-                                    <input type="submit" value="click me">
                             </form>
                                 
                         </section>
