@@ -23,4 +23,10 @@ class Address extends Model
     {
         return $this->belongsTo(City::class , 'city_id');
     }
+
+
+    public function getFullNameAttribute()
+    {
+        return "$this->recipient_first_name  $this->recipient_last_name";
+    }
 }
