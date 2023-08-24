@@ -96,7 +96,7 @@
                                                                     @method('put')
                                                                     <section class="col-6 mb-2">
                                                                         <label for="province" class="form-label mb-1">استان</label>
-                                                                        <select class="form-select form-select-sm" id="province">
+                                                                        <select class="form-select form-select-sm" id="province" name="province">
                                                                             <option selected>استان را انتخاب کنید</option>
                                                                             @foreach ($provinces as $province)
                                                                             <option value="{{ $province->id }}" @if ($address->city->province->id == $province->id)
@@ -110,8 +110,8 @@
     
                                                                     <section class="col-6 mb-2">
                                                                         <label for="city" class="form-label mb-1">شهر</label>
-                                                                        <select class="form-select form-select-sm" id="city">
-                                                                            <option selected>استان را انتخاب کنید</option>
+                                                                        <select class="form-select form-select-sm" id="city" name="city">
+                                                                            <option selected>شهر را انتخاب کنید</option>
                                                                             @foreach ($address->city->province->cities as $city)
                                                                                 <option value="{{ $city->id }}" @if ($address->city->id == $city->id)
                                                                                     selected
@@ -122,22 +122,22 @@
                                                                     </section>
                                                                     <section class="col-12 mb-2">
                                                                         <label for="address" class="form-label mb-1">نشانی</label>
-                                                                        <input type="text" class="form-control form-control-sm" id="address" placeholder="نشانی" value="{{ $address->address }}">
+                                                                        <input type="text" name="address" class="form-control form-control-sm" id="address" placeholder="نشانی" value="{{ $address->address }}">
                                                                     </section>
     
                                                                     <section class="col-6 mb-2">
                                                                         <label for="postal_code" class="form-label mb-1">کد پستی</label>
-                                                                        <input type="text" class="form-control form-control-sm" id="postal_code" placeholder="کد پستی" value="{{ $address->postal_code }}">
+                                                                        <input type="text" name="postal_code" class="form-control form-control-sm" id="postal_code" placeholder="کد پستی" value="{{ $address->postal_code }}">
                                                                     </section>
     
                                                                     <section class="col-3 mb-2">
                                                                         <label for="no" class="form-label mb-1">پلاک</label>
-                                                                        <input type="text" class="form-control form-control-sm" id="no" placeholder="پلاک" value="{{ $address->no }}">
+                                                                        <input type="text" name="no" class="form-control form-control-sm" id="no" placeholder="پلاک" value="{{ $address->no }}">
                                                                     </section>
     
                                                                     <section class="col-3 mb-2">
                                                                         <label for="unit" class="form-label mb-1">واحد</label>
-                                                                        <input type="text" class="form-control form-control-sm" id="unit" placeholder="واحد" value="{{ $address->unit }}>
+                                                                        <input type="text" name="unit" class="form-control form-control-sm" id="unit" placeholder="واحد" value="{{ $address->unit }}>
                                                                     </section>
                                                                     
                                                                     <section class="border-bottom mt-2 mb-3"></section>
@@ -152,17 +152,17 @@
                                                                     </section>
     
                                                                     <section class="col-6 mb-2">
-                                                                        <label for="first_name" class="form-label mb-1">نام گیرنده</label>
+                                                                        <label for="first_name" name="first_name" class="form-label mb-1">نام گیرنده</label>
                                                                         <input type="text" class="form-control form-control-sm" id="first_name" placeholder="نام گیرنده" value="{{ $address->recipient_first_name }}>
                                                                     </section>
     
                                                                     <section class="col-6 mb-2">
-                                                                        <label for="last_name" class="form-label mb-1">نام خانوادگی گیرنده</label>
+                                                                        <label for="last_name" name="last_name" class="form-label mb-1">نام خانوادگی گیرنده</label>
                                                                         <input type="text" class="form-control form-control-sm" id="last_name" placeholder="نام خانوادگی گیرنده" value="{{ $address->recipient_last_name }}>
                                                                     </section>
     
                                                                     <section class="col-6 mb-2">
-                                                                        <label for="mobile" class="form-label mb-1">شماره موبایل</label>
+                                                                        <label for="mobile" name="mobile" class="form-label mb-1">شماره موبایل</label>
                                                                         <input type="text" class="form-control form-control-sm" id="mobile" placeholder="شماره موبایل" value="{{ $address->mobile }}>
                                                                     </section>
     
@@ -193,14 +193,14 @@
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </section>
                                                         <section class="modal-body">
-                                                            <form class="row" action="">
+                                                            <form class="row" method="POST" action="{{ route('customer.sales-process.add-address') }}">
                                                                 <section class="col-6 mb-2">
                                                                     <label for="province" class="form-label mb-1">استان</label>
                                                                     <select class="form-select form-select-sm" id="province">
                                                                         <option selected>استان را انتخاب کنید</option>
-                                                                        <option value="1">آذربایجان شرقی</option>
-                                                                        <option value="2">آذربایجان غربی</option>
-                                                                        <option value="3">تهران</option>
+                                                                        @foreach ($provinces as $province)
+                                                                            <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                                                        @endforeach
                                                                     </select>
                                                                 </section>
 
