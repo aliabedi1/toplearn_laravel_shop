@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer\SalesProcess;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\Market\CartItem;
 use App\Models\Province;
 use Illuminate\Http\Request;
@@ -27,6 +28,11 @@ class AddressController extends Controller
 
 
     public function addAddress( $request)
+    {
+        
+    }
+
+    public function editAddress( $request, Address $address)
     {
         
     }
