@@ -144,6 +144,7 @@
     
                                                                     <section class="col-12 mb-2">
                                                                         <section class="form-check">
+                                                                            <input class="form-check-input d-none" type="checkbox" value="0" id="receiver" name="i_am_recipient">
                                                                             <input class="form-check-input" type="checkbox" value="1" id="receiver" name="i_am_recipient">
                                                                             <label class="form-check-label" for="receiver">
                                                                                 گیرنده سفارش خودم هستم
@@ -240,7 +241,8 @@
 
                                                                 <section class="col-12 mb-2">
                                                                     <section class="form-check">
-                                                                        <input class="form-check-input" name="i_am_recipient" type="checkbox" value="" id="receiver">
+                                                                        <input class="form-check-input d-none" name="i_am_recipient" type="checkbox" value="0" id="receiver">
+                                                                        <input class="form-check-input" name="i_am_recipient" type="checkbox" value="1" id="receiver">
                                                                         <label class="form-check-label" for="receiver">
                                                                             گیرنده سفارش خودم هستم
                                                                         </label>
