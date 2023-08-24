@@ -110,9 +110,12 @@
                                                                         <label for="city" class="form-label mb-1">شهر</label>
                                                                         <select class="form-select form-select-sm" id="city">
                                                                             <option selected>استان را انتخاب کنید</option>
-                                                                            <option value="1">تبریز</option>
-                                                                            <option value="2">میانه</option>
-                                                                            <option value="3">آذرشهر</option>
+                                                                            @foreach ($address->city->province->cities as $city)
+                                                                                <option value="{{ $city->id }}" @if ($address->city->id == $city->id)
+                                                                                    selected
+                                                                                @endif>{{ $city->name }}</option>
+                                                                            @endforeach
+                                                                            
                                                                         </select>
                                                                     </section>
                                                                     <section class="col-12 mb-2">
