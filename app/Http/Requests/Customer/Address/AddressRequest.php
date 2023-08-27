@@ -24,11 +24,11 @@ class AddressRequest extends FormRequest
     public function rules()
     {
         return [
-            'province'=>'required|exists:provinces,id',
-            'city'=>'required|exists:cities,id',
-            'address'=>'required|string|size:500',
+            'province_id'=>'required|exists:provinces,id',
+            'city_id'=>'required|exists:cities,id',
+            'address'=>'required|string',
             'i_am_recipient'=>'nullable|in:0,1',
-            'postal_code'=>'required|numeric|min:10|max:16',
+            'postal_code'=>'required|numeric',
             'no'=>'required|numeric',
             'unit'=>'required|numeric',
             'first_name'=>'nullable|string',
@@ -41,8 +41,8 @@ class AddressRequest extends FormRequest
     public function attributes()
     {
         return [
-            'province'=>'استان',
-            'city'=>'شهر',
+            'province_id'=>'استان',
+            'city_id'=>'شهر',
             'address'=>'ادرس',
             'i_am_recipient'=>'گیرنده خودم هستم',
             'no'=>'پلاک',
