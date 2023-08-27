@@ -30,7 +30,7 @@ class AddressController extends Controller
 
     public function addAddress(AddressRequest $request)
     {
-        Address::create($this->makeAddressValues($request->all()));
+        auth()->user()->addresses()->create($this->makeAddressValues($request->all()));
         return redirect()->route('customer.sales-process.address-and-delivery')->with('toast-success','ادرس با موفقیت اضافه شد');
     }
 
@@ -42,14 +42,14 @@ class AddressController extends Controller
 
     public function makeAddressValues($inputs)
     {
-        if($inputs['i_am_recipient'] == 1)
+        if(isset($inputs['i_am_recipient']))
         {
-            $inputs['first_name'] = auth()->user()->first_name;
-            $inputs['last_name'] = auth()->user()->last_name;
+            $inputs['recipient_first_name'] = auth()->user()->first_name;
+            $inputs['recipient_last_name'] = auth()->user()->last_name;
             $inputs['mobile'] = auth()->user()->mobile;
         }
         unset($inputs['i_am_recipient']);
-
+        
         return $inputs;
     }
 
