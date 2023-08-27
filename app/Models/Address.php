@@ -12,6 +12,8 @@ class Address extends Model
 {
     use HasFactory,SoftDeletes;
 
+    protected $fillable = ['user_id','city_id','postal_code','address','no','unit','recipient_first_name','recipient_last_name','mobile','status'];
+
 
     public function orders()
     {
