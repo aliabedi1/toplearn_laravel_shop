@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\Address\AddressRequest;
 use App\Models\Address;
 use App\Models\Market\CartItem;
+use App\Models\Market\Delivery;
 use App\Models\Province;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,7 @@ class AddressController extends Controller
     {
         $user = Auth::user();
         $provinces = Province::all();
+        $deliveries = Delivery::where('status',true)->get();
         // check cart
         $cartItems = CartItem::where('user_id',$user->id)->get();
         if(empty($cartItems->count()))
@@ -24,7 +26,7 @@ class AddressController extends Controller
             return redirect()->route('customer.sales-process.index');
         }
         $addresses = $user->addresses;
-        return view('customer.sales-process.address-and-delivery',compact('cartItems','addresses','provinces'));
+        return view('customer.sales-process.address-and-delivery',compact('deliveries','cartItems','addresses','provinces'));
     }
 
 
