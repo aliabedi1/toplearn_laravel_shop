@@ -206,29 +206,26 @@
                                             </secrion>
                                         </section>
 
-                                        <input type="radio" name="delivery_type" value="1" id="d1"/>
-                                        <label for="d1" class="col-12 col-md-4 delivery-wrapper mb-2 pt-2">
-                                            <section class="mb-2">
-                                                <i class="fa fa-shipping-fast mx-1"></i>
-                                                پست پیشتاز
-                                            </section>
-                                            <section class="mb-2">
-                                                <i class="fa fa-calendar-alt mx-1"></i>
-                                                تامین کالا از 4 روز کاری آینده
-                                            </section>
-                                        </label>
+                                        @foreach ($deliveries as $delivery)
+                                            
+                                            <input type="radio" name="delivery_type" value="2" id="d2"/>
+                                            <label for="d2" class="col-12 col-md-4 delivery-wrapper mb-2 pt-2">
+                                                <section class="mb-2">
+                                                    <i class="fa fa-shipping-fast mx-1"></i>
+                                                    {{ $delivery->name }}
+                                                </section>
+                                                
+                                                <section class="mb-2">
+                                                    <i class="fas fa-coins mx-1"></i>
+                                                    {{ priceFormat($delivery->amount). ' تومان' }}
+                                                </section>
+                                                <section class="mb-2">
+                                                    <i class="fa fa-calendar-alt mx-1"></i>
+                                                    دریافت کالا پس از {{ convertEnglishToPersianNumber($delivery->delivery_time) }} {{ $delivery->delivery_time_unit }} کاری آینده
+                                                </section>
+                                            </label>
 
-                                        <input type="radio" name="delivery_type" value="2" id="d2"/>
-                                        <label for="d2" class="col-12 col-md-4 delivery-wrapper mb-2 pt-2">
-                                            <section class="mb-2">
-                                                <i class="fa fa-shipping-fast mx-1"></i>
-                                                تیپاکس
-                                            </section>
-                                            <section class="mb-2">
-                                                <i class="fa fa-calendar-alt mx-1"></i>
-                                                تامین کالا از 2 روز کاری آینده
-                                            </section>
-                                        </label>
+                                        @endforeach
 
 
                                     </section>
