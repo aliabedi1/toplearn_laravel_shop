@@ -535,6 +535,7 @@ Route::namespace('Customer')->group(function(){
             Route::get('/address-and-delivery', 'AddressController@addressAndDelivery')->name('customer.sales-process.address-and-delivery');
             Route::post('/add-address', 'AddressController@addAddress')->name('customer.sales-process.add-address');
             Route::put('/edit-address/{address}', 'AddressController@editAddress')->name('customer.sales-process.edit-address');
+            Route::post('/edit-address/get-city', 'AddressController@getCity')->name('customer.sales-process.get-province');
         });
         
 
