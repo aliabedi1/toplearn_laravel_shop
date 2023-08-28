@@ -61,5 +61,10 @@ class AddressController extends Controller
         $cities = Province::find($request->province)->cities;
         return response()->json($cities,200);
     }
+    public function getDeliveryPrice(Request $request)
+    {
+        $delivery = Delivery::find($request->delivery);
+        return response()->json($delivery,200);
+    }
 
 }
