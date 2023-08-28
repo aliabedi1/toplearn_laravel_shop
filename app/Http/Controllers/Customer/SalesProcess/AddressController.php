@@ -55,4 +55,11 @@ class AddressController extends Controller
         return $inputs;
     }
 
+    public function getCity(Request $request)
+    {
+        
+        $cities = Province::find($request->province)->cities;
+        return response()->json($cities,200);
+    }
+
 }
