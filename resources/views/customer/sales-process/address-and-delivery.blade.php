@@ -99,7 +99,7 @@
                                                                 @csrf
                                                                 <section class="col-6 mb-2">
                                                                     <label for="province" class="form-label mb-1">استان</label>
-                                                                    <select class="form-select form-select-sm" id="province" name="province_id">
+                                                                    <select onchange="sendProvince()" class="form-select form-select-sm" data-link="{{ route('customer.sales-process.get-province') }}" id="province-0" name="province_id">
                                                                         <option selected>استان را انتخاب کنید</option>
                                                                         @foreach ($provinces as $province)
                                                                             <option value="{{ $province->id }}">{{ $province->name }}</option>
@@ -112,11 +112,10 @@
                                                                         // TODO:complete cities with ajax
                                                                     @endphp
                                                                     <label for="city" class="form-label mb-1">شهر</label>
-                                                                    <select class="form-select form-select-sm" id="city" name="city_id">
-                                                                        <option selected>استان را انتخاب کنید</option>
-                                                                        <option value="1">تبریز</option>
-                                                                        <option value="2">میانه</option>
-                                                                        <option value="3">آذرشهر</option>
+                                                                    <select class="form-select form-select-sm" id="city-0" name="city_id">
+                                                                        <option disabled>شهر را انتخاب کنید</option>
+                                                                        
+                                                                        
                                                                     </select>
                                                                 </section>
                                                                 <section class="col-12 mb-2">
@@ -304,7 +303,7 @@
                                                                     @method('put')
                                                                     <section class="col-6 mb-2">
                                                                         <label for="province" class="form-label mb-1">استان</label>
-                                                                        <select class="form-select form-select-sm" id="province" name="province_id">
+                                                                        <select onchange="sendProvince({{ $address->id }})" class="form-select form-select-sm" id="province-{{ $address->id }}" data-link="{{ route('customer.sales-process.get-province') }}" name="province_id">
                                                                             <option selected>استان را انتخاب کنید</option>
                                                                             @foreach ($provinces as $province)
                                                                             <option value="{{ $province->id }}" @if ($address->city->province->id == $province->id)
@@ -318,13 +317,9 @@
     
                                                                     <section class="col-6 mb-2">
                                                                         <label for="city" class="form-label mb-1">شهر</label>
-                                                                        <select class="form-select form-select-sm" id="city" name="city_id">
-                                                                            <option selected>شهر را انتخاب کنید</option>
-                                                                            @foreach ($address->city->province->cities as $city)
-                                                                                <option value="{{ $city->id }}" @if ($address->city->id == $city->id)
-                                                                                    selected
-                                                                                @endif>{{ $city->name }}</option>
-                                                                            @endforeach
+                                                                        <select class="form-select form-select-sm" id="city-{{ $address->id }}"  name="city_id">
+                                                                            <option disabled>شهر را انتخاب کنید</option>
+                                                                            
                                                                             
                                                                         </select>
                                                                     </section>
@@ -395,86 +390,46 @@
 
 @section('script')
 
+
+
+
+
 <script>
-    
-    $('#gender').on('change', function() {
-            changeMilitaryServiceDisplay(this.value)
+
+    function sendProvince(id = 0)
+    {
+
+        $('#province-'+id).on('click', function() {
+            var url = $(this).attr('data-link');
+            getCityList(this.value, url, id);
         });
+    }
 
-        function changeMilitaryServiceDisplay(genderStatus) {
-            if(genderStatus == '0') {
-                $('#military_service_section').removeClass('d-none')
-                $('#military_service_section').addClass('d-block')
-            } else {
-                $('#military_service_section').removeClass('d-block')
-                $('#military_service_section').addClass('d-none')
-            }
-        }
-
-        changeMilitaryServiceDisplay($('#gender').val())
-
-</script>
     
-<script src="{{ asset('admin-assets/jalalidatepicker/persian-date.min.js') }}"></script>
-<script src="{{ asset('admin-assets/jalalidatepicker/persian-datepicker.min.js') }}"></script>
 
-<script>
-        var tenYearsAgo = (Math.floor(Date.now()/1000) - 315360000 ) * 1000; 
-        $(document).ready(function () {
-            $('#birthdate_view').persianDatepicker({
-                format: 'YYYY/MM/DD',
-                maxDate: tenYearsAgo,
-                altField: '#birthdate'
-            })
-        });
-</script>
-
-
-
-<script>
-
-    $('#province').on('click', function() {
-        var url = $(this).attr('data-link');
-        getCityList(this.value, url);
-    });
-
-    function getCityList(province, url) {
+    function getCityList(province, url, id = 0) {
         $.ajax({
             url: url,
             type: 'POST',
             data: {
-                province_id: province,
+                province: province,
                 _token: "{{ csrf_token() }}",
             },
             success: function(response) {
-                $('#city option').not(':first').remove();
-                var select = $('#city');
-
+                $('#city-'+id+' option').not(':first').remove();
+                var select = $('#city-'+id);
                 $.each(response, function(key, value) {
                     select.append($("<option></option>")
                     .attr("value", value.id)
                     .text(value.name));
+                    console.log(select);
+
                 });
 
             },
         });
     }
 
-    function errorToast(message){
-        var errorToastTag = '<section class="toast" data-delay="5000">\n' +
-            '<section class="toast-body py-3 d-flex bg-danger text-white">\n' +
-                '<strong class="ml-auto">' + message + '</strong>\n' +
-                '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
-                    '<span aria-hidden="true">&times;</span>\n' +
-                    '</button>\n' +
-                    '</section>\n' +
-                    '</section>';
-
-                    $('.toast-wrapper').append(errorToastTag);
-                    $('.toast').toast('show').delay(5500).queue(function() {
-                        $(this).remove();
-                    })
-    }
 
 </script>
 
