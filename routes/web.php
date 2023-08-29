@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\Ticket\TicketPriorityController;
+use App\Http\Controllers\Customer\SalesProcess\PaymentController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -537,7 +539,16 @@ Route::namespace('Customer')->group(function(){
             Route::put('/edit-address/{address}', 'AddressController@editAddress')->name('customer.sales-process.edit-address');
             Route::post('/edit-address/get-city', 'AddressController@getCity')->name('customer.sales-process.get-province');
             Route::post('/edit-address/get-delivery-price', 'AddressController@getDeliveryPrice')->name('customer.sales-process.get-delivery-price');
+            Route::post('/create-order', 'AddressController@createOrder')->name('customer.sales-process.create-order');
+            Route::post('/create-order', 'AddressController@createOrder')->name('customer.sales-process.create-order');
+            
         });
+
+        // payment
+        Route::get('/payment', [PaymentController::class,'index'])->name('customer.payment');
+        
+        
+
         
 
         
