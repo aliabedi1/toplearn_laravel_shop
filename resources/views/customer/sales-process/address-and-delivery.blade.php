@@ -35,7 +35,8 @@
 
                         <section class="row mt-4">
                             <section class="col-md-9">
-                                <form action="{{ "route('')" }}" class="col-md-12">
+                                <form method="POST" action="{{ route('customer.sales-process.create-order') }}"  class="col-md-12">
+                                    @csrf
                                     <section class="content-wrapper bg-white p-3 rounded-2 mb-4">
 
                                         <!-- start vontent header -->
@@ -52,9 +53,9 @@
     
                                         <section class="address-alert alert alert-primary d-flex align-items-center p-2" role="alert">
                                             <i class="fa fa-info-circle flex-shrink-0 me-2"></i>
-                                            <secrion>
+                                            <section>
                                                 پس از ایجاد آدرس، آدرس را انتخاب کنید.
-                                            </secrion>
+                                            </section>
                                         </section>
     
     
@@ -62,7 +63,7 @@
     
                                             @foreach ($addresses as $address)
                                                 
-                                                <input type="radio" name="address" value="{{ $address->id }}" id="{{ $address->id }}"/> <!--checked="checked"-->
+                                                <input type="radio" form="address-form" name="address_id" value="{{ $address->id }}" id="{{ $address->id }}"/> <!--checked="checked"-->
                                                 <label for="{{ $address->id }}" class="address-wrapper mb-2 p-2">
                                                     <section class="mb-2">
                                                         <i class="fa fa-map-marker-alt mx-1"></i>
@@ -207,8 +208,7 @@
                                             </section>
     
                                             @foreach ($deliveries as $delivery)
-                                                
-                                                <input onchange="changePriceWithDeliveryMethod({{ $delivery->id }})" type="radio" name="delivery_type" value="{{ $delivery->id }}" id="d{{ $delivery->id }}"/>
+                                                <input form="address-form" onchange="changePriceWithDeliveryMethod({{ $delivery->id }})" type="radio" name="delivery_id" value="{{ $delivery->id }}" id="d{{ $delivery->id }}"/>
                                                 <label for="d{{ $delivery->id }}" class="col-12 col-md-3 delivery-wrapper mb-2 pt-2">
                                                     <section class="mb-2 mx-1">
                                                         <i class="fa fa-shipping-fast "></i>
@@ -278,9 +278,13 @@
                                         <i class="fa fa-info-circle me-1"></i>کاربر گرامی  خرید شما هنوز نهایی نشده است. برای ثبت سفارش و تکمیل خرید باید ابتدا آدرس خود را انتخاب کنید و سپس نحوه ارسال را انتخاب کنید. نحوه ارسال انتخابی شما محاسبه و به این مبلغ اضافه شده خواهد شد. و در نهایت پرداخت این سفارش صورت میگیرد.
                                     </p>
     
+
+                                    <form method="POST" action="{{ route('customer.sales-process.create-order') }}" id="address-form" >
+                                    @csrf
+                                    </form>
     
                                     <section class="">
-                                        <button type="button" onclick="document.getElementById('profile_completion').submit();" class="btn btn-danger d-block w-100">تکمیل فرآیند خرید</button>
+                                        <button type="button" onclick="document.getElementById('address-form').submit();" class="btn btn-danger d-block w-100">تکمیل فرآیند خرید</button>
                                     </section>
     
                                 </section>
