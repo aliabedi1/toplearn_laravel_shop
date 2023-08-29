@@ -7,6 +7,7 @@ use App\Http\Requests\Customer\Address\AddressRequest;
 use App\Models\Address;
 use App\Models\Market\CartItem;
 use App\Models\Market\Delivery;
+use App\Models\Market\Order;
 use App\Models\Province;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,6 +66,19 @@ class AddressController extends Controller
     {
         $delivery = Delivery::find($request->delivery);
         return response()->json($delivery,200);
+    }
+
+
+
+    public function createOrder(Request $request)
+    {
+        Order::UpdateOrCreate([
+            'user_id' => auth()->user()->id,
+            'address_id' => $request->address_id,
+            'delivery_id' => $request->delivery_id,
+            'status' => 0,
+        ]);
+        return redirect()->route('customer.payment');
     }
 
 }
